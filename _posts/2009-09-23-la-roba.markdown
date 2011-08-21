@@ -1,0 +1,13 @@
+---
+title: La Roba
+layout: post
+---
+
+[laroba.com]: http://www.laroba.com "La Roba"
+[yourban]: http://www.yourban.org/ "Yourban"
+
+
+Today I'd like to told about a collective design project from Thiene.
+They are three guys formerly known as "La Roba". Their works are great, you can check them out at [http://www.laroba.com][laroba].
+
+I discovered them from [Yourban][yourban] party flyers, wow!
