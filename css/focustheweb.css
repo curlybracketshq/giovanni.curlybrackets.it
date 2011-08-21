@@ -1,89 +1,99 @@
 body {
-  background-color: #fff;
-  font-family: 'Droid Sans', sans-serif;
-  color: #000;
-  margin: 20px 0 0 0;
+	background-color: #fff;
+	font-family: 'Droid Sans', sans-serif;
+	color: #000;
+	margin: 20px 0 0 0;
 }
 
 a, a:visited {
-    color: #1872E7;
-    text-decoration: none;
+	color: #1872E7;
+	text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
+}
+
+li {
+	margin: 0;
 }
 
 /*
- * Post Formatting
- */
+* Post Formatting
+*/
 
 .post {
-    text-align: justify;
+	text-align: justify;
+}
+
+.post h3 {
+	margin-bottom: 0;
 }
 
 .post span.date {
-    color: #888;
+	color: #888;
+	margin-bottom: 20px;
+	display: block;
 }
 
 .post pre {
-  background-color: #efefef;
-  padding: 10px;
-  margin-bottom: 20px;
+	background-color: #efefef;
+	padding: 10px;
+	margin-bottom: 20px;
 }
 
 .post code {
-    margin-bottom: 0px;
+	margin-bottom: 0px;
 }
 
 .post div.media {
-  text-align: center;
+	text-align: center;
 }
 
 /*
- * Post Archive
- */
+* Post Archive
+*/
 
 ul.post-list {
-  list-style-type: none;
+	list-style-type: none;
 }
 
 ul.post-list span {
-  color: #5e5e5e;
+	color: #888;
 }
 
 /*
- * Format the RSS subscription link
- */
+* Format the RSS subscription link
+*/
 
 div.subscribe {
-  line-height: 12px;
-  font-size: 12px;
-  vertical-align: middle;
+	line-height: 12px;
+	font-size: 12px;
+	vertical-align: middle;
 }
 
 div.subscribe a {
-  color: #5e5e5e;
+	color: #5e5e5e;
 }
 
 div.subscribe img {
-  margin-bottom: 2px;
-  vertical-align: middle;
+	margin-bottom: 2px;
+	vertical-align: middle;
 }
 
 /*
- * Add spacing and alignment to footer
- */
+* Add spacing and alignment to footer
+*/
 
 div.footer {
-  font-size: 12px;
-  margin-bottom: 20px;
+	font-size: 12px;
+	margin-bottom: 20px;
 }
 
 div.footer span {
-  float: right;
+	float: right;
 }
 
 div.footer hr {
-  margin-bottom: 5px;
+	margin-bottom: 5px;
 }

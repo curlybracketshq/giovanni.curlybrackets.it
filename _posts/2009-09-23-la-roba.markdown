@@ -3,7 +3,7 @@ title: La Roba
 layout: post
 ---
 
-[laroba.com]: http://www.laroba.com "La Roba"
+[laroba]: http://www.laroba.com "La Roba"
 [yourban]: http://www.yourban.org/ "Yourban"
 
 
