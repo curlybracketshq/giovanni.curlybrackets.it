@@ -1,0 +1,8 @@
+---
+title: Title
+layout: post
+---
+
+[link]: link "title text"
+
+[link text][link]

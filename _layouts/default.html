@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="Giovanni Cappellotto's" />
+{% for css in site.css %}<link rel="stylesheet" type="text/css" media="all" href="{{ css }}" />{% endfor %}
+<link rel="alternate" href="http://feeds.feedburner.com/FocusTheWeb" type="application/rss+xml" title="Giovanni Cappellotto's Focus the Web" />
+<title>Focus the Web - {{ page.title }}</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="favicon.ico" />
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2935139-6']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
+
+<div class="container_12">
+  <div class="prefix_1 grid_8">
+    {{ content }}
+  </div>
+  <div class="grid_2">
+    <h1><a href="/">Giovanni Cappellotto</a></h1>
+    <a href="/archive.html">archive</a><br/>
+    <a href="/projects.html">projects</a><br/>
+    <a href="/portfolio.html">portfolio</a><br/>
+    <a href="/music.html">music</a><br/>
+    <a href="/about.html">about</a><br/><br/>
+    <div class="subscribe">
+      <a href="http://feeds.feedburner.com/FocusTheWeb"><img src="/assets/feed-icon-14x14.png"/></a>
+      <a href="http://feeds.feedburner.com/FocusTheWeb">Subscribe via RSS</a>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="prefix_1 grid_10 footer">
+    <hr/>
+    <span>
+      Powered by <a href="http://github.com/mojombo/jekyll">Jekyll</a>
+    </span>
+    &copy; Giovanni Cappellotto 2009-2011 [<a href="http://github.com/focustheweb/focustheweb.com">source</a>]
+  </div>
+  <div class="clear"></div>
+</div>
+
+</body>
+</html>

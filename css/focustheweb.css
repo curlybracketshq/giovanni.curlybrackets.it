@@ -1,0 +1,89 @@
+body {
+  background-color: #fff;
+  font-family: 'Droid Sans', sans-serif;
+  color: #000;
+  margin: 20px 0 0 0;
+}
+
+a, a:visited {
+    color: #1872E7;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/*
+ * Post Formatting
+ */
+
+.post {
+    text-align: justify;
+}
+
+.post span.date {
+    color: #888;
+}
+
+.post pre {
+  background-color: #efefef;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.post code {
+    margin-bottom: 0px;
+}
+
+.post div.media {
+  text-align: center;
+}
+
+/*
+ * Post Archive
+ */
+
+ul.post-list {
+  list-style-type: none;
+}
+
+ul.post-list span {
+  color: #5e5e5e;
+}
+
+/*
+ * Format the RSS subscription link
+ */
+
+div.subscribe {
+  line-height: 12px;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+div.subscribe a {
+  color: #5e5e5e;
+}
+
+div.subscribe img {
+  margin-bottom: 2px;
+  vertical-align: middle;
+}
+
+/*
+ * Add spacing and alignment to footer
+ */
+
+div.footer {
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+div.footer span {
+  float: right;
+}
+
+div.footer hr {
+  margin-bottom: 5px;
+}
