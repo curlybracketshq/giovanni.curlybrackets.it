@@ -15,7 +15,7 @@ layout: post
 [redis]: http://redis.io/ "Redis"
 [socket]: http://socket.io/ "socket.io"
 
-Today the Node.js Kockout ended.
+Yesterday the Node.js Kockout ended.
 
 Two crazy days - and nights - of coding, brainstorming, having fun, drinking
 and eating with [Francesco Tartaggia][ftartaggia], [Luca Lanziani][llanziani],
