@@ -1,7 +1,7 @@
 # Focus the Web
 
-To update production site run:
+Deploy site:
 
-    ./tasks/push
+    rake
 
 Project forked from https://github.com/noahdesu/noahdesu.github.com
