@@ -13,7 +13,7 @@ To fix the latest commit message run
 
     $ git commit --amend
 
-edit the message and save the file. Done.
+edit and save the buffer. Done.
 
 Want to edit an old commit message?
 
