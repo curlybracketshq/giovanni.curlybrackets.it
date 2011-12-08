@@ -3,12 +3,12 @@ layout: default
 title: About
 ---
 
-[root]: http://www.focustheweb.com "Giovanni Cappellotto s Focus the Web"
-[music]: http://www.focustheweb.com/music.html "Giovanni Cappellotto s Music"
+[root]: / "Giovanni Cappellotto s Focus the Web"
+[music]: /music.html "Giovanni Cappellotto s Music"
 [thounds]: http://thounds.com "Thounds Inc."
 [aboh]: http://www.myspace.com/abreachonheaven "A Breach On Heaven"
 [swimming]: http://www.swimminghour.com "Swimming Hour"
-[projects]: http://www.focustheweb.com/projects.html "Giovanni Cappellotto s Projects"
+[projects]: /projects.html "Giovanni Cappellotto s Projects"
 [twitter]: http://twitter.com/johnnyaboh "Giovanni Cappellotto s twitter account"
 
 Hi,<br />
