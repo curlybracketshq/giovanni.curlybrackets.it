@@ -4,6 +4,9 @@ layout: post
 ---
 
 [thounds]: http://thounds.com "Thounds"
+[thounds_image]: /assets/posts/thounds_logo.png "Thounds"
+
+![Thounds][thounds_image]
 
 Hey,<br/>
 I'd like to suggest everyone a new amazing web project: [Thounds][thounds].
