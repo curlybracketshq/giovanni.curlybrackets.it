@@ -36,13 +36,40 @@
     <a href="/about.html">about</a><br/>
     <a href="/projects.html">projects</a><br/>
     <a href="/music.html">music</a><br/>
-    <a href="/portfolio.html">portfolio</a><br/>
     <a href="http://tech.focustheweb.com">tech blog</a><br/>
     <a href="/archive.html">archive</a><br/><br/>
     <div class="subscribe">
       <a href="http://feeds.feedburner.com/FocusTheWeb"><img src="/assets/feed-icon-14x14.png"/></a>
       <a href="http://feeds.feedburner.com/FocusTheWeb">Subscribe via RSS</a>
     </div>
+    <script src="http://widgets.twimg.com/j/2/widget.js"></script>
+    <script>
+	new TWTR.Widget({
+	    version: 2,
+	    type: 'profile',
+	    rpp: 4,
+	    interval: 30000,
+	    width: 'auto',
+	    height: 300,
+	    theme: {
+		shell: {
+		    background: '#ffffff',
+		    color: '#000000'
+		},
+		tweets: {
+		    background: '#ffffff',
+		    color: '#000000',
+		    links: '#1871e7'
+		}
+	    },
+	    features: {
+		scrollbar: false,
+		loop: false,
+		live: false,
+		behavior: 'all'
+	    }
+	}).render().setUser('johnnyaboh').start();
+    </script>
   </div>
   <div class="clear"></div>
   <div class="prefix_1 grid_10 footer">
