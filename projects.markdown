@@ -14,6 +14,8 @@ title: Projects
 [fat]: http://fat.focustheweb.com "Fast Activity Tracker"
 [draw]: http://drawbang.com "Draw!"
 [tomatoes]: http://tomatoes.heroku.com "Tomatoes"
+[gitup]: https://github.com/potomak/gitup "GitUp"
+[countdowntimer]: https://github.com/potomak/countdowntimerapp "Count down timer"
 
 # Projects
 
@@ -24,7 +26,8 @@ title: Projects
 
 ## Ideas
 
-GitUp - a tool to vote and prioritize GitHub issues
+[GitUp][gitup] - a tool to vote and prioritize GitHub issues<br />
+[Count Down Timer][countdowntimer] - minimal count down timers for the web
 
 ## Past
 
