@@ -11,6 +11,8 @@ title: About
 [projects]: /projects.html "Giovanni Cappellotto s Projects"
 [twitter]: http://twitter.com/johnnyaboh "Giovanni Cappellotto s twitter account"
 
+# About
+
 Hi,<br />
 I'm Giovanni Cappellotto and this is [my personal place on the Internet][root].<br />
 I love [music][music] and arts.<br />
