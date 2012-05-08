@@ -40,6 +40,7 @@ li {
 	background-color: #efefef;
 	padding: 10px;
 	margin-bottom: 20px;
+	overflow: auto;
 }
 
 .post code {
@@ -96,4 +97,8 @@ div.footer span {
 
 div.footer hr {
 	margin-bottom: 5px;
+}
+
+.twitter-follow-button {
+	margin-bottom: 10px;
 }
