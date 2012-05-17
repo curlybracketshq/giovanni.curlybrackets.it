@@ -6,6 +6,7 @@ layout: post
 [euruko_golf]: http://www.wooga.com/2012/05/euruko/ "EuRuKo Golf"
 [euruko_golf_repo]: https://github.com/wooga/euruko-golf "EuRuKo Golf repo"
 [ascii_art_api]: http://artii.herokuapp.com "ASCII art API"
+[goliath]: http://postrank-labs.github.com/goliath/
 
 Wooga started a little contest called *EuRuKo Golf* where you can win a ticket to EuRuKo 2012.
 
@@ -17,7 +18,7 @@ A drawback of this solution is that you should have the `artii` gem installed on
 
 This solution is now available thanks to [ASCII art API][ascii_art_api].
 
-It's a simple [goliath][goliath] app that lets you generate ASCII art from any text.
+It's a simple [Goliath][goliath] app that lets you generate ASCII art from any text.
 
 Try [http://artii.herokuapp.com/make?text=I+love+ASCII+art](http://artii.herokuapp.com/make?text=I+love+ASCII+art), you should see something like this as a response from the API:
 
