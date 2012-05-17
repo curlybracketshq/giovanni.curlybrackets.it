@@ -68,5 +68,5 @@ to
 
 Resources:
 
-[Amazon RDS][amazon_rds]
+[Amazon RDS][amazon_rds]<br />
 [Heroku Dev Center - Amazon RDS][heroku_amazon_rds]
