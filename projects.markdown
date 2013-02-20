@@ -13,16 +13,22 @@ title: Projects
 [waveform]: http://waveform.focustheweb.com "Waveform"
 [fat]: http://fat.focustheweb.com "Fast Activity Tracker"
 [draw]: http://drawbang.com "Draw!"
-[tomatoes]: http://tomatoes.heroku.com "Tomatoes"
+[tomatoes]: http://tomato.es "Tomatoes"
 [gitup]: https://github.com/potomak/gitup "GitUp"
 [countdowntimer]: https://github.com/potomak/countdowntimerapp "Count down timer"
 [jquery_instagram]: https://github.com/potomak/jquery-instagram "jQuery Instagram plugin"
 [artii_api]: https://github.com/potomak/artii-api "ASCII art API"
+[hackatron]: http://hackatron.org "Hackatron"
+[meme]: http://memecoworking.com "Meme Coworking"
 
 # Projects
 
+See my profile on [GitHub][github].
+
 ## Current
 
+[Meme Coworking][meme] - coworking space in Treviso<br/>
+[Hackatron][hackatron] - I'm the founder of this group of developers, designers, tinkers<br />
 [Draw!][draw] - a social flavored online pixel art editor<br />
 [Tomatoes][tomatoes] - a Pomodoro technique® driven time tracker
 
@@ -46,6 +52,3 @@ title: Projects
 [ArcaCMF][arcacmf] - an open source modular content management framework (discontinued)<br />
 [Dietista .it][dietista] - online tools for dieticians and nutritionists<br />
 [Dietist Helper][dietist_helper] - a Java application to manage dietist patients data like weights, BMIs and notes
-
-Check out more of them on [github][github].
-

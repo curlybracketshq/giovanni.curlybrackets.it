@@ -4,7 +4,7 @@ title: Music
 ---
 
 [abreachonheaven]: http://www.myspace.com/abreachonheaven "A Breach On Heaven"
-[swimminghour]: http://www.swimminghour.com "Swimming Hour"
+[swimminghour]: http://swimminghour.bandcamp.com "Swimming Hour"
 [normajean]: http://www.myspace.com/normajean
 [marsvolta]: http://www.myspace.com/themarsvolta
 [dillinger]: http://www.myspace.com/dillingerescapeplan
@@ -16,9 +16,10 @@ title: Music
 
 # Music
 
-I used to play the bass in a band called [A Breach On Heaven][abreachonheaven]
-(Rock/Metal), now I play with Francesco, Elena and Roberto, we're
-[Swimming Hour][swimminghour] (Rock).
+I played the bass with
+
+* [A Breach On Heaven][abreachonheaven] (Rock/Metal)
+* [Swimming Hour][swimminghour] (Rock).
 
 Bands I use to listen to
 
