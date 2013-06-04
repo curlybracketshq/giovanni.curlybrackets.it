@@ -20,6 +20,7 @@ title: Projects
 [artii_api]: https://github.com/potomak/artii-api "ASCII art API"
 [hackatron]: http://hackatron.org "Hackatron"
 [meme]: http://memecoworking.com "Meme Coworking"
+[techpeaks]: http://potomak.github.io/techpeaks "TechPeaks Log"
 
 # Projects
 
@@ -27,6 +28,7 @@ See my profile on [GitHub][github].
 
 ## Current
 
+[TechPeaks][techpeaks] - I'm attending TechPeaks, an accelerator program in Trento<br/>
 [Meme Coworking][meme] - coworking space in Treviso<br/>
 [Hackatron][hackatron] - I'm the founder of this group of developers, designers, tinkers<br />
 [Draw!][draw] - a social flavored online pixel art editor<br />
