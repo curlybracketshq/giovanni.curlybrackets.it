@@ -24,7 +24,7 @@ title: Projects
 
 # Projects
 
-See my profile on [GitHub][github].
+See also my profile on [GitHub][github].
 
 ## Current
 
