@@ -6,7 +6,7 @@ title: Projects
 [github]: http://github.com/potomak "My GitHub account"
 [finger_wars]: https://market.android.com/details?id=org.potomak.fingerwars "Finger Wars"
 [otoh]: http://otoh.cc/ "OTOH"
-[smoodit]: http://smood.it "Smood it"
+[smoodit]: # "Smood it"
 [arcacmf]: http://www.arcacmf.org "ArcaCMF"
 [dietista]: http://www.dietista.it "Dietista .it"
 [dietist_helper]: http://code.google.com/p/dietist-helper/ "Dietist Helper"
