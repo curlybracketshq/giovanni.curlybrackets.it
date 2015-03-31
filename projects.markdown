@@ -21,6 +21,7 @@ title: Projects
 [hackatron]: http://hackatron.org "Hackatron"
 [meme]: http://memecoworking.com "Meme Coworking"
 [techpeaks]: http://potomak.github.io/techpeaks "TechPeaks Log"
+[gist-txt]: http://github.com/potomak/gist-txt "gist-txt"
 
 # Projects
 
@@ -40,6 +41,7 @@ See also my profile on [GitHub][github].
 
 ## Just for fun
 
+[gist-txt][gist-txt] - a minimal text adventure engine<br/>
 [ASCII art API][artii_api] - HTTP API to create ASCII art<br/>
 [Waveform][waveform] - little Rails application to render mp3 waveform<br/>
 [FAT (Fast Activity Tracker)][fat] - use Twitter to track your working time
