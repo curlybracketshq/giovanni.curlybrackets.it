@@ -1,8 +1,7 @@
-markdown: maruku
+markdown: kramdown
 
 css:
   - /css/reset.css
   - /css/text.css
   - /css/960.css
   - /css/focustheweb.css
-  - /css/twitter_widget.css
