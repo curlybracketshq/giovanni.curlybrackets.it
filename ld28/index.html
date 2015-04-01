@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="lib/crafty-min.js"></script>
+  <script src="lib/ProgressBar.js"></script>
+  <script src="game.js"></script>
+  <script src="loop-desert.js"></script>
+  <script>
+    if (window.addEventListener) {
+      window.addEventListener('load', Game.start);
+    } else if (window.attachEvent) {
+      window.attachEvent('load', Game.start);
+    }
+  </script>
+</head>
+<body>
+  <div id="cr-stage-container">
+    <div id="cr-stage">
+    </div>
+    <p>Loop Desert is a game created in 48 hours for the <a href="http://www.ludumdare.com/compo/ludum-dare-28/?action=preview&uid=20065">28th Ludum Dare Competition</a>.</p>
+  </div>
+
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2935139-6']);
+    _gaq.push(['_setDomainName', '.focustheweb.com']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'munroregular';
+  src: url("fonts/munro-webfont.eot");
+  src: url("fonts/munro-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/munro-webfont.woff") format('woff'), url("fonts/munro-webfont.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+p {
+  font-family: 'munroregular';
+  font-size: 32px;
+}
+
+p, a, a:visited {
+  color: #333333;
+}
+
+#cr-stage-container {
+  width: 800px;
+}
+
+#cr-stage-container, #cr-stage {
+  margin: 0 auto;
+}
