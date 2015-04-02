@@ -1,0 +1,14 @@
+---
+layout: page
+---
+
+<ul class="unstyled">
+  {% for post in site.categories[page.category] %}
+    <li>
+      <h4><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h4>
+      <time datetime='{{ post.date | date: "%Y-%m-%d" }}'>
+        {{ post.date | date: "%B %e, %Y" }}
+      </time>
+    </li>
+  {% endfor %}
+</ul>

@@ -72,6 +72,10 @@ ul {
   list-style-type: disc;
 }
 
+li {
+  margin-bottom: 20px;
+}
+
 ul.unstyled,
 ol.unstyled {
   list-style-type: none;
@@ -85,10 +89,6 @@ nav {
 nav li {
   display: inline;
   margin-right: 5px;
-}
-
-li {
-  margin-bottom: 20px;
 }
 
 time {
@@ -180,6 +180,11 @@ footer * {
 .clearfix {
   overflow: hidden;
   clear: both;
+}
+
+p.categories {
+  font-size: 75%;
+  margin: 0;
 }
 
 #container {

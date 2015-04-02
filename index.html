@@ -12,15 +12,22 @@ description: A place where I write posts about different matters.
 
 <h2>Archive</h2>
 
-<div>
-  <ul class="unstyled">
-    {% for post in site.posts %}
-      <li>
-        <h4><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h4>
-        <time datetime='{{ post.date | date: "%Y-%m-%d" }}'>
-          {{ post.date | date: "%B %e, %Y" }}
-        </time>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
+<ul class="unstyled">
+  {% for post in site.posts %}
+    <li>
+      <h4><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h4>
+      <time datetime='{{ post.date | date: "%Y-%m-%d" }}'>
+        {{ post.date | date: "%B %e, %Y" }}
+      </time>
+      {% if post.categories.size > 0 %}
+        <p class="categories">
+          {% for category in post.categories %}
+            <a href="{{ site.url }}/{{ category }}">
+              {{ category | capitalize | replace: '-', ' ' }}
+            </a>
+          {% endfor %}
+        </p>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
