@@ -11,7 +11,7 @@ The new design has very few concepts in mind:
 1. design responsiveness
 1. minimalism
 
-I took inspiration from a stile I created for an old project of mine and I
+I took inspiration from a stile I created for an old project of mine that I
 reworked a little bit to let it fit this blog.
 
 This is how the old style index page looked like:
