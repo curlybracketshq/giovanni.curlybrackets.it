@@ -152,6 +152,10 @@ hr:after {
   letter-spacing: 2em;
 }
 
+img, video, canvas {
+  max-width: 100%;
+}
+
 article header {
   margin-bottom: 20px;
 }
@@ -188,10 +192,6 @@ footer * {
 @media screen and (max-width:825px) {
   #container {
     width: auto;
-    max-width: 100%;
-  }
-
-  img, video, canvas {
     max-width: 100%;
   }
 }
