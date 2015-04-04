@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: Projects
 ---
 
@@ -22,8 +22,6 @@ title: Projects
 [meme]: http://memecoworking.com "Meme Coworking"
 [techpeaks]: http://potomak.github.io/techpeaks "TechPeaks Log"
 [gist-txt]: http://github.com/potomak/gist-txt "gist-txt"
-
-# Projects
 
 See also my profile on [GitHub][github].
 

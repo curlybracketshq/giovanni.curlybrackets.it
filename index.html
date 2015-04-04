@@ -1,22 +1,26 @@
 ---
 layout: default
-title: Home
+title: Giovanni Cappellotto's Blog
+description: A place where I write posts about different matters.
 ---
 
-{% for post in site.posts offset: 0 limit: 3 %}
-    <div class="post">
+<header>
+  <h1><a href="{{ site.url }}/">{{ page.title }}</a></h1>
+</header>
 
-    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-    <span class="date">{{ post.date | date: "%A, %B %d, %Y" }}</span>
+{% include menu.html %}
 
-    {{ post.content }}
+<h2>Archive</h2>
 
-    <span class="comments-link"><a href="{{ post.url }}#disqus_thread" 
-        data-disqus-identifier="{{ post.url }}" rel="nofollow">View Comments</a></span>
-
-    {% if forloop.last == false %}
-    <hr/>
-    {% endif %}
-
-    </div>
-{% endfor %}
+<div>
+  <ul class="unstyled">
+    {% for post in site.posts %}
+      <li>
+        <h4><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h4>
+        <time datetime='{{ post.date | date: "%Y-%m-%d" }}'>
+          {{ post.date | date: "%B %e, %Y" }}
+        </time>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

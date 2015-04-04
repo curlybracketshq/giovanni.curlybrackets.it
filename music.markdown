@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: Music
 ---
 
@@ -13,8 +13,6 @@ title: Music
 [hopesdielast]: http://www.myspace.com/hopesdielast
 [glamourmanifesto]: http://www.myspace.com/theglamourmanifesto
 [airway]: http://www.myspace.com/airway
-
-# Music
 
 I played the bass with
 

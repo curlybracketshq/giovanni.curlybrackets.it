@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: About
 ---
 
@@ -9,7 +9,7 @@ title: About
 [github]: http://github.com/potomak
 [sumall]: http://sumall.com
 
-# About
+![Giovanni Cappellotto](/assets/me.jpg)
 
 Hi,<br />
 I'm Giovanni Cappellotto.<br />

@@ -1,3 +1,3 @@
-# Focus the Web
+# Giovanni Cappellotto's Blog
 
-Project forked from https://github.com/noahdesu/noahdesu.github.com
+Project inspired by https://github.com/potomak/techpeaks
