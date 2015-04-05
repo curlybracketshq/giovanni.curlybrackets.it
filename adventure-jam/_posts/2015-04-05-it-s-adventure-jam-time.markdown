@@ -3,7 +3,7 @@ title: It's AdventureJam time
 layout: post
 ---
 
-The team is composed by [me](https://twitter.com/johnnyaboh) (Giovanni
+The team is composed of [me](https://twitter.com/johnnyaboh) (Giovanni
 Cappellotto), [Daniel](https://twitter.com/campoverdi),
 [Francesco](https://twitter.com/pinakes), and
 [Luca](https://twitter.com/lucaderosso).
@@ -26,7 +26,7 @@ to share HTML5 adventure games.
 
 The four of us will collaborate on the story and the game design. Daniel will
 also draw some [illustrations](http://www.danielgreenfeld.com/). Francesco and
-Luca will also care about [sound design and
+Luca will also care of [sound design and
 music](https://soundcloud.com/youdontneedthis/).
 
 More updates about the development of the project soon.<br>
