@@ -191,7 +191,6 @@ p.categories {
   margin: 0 auto;
   padding: 20px;
   width: 560px;
-  background-color: rgba(255, 255, 255, 0.7);
 }
 
 @media screen and (max-width:825px) {
