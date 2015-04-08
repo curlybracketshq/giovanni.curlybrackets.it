@@ -69,7 +69,6 @@ and copy the id of the gist.
 
 ![Copy Gist id](/assets/posts/copy-id.png)
 
-Now open `http://potomak.github.com/gist-txt/#<gist-id>` in a new tab to share
-the story.
-
+Now open `http://potomak.github.io/gist-txt/#<gist-id>` in a new tab to share
+the story..
 ![Publish](/assets/posts/publish.png)
