@@ -4,8 +4,8 @@ layout: post
 ---
 
 I have always found it difficult to decide on a name for my projects. Most of
-the time I fail to even chose any name, which is a pretty easy way to prevent a
-project from even being released. You could think it's a futile question
+the time I fail to even choose any name, which is a pretty easy way to prevent
+a project from even being released. You could think it's a futile question
 because the project itself is the most important thing. Well, the name you're
 *not* choosing is what people would use to refer to your work. It's like a
 project without a name doesn't even exist.
