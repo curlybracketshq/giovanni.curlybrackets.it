@@ -11,7 +11,6 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: Lato, sans-serif;
   margin-top: 20px;
   margin-bottom: 10px;
   font-weight: bold;
@@ -76,10 +75,6 @@ ol.unstyled {
   padding-left: 0;
 }
 
-nav {
-  font-family: 'Lato', sans-serif;
-}
-
 nav li {
   display: inline;
   margin-right: 5px;
@@ -99,7 +94,7 @@ strong {
 }
 
 code {
-  font-family: 'Courier', monospace;
+  font-family: Courier, monospace;
   padding: 0 5px;
   white-space: nowrap;
   border: 1px solid #EAEAEA;
