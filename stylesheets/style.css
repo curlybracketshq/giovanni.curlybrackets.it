@@ -182,7 +182,7 @@ p.categories {
 #container {
   margin: 0 auto;
   padding: 20px;
-  width: 560px;
+  width: 640px;
 }
 
 @media screen and (max-width:825px) {
