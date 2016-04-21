@@ -158,3 +158,8 @@ functional parts of the app to have "something" to test as soon as possible.
 An approach that I found useful: start working on the riskiest parts of the
 *hack*. In this project for example I started by building a couple of Android
 prototypes to test GCM (👍), Fit API (👎), and Haskell on GAE (👎).
+
+### Sources
+
+* [bitbucket.org/potomak/hamusutaa-api](https://bitbucket.org/potomak/hamusutaa-api)
+* [bitbucket.org/potomak/hamusutaa-android](https://bitbucket.org/potomak/hamusutaa-android)
