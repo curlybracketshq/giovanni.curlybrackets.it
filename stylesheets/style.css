@@ -80,6 +80,16 @@ nav li {
   margin-right: 5px;
 }
 
+nav.menu {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+}
+
+nav.menu li {
+  display: block;
+}
+
 time {
   font-size: 75%;
   color: #666666;
@@ -157,6 +167,14 @@ footer {
   color: #666666;
 }
 
+footer nav.menu {
+  position: initial;
+}
+
+footer nav.menu li {
+  display: inline;
+}
+
 .footnotes {
   font-style: italic;
 }
@@ -189,5 +207,15 @@ p.categories {
   #container {
     width: auto;
     max-width: 100%;
+  }
+}
+
+@media screen and (max-width:930px) {
+  nav.menu {
+    position: initial;
+  }
+
+  nav.menu li {
+    display: inline;;
   }
 }
