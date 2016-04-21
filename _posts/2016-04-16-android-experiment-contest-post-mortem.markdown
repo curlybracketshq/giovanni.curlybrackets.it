@@ -13,17 +13,17 @@ Hamusuta*](https://play.google.com/store/apps/details?id=com.yeahright.hashireha
 Japanese for "Run Hamster", is a game to help people to stay active and my
 entry for the challenge.
 
-You're a *hamster*, it runs when you're active and it sleeps otherwise. If you
-walk, run, ride, the app will count your *steps* that will make you earn ⚡.
+You're a *hamster*. It runs when you're active and it sleeps otherwise. If you
+walk, run, ride, the app will count your *steps* and you will earn ⚡.
 
 You can spend ⚡ at *the store* to buy hamsters to produce more ⚡ in your *power
 plant*.
 
-In your power plant you can *ping* lazy hamsters, those who are not active, to
-receive a 100 ⚡ *bonus*, if the become active in less than 10 minutes.
+In your power plant you can *ping* lazy hamsters, those who are not active. You
+receive a 100 ⚡ *bonus* if they become active in less than 10 minutes.
 
-You also have a *10,000 daily steps goal* that if you can achieve will make earn
-a 100 ⚡ bonus those players who have you in their power plants.
+There's also a *10,000 daily steps goal* that if you achieve will earn 100 ⚡ for
+those players who have you in their power plants.
 
 ### Interface design and illustrations
 
@@ -31,9 +31,9 @@ I wanted for the app to have a playful look and feel, the inspiration was [Neko
 Atsume](https://play.google.com/store/apps/details?id=jp.co.hit_point.nekoatsume).
 
 So I asked [Giorgia](http://twitter.com/sono_la_gii) to work on the
-illustrations and I must say I love them! She perfectly interpreted my idea and
-after some sketches she was already drawing the hamster animations and all the
-other parts of the app's UI.
+illustrations. She did a great job, I love those illustrations! She perfectly
+interpreted my idea and after some sketches she was already drawing the hamster
+animations and all the other elements of the UI.
 
 The first version of the app:
 
@@ -48,14 +48,13 @@ The latest version of the app:
 I wanted to try Google App Engine (again) to host the server app to collect
 players info, steps measurements, etc.
 
-The platform supports Java, Go, and Python by default, but I saw that they also
-supported [custom
-runtimes](https://cloud.google.com/appengine/docs/flexible/custom-runtimes/build),
-so I first tried to use Haskell to build a simple Scotty HTTP API.
+The platform supports Java, Go, and Python by default, but it also supports
+[custom
+runtimes](https://cloud.google.com/appengine/docs/flexible/custom-runtimes/build).
 
-Unfortunately this has revealed to be a bad choice from the beginning when I
-spent almost 4 hours trying to build and run the container that would have
-hosted the app.
+At first I tried to use Haskell to build a simple Scotty HTTP API, but after
+almost half a day trying to build and run the container that would have hosted
+the app, I gave up.
 
 It should have been as easy as creating [a custom
 `Dockerfile`](http://andywhardy.blogspot.com/2016/01/haskell-rest-api-on-google-app-engine.html),
@@ -84,55 +83,56 @@ To deliver messages from the server I used a patched version of
 [github.com/alexjlockwood/gcm](https://github.com/alexjlockwood/gcm). It was too
 late when I finally found
 [github.com/google/go-gcm](https://github.com/google/go-gcm) that I think is a
-more official and up to date library to interact with GCM.
+more official and up to date version of the library to interact with GCM.
 
-The server send updates to client using a topic for each player. Clients that
-are interested about updates from one player, for instance when you buy a
-hamster, subscribe to his/her channel to get notified when an event occurs.
+The server publishes updates on a topic for each player. Clients subscribe to
+owned players' channels to get notified when a new event occurs.
 
 To handle notifications client side I followed the example at
 [github.com/googlesamples/google-services](https://github.com/googlesamples/google-services/tree/master/android/gcm)
-and everything went fine. Well done Google.
+and everything went fine.
 
 ### Getting data from the step sensor
 
-To get user's activity and the number of steps I started by using the Fit API,
-but I also wanted to get know when the user's status changes in background that
-seems to be impossible with Fit API.
+To get user's activity and the number of steps I started with Fit API, but I
+didn't find a way to handle background updates of user's activity. I need to get
+those data in background in order to notify the system and other users of
+current user's status changes.
 
-I fall back to getting raw events from the step counter sensor. I built a
-background service inspired by
-[github.com/googlesamples/android-BatchStepSensor](https://github.com/googlesamples/android-BatchStepSensor)
-and the result is quite reliable on many devices where I tested the app with a
+I fall back to get raw events from the step counter sensor. I built a background
+service inspired by
+[github.com/googlesamples/android-BatchStepSensor](https://github.com/googlesamples/android-BatchStepSensor).
+The result is quite reliable on many devices where I tested the app with a
 couple of exceptions.
 
 ### Drawable resources for different resolutions
 
 I'm lazy so I was putting every drawable resource in the `res/drawable`
-directory. Also because I'm lazy one day I didn't want to get up to get the USB
-cable to test the app on my phone so I started using the emulator and I was
-getting an OOM error right after app startup.
+directory. Also because I'm lazy, one day I didn't want to get up to get the USB
+cable to test the app on my phone so I started using the emulator and I noticed
+a lot of OOM errors.
 
 What was leaking memory?
 
-Well, it turns out that drawable resources are stored as bitmaps in memory, so
-a 100 Kb png image was occupying megabytes of memory to be drawn on the screen.
+Well, it turns out that loaded drawable resources are stored as bitmaps in
+memory, so a 100 Kb png image was filling megabytes of memory to be drawn on the
+screen.
 
 It also turns out that all the drawable resources that you put in the generic
-`res/drawable` directory are handled as mdpi resources, and the system scales
-the low density version to the target device density.
+`res/drawable` directory are handled as *mdpi* resources, and the system scales
+the low density version to the target device's density.
 
-This meant that the 100 Kb 500x500 png image was getting scaled to a 9 Mb
-1500x1500 image on a xx-hdpi device (Nexus 5) and the emulator was reserving
-only 64 Mb of RAM for the app so I was hitting the limit only after a couple of
-images.
+This meant that a 100 Kb 500x500 png image was getting scaled to a 9 Mb
+1500x1500 image on a *xx-hdpi* device (Nexus 5) and the emulator was reserving
+only 64 Mb of RAM per app process so I was hitting the limit right after a
+couple of images.
 
-The
+The workaround
 [solution](https://bitbucket.org/potomak/hamusutaa-android/commits/1cd928761e17e330e052dea1d70b11ada8fb82db)
 was to create a new `res/drawable-xxhdpi` directory and copy all the images
 there. The size was fine because I always tested the app on xx-hdpi devices.
-Note: I should have done this for all the resolutions, but let's wait for actual
-crashes to do it, this way is more fun.
+Note: I should have done this for all supported devices' resolutions, but I'll
+wait for actual crashes to do it. The lazy way.
 
 ### What went right
 
