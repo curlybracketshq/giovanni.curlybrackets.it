@@ -18,11 +18,13 @@ title: Projects
 [meme]: http://memecoworking.com "Meme Coworking"
 [techpeaks]: http://potomak.github.io/techpeaks "TechPeaks Log"
 [gist-txt]: http://github.com/potomak/gist-txt "gist-txt"
+[hashire-hamusuta]: https://play.google.com/store/apps/details?id=com.yeahright.hashirehamusutaa "Hashire Hamusuta"
 
 See also my profile on [GitHub][github].
 
 ## Current
 
+[Hashire Hamusuta][hashire-hamusuta] - an Android game to help people to stay active<br>
 [gist-txt][gist-txt] - a minimal text adventure engine<br/>
 [Meme Coworking][meme] - coworking space in Treviso<br/>
 [Hackatron][hackatron] - I'm the founder of this group of developers, designers, tinkers<br/>
