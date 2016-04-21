@@ -26,29 +26,23 @@ See also my profile on [GitHub][github].
 
 [Hashire Hamusuta][hashire-hamusuta] - an Android game to help people to stay active<br>
 [gist-txt][gist-txt] - a minimal text adventure engine<br/>
-[Meme Coworking][meme] - coworking space in Treviso<br/>
-[Hackatron][hackatron] - I'm the founder of this group of developers, designers, tinkers<br/>
-[Draw!][draw] - a social flavored online pixel art editor<br/>
-[Tomatoes][tomatoes] - a Pomodoro technique® driven time tracker
-
-## Ideas
-
-[GitUp][gitup] - a tool to vote and prioritize GitHub issues<br/>
-[Count Down Timer][countdowntimer] - minimal count down timers for the web
-
-## Just for fun
-
-[ASCII art API][artii_api] - HTTP API to create ASCII art<br/>
-<del>Waveform - little Rails application to render mp3 waveform</del><br/>
-<del>FAT (Fast Activity Tracker) - use Twitter to track your working time</del>
+[Meme Coworking][meme] - coworking space in Treviso<br>
+[Hackatron][hackatron] - I'm the co-founder of this group of developers, designers, tinkers<br>
+[Draw!][draw] - a social flavored online pixel art editor<br>
+[Tomatoes][tomatoes] - a Pomodoro Technique® driven time tracker
 
 ## Past
 
-[TechPeaks][techpeaks] - TechPeaks, an accelerator program in Trento<br/>
-[jQuery Instagram plugin][jquery_instagram] - a jQuery plugin to search and show your Instagram pictures easily<br/>
-[Finger Wars][finger_wars] - a simple Android game<br/>
-[OTOH firmware][otoh] - firmware for a hardware interface designed for real time and manual beat slicing<br/>
-<del>Smood it - a social network to share your mood with your friends</del><br/>
-<del>[ArcaCMF][arcacmf] - an open source modular content management framework</del><br/>
-<del>[Dietista .it][dietista] - online tools for dieticians and nutritionists</del><br/>
+[TechPeaks blog][techpeaks] - my 10 days at TechPeaks, an accelerator program in Trento<br>
+[jQuery Instagram plugin][jquery_instagram] - a jQuery plugin to search and show your Instagram pictures easily<br>
+[Finger Wars][finger_wars] - a simple Android game<br>
+[OTOH firmware][otoh] - firmware for a hardware interface designed for real time and manual beat slicing<br>
+[GitUp][gitup] - a tool to vote and prioritize GitHub issues<br>
+[Count Down Timer][countdowntimer] - minimal count down timers for the web<br>
+[ASCII art API][artii_api] - HTTP API to create ASCII art<br>
+<del>Waveform - little Rails application to render mp3 waveform</del><br>
+<del>FAT (Fast Activity Tracker) - use Twitter to track your working time</del><br>
+<del>Smood it - a social network to share your mood with your friends</del><br>
+<del>[ArcaCMF][arcacmf] - an open source modular content management framework</del><br>
+<del>[Dietista .it][dietista] - online tools for dieticians and nutritionists</del><br>
 <del>[Dietist Helper][dietist_helper] - a Java application to manage dietist patients data like weights, BMIs and notes</del>
