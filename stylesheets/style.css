@@ -157,10 +157,6 @@ footer {
   color: #666666;
 }
 
-footer * {
-  display: inline;
-}
-
 .footnotes {
   font-style: italic;
 }
