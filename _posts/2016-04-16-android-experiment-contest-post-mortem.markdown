@@ -147,17 +147,14 @@ crashes to do it, this way is more fun.
 * Fit API
 * Drawable resources resolutions
 
-### What do you mean by hackathon mode?
+### Hackathon mode
 
-*Hackathon mode* means to me the opportunity to try new technologies on
-small/finite projects and a constraint on the amount of time to come up with a
-working prototype.
+What does *Hackathon mode* mean? Well, I don't know exactly. It's an excuse to
+try new technologies on small/finite projects with a time constraint.
 
 The *time constraint* part is interesting because it forces you to focus on
 functional parts of the app to have "something" to test as soon as possible.
 
-An approach that I found useful was also to start working on the riskiest parts
-of the *hack* before because it's easier to put strong foundations and to build
-on top of them. In this project for example I started by building a couple of
-Android prototypes to test GCM (worked), Fit API (didn't work), and Haskell on
-GAE (didn't work).
+An approach that I found useful: start working on the riskiest parts of the
+*hack*. In this project for example I started by building a couple of Android
+prototypes to test GCM (👍), Fit API (👎), and Haskell on GAE (👎).
