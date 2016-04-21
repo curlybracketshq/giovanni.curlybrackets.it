@@ -28,7 +28,7 @@ The first scene in your story is called `index.markdown`.
 Other scenes can be named whatever you like, but the name of the first scene
 **has to be `index.markdown`**.
 
-[![First
+![First
 scene](/assets/posts/first-scene.png)](/assets/posts/first-scene-original.png)
 
 A **scene** is the equivalent of a page in a *Choose Your Own Adventure* book,
