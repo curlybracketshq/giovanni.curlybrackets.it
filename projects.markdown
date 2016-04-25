@@ -19,13 +19,15 @@ title: Projects
 [techpeaks]: http://potomak.github.io/techpeaks "TechPeaks Log"
 [gist-txt]: http://github.com/potomak/gist-txt "gist-txt"
 [hashire-hamusuta]: https://play.google.com/store/apps/details?id=com.yeahright.hashirehamusutaa "Hashire Hamusuta"
+[daily-checklist]: https://the-daily-checklist.appspot.com/ "The Daily Checklist"
 
 See also my profile on [GitHub][github].
 
 ## Current
 
+[The Daily Checklist][daily-checklist] - a visualization of one year of *things* done<br>
 [Hashire Hamusuta][hashire-hamusuta] - an Android game to help people to stay active<br>
-[gist-txt][gist-txt] - a minimal text adventure engine<br/>
+[gist-txt][gist-txt] - a minimal text adventure engine<br>
 [Meme Coworking][meme] - coworking space in Treviso<br>
 [Hackatron][hackatron] - I'm the co-founder of this group of developers, designers, tinkers<br>
 [Draw!][draw] - a social flavored online pixel art editor<br>
