@@ -6,7 +6,7 @@ html, body {
 
 body {
   font-family: 'Conv_GT-Pressura-Mono-Light', monospace;
-  color: #333333;
+  color: #333;
   font-size: 18px;
 }
 
@@ -40,11 +40,11 @@ sup {
 a,
 a:hover,
 a:active {
-  color: #999999;
+  color: #666;
 }
 
 a:visited {
-  color: #bbbbbb;
+  color: #999;
 }
 
 p {
