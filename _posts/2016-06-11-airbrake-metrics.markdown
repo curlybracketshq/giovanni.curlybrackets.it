@@ -3,18 +3,17 @@ title: Collect and show Airbrake errors metrics with Ruby
 layout: post
 ---
 
-Yesterday I wrote a little Ruby script to fetch Airbrake's error groups.
+Yesterday I wrote a little Ruby script to fetch Airbrake's error groups. The
+main goal was to identify the most common errors.
 
-The main goal was to collect data to identify the most common errors.
-
-The script started as a single file *blob* of code. After some refactoring I
+The script started as a single file *blob of code*. After some refactoring I
 created two main classes: `AirbrakeFetcher` and `BarChart`.
 
 ### `AirbrakeFetcher`
 
-Use this class to retrieve error groups, see
-https://airbrake.io/docs/#groups-v4. Create a new instance by providing your
-Airbrake API key and project id.
+Use this class to retrieve error groups, see more at [Airbrake API Reference -
+Groups v4](https://airbrake.io/docs/#groups-v4). Create a new instance by
+providing your Airbrake API key and project id.
 
 <script src="https://gist.github.com/potomak/485a3fcb46f854845cffa0c8a8f95ba9.js?file=airbrake_fetcher.rb"></script>
 
