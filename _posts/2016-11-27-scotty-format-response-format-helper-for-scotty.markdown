@@ -1,5 +1,5 @@
 ---
-title: scotty-format: A response format helper for the Scotty web framework
+title: "scotty-format: A response format helper for the Scotty web framework"
 layout: post
 ---
 
