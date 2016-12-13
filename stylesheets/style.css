@@ -5,15 +5,23 @@ html, body {
 }
 
 body {
-  font-family: 'Conv_GT-Pressura-Mono-Light', monospace;
-  color: #333;
+  font-family: 'Sectra', serif;
+  color: #404040;
   font-size: 18px;
+}
+
+h1.main-title {
+  color: rgba(0, 0, 255, 0.6);
+  font-family: 'GT-Walsheim', Helvetica, sans-serif;
+}
+
+h1, h2 {
+  font-family: 'Dia', Helvetica, sans-serif;
 }
 
 h1, h2, h3, h4 {
   margin-top: 20px;
   margin-bottom: 10px;
-  font-weight: bold;
 }
 
 h1 {
@@ -39,12 +47,14 @@ sup {
 
 a,
 a:hover,
-a:active {
-  color: #666;
+a:active,
+a:visited {
+  color: rgba(0, 0, 255, 0.6);
+  text-decoration: none;
 }
 
-a:visited {
-  color: #999;
+a:hover {
+  border-bottom: 1px solid;
 }
 
 p {
@@ -80,19 +90,13 @@ nav li {
   margin-right: 5px;
 }
 
-nav.menu {
-  position: absolute;
-  top: 30px;
-  left: 40px;
-}
-
 nav.menu li {
-  display: block;
+  display: inline;
 }
 
 time {
+  font-family: 'Dia', Helvetica, sans-serif;
   font-size: 75%;
-  color: #666666;
 }
 
 em {
@@ -163,9 +167,9 @@ article header {
 }
 
 footer {
+  font-family: 'Dia', Helvetica, sans-serif;
   margin-top: 40px;
   font-size: 75%;
-  color: #666666;
 }
 
 footer nav.menu {
@@ -208,15 +212,5 @@ p.categories {
   #container {
     width: auto;
     max-width: 100%;
-  }
-}
-
-@media screen and (max-width:930px) {
-  nav.menu {
-    position: initial;
-  }
-
-  nav.menu li {
-    display: inline;;
   }
 }
