@@ -37,20 +37,7 @@ according to the client's preferences.
 
 Example usage:
 
-```haskell
-main :: IO ()
-main = scotty 8080 $ do
-  get "/hello" $ do
-    let content = "Hello world!"
-    respondTo $ do
-      formatJson $
-        json $ object ["content" .= content]
-      formatText $
-        text content
-      format "application/vnd.chess-pgn" $ do
-        setHeader "Content-Type" "application/vnd.chess-pgn; charset=utf-8"
-        raw $ encodeUtf8 "1. e4"
-```
+<script src="https://gist.github.com/potomak/f779c6814e7213215be19256231e4efa.js"></script>
 
 This function will define a Scotty app with one action only (`GET /hello`) that
 will respond with three different formats based on the `Accept` header value
