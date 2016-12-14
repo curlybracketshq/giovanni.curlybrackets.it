@@ -209,6 +209,10 @@ p.categories {
 }
 
 @media screen and (max-width:825px) {
+  #triangles {
+    width: 100%;
+  }
+
   #container {
     width: auto;
     max-width: 100%;
