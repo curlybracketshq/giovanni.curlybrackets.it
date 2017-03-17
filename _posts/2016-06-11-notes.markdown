@@ -1,0 +1,31 @@
+---
+title: TODO...
+layout: post
+---
+
+### Over confidence
+
+Missing method/undefined constant errors
+
+Stub methods in unit tests
+
+### Missing QA
+
+Maybe more test automation is needed, but it's hard to maintain
+
+### Smaller PRs
+
+Makes easier to review code and improve reviews' effectiveness
+
+### Apply patterns
+
+Easier to maintain and to spot common cases
+
+### Set goals tools to monitor them
+
+Example: queries
+
+### Write more log entries
+
+Makes it easier to follow code execution in production env and helps spotting
+errors. Very useful on new features

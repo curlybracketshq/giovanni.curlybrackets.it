@@ -1,0 +1,136 @@
+---
+title: Pico Pixel - A pixel art animation digital frame
+layout: post
+---
+
+I'm a big fan of pixel art, that's one of the reasons why I built
+[Draw!](http://drawbang.com), a pixel art editor that you can use to draw tiny
+GIF animations.
+
+A couple of weeks ago, when I find out about the [Pimoroni Unicorn
+HAT](https://shop.pimoroni.com/products/unicorn-hat), a 8x8 RGB LED matrix that
+you can place on top of a Raspberry Pi, I thought it was the perfect excuse to
+hack a little something.
+
+The idea that I wanted to make using the Unicorn HAT was a simple pixel art
+digital frame. It connects to a wifi network and shows a set of 8x8 GIF
+animations downloaded from a HTTP server.
+
+Note: I'll describe here a *lazy* way to build this project, that is one that
+maximized results by penalizing costs and efficiency.
+
+The hardware needed for the project:
+
+* Raspberry Pi version 3
+* Pimoroni Unicorn HAT
+* 16 Gb SD card
+* HDMI cable
+* USB charger
+* USB keyboard
+
+### Notes
+
+Raspberry Pi: the Unicorn HAT supports both versions 2 and 3, I bought a version
+3 that comes with a wifi interface, but if you want to use a version 2 you'll
+need to buy a wifi dongle.
+
+USB charger: I used the one that usually charges my phone.
+
+USB keyboard: it's not strictly needed, you could configure the wifi by updating
+the configuration on the SD using any PC or you could create a network between
+your PC and the RPi using an Ethernet cable.
+
+## Install the OS on the SD card
+
+1. download Noobs from https://www.raspberrypi.org/downloads/noobs/
+
+2. unzip and copy Noobs in the SD card. Note: before you'd want to format the SD
+   card with a FAT32 file system
+
+3. connect the Raspberry to a HDMI monitor, connect the power adapter, and
+   follow instructions to download and install latest version of Raspbian. Note:
+   this operation took almost half an hour. You could skip the download part if
+   you choose to download the Noobs version that includes the OS image
+
+4. reboot the RPi
+
+## Configure a wifi connection
+
+The fresh OS installation has a default user:
+
+* username: pi
+* password: raspberry
+
+You can use the GUI to easily configure a wifi connection.
+
+## Connect through ssh
+
+Open a terminal to make sure that both `sshd` and `avahi-daemon` are running by
+running:
+
+... PUT SCRIPT HERE ...
+
+`sshd` allows opening secure terminal connections to your RPi within your local
+network.
+
+`avahi-daemon` broadcasts a DNS name that you can use to address the RPi without
+knowing its IP address. ...MORE ON THIS TOPIC...
+
+Now open a terminal on your PC and ssh into the RPi:
+
+```
+$ ssh pi@raspberry.local
+```
+
+Note: the PC must be connected to the same local network configured in the RPi.
+
+## Install the Unicorn HAT library
+
+To send commands to turn LEDs on and off on the Unicorn HAT, there's a plug and
+play library that we can use.
+
+Install the library:
+
+```
+$ curl -sS get.pimoroni.com/unicornhat | bash
+```
+
+More info on the library at
+[learn.pimoroni.com/tutorial/unicorn-hat/getting-started-with-unicorn-hat](https://learn.pimoroni.com/tutorial/unicorn-hat/getting-started-with-unicorn-hat)
+
+## Install Python Pillow
+
+To easily read and decode GIF images I decided to use Pillow, that is a fork of
+PIL.
+
+Raspbian comes with a pre installed Pillow, but that particular version was not
+working correctly while trying to cycle trough a list of frames in a GIF
+animation, so I needed to upgrade it.
+
+To upgrade Pillow:
+
+1. Download software needed to build the latest version of Pillow
+
+  ```
+  $ sudo apt-get install libtiff5-dev libjpeg-dev zlib1g-dev \
+      libfreetype6-dev liblcms2-dev libwebp-dev tcl8.5-dev tk8.5-dev python-tk
+  ```
+
+2. update Pillow
+
+  ```
+  $ sudo pip install Pillow --upgrade
+  ```
+
+Note: use `sudo` instead of `--user` because the script needs to be be run by
+the super user anyway in order to get access to GPIO memory locations.
+
+## init script
+
+...
+
+sudo ln -s /home/pi/micro-drawbang/micro-drawbang /etc/init.d/ sudo update-rc.d
+micro-drawbang defaults
+
+
+ls -l /etc/rc?.d/*micro*
