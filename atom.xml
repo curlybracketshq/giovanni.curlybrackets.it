@@ -10,7 +10,6 @@ layout: null
   <id>http://www.focustheweb.com/</id>
   <author>
     <name>Giovanni Cappellotto</name>
-    <email>potomak84@gmail.com</email>
   </author>
 
   {% for post in site.posts %}
