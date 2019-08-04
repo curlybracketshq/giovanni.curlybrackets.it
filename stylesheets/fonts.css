@@ -23,12 +23,3 @@
   src: url('/assets/fonts/GT-Sectra-Medium.eot?#iefix') format('embedded-opentype'), url('/assets/fonts/GT-Sectra-Medium.woff') format('woff'), url('/assets/fonts/GT-Sectra-Medium.ttf') format('truetype');
   font-weight: 600;
   font-style: normal; }
-
-@font-face {
-   font-family: 'GT-Walsheim';
-      src: url('/assets/fonts/GT-Walsheim-Medium.eot');
-      src: url('/assets/fonts/GT-Walsheim-Medium.eot?#iefix') format('embedded-opentype'),
-           url('/assets/fonts/GT-Walsheim-Medium.woff') format('woff'),
-           url('/assets/fonts/GT-Walsheim-Medium.ttf') format('truetype');
-   font-weight: 400;
-   font-style: normal; }
