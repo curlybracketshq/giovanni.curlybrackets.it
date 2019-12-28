@@ -3,17 +3,11 @@ layout: page
 title: About
 ---
 
-[music]: /music.html "Music"
-[twitter]: http://twitter.com/johnnyaboh
-[github]: http://github.com/potomak
-[handy]: http://handy.com
-
 ![Giovanni Cappellotto](/assets/me.jpg)
 
 Hi,<br>
-I'm Giovanni Cappellotto.<br>
-I love [music][music] and arts.<br>
-I work at [Handy][handy].
+I'm Giovanni Cappellotto.
 
-GitHub: [@potomak][github]<br>
-Twitter: [@johnnyaboh][twitter]
+I work as a Software Engineer at Facebook.
+
+GitHub: [@potomak][http://github.com/potomak]
