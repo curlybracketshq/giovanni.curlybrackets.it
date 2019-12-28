@@ -16,7 +16,7 @@ reworked a little bit to let it fit this blog.
 
 This is how the old style index page looked like:
 
-![Old style](/assets/posts/old-style.png)
+![Old style]({{ site.url }}/assets/posts/old-style.png)
 
 What do you think of this redesign?
 

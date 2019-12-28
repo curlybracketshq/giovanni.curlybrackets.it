@@ -5,4 +5,4 @@ layout: post
 
 Welcome to my personal blog.
 
-More info [about me](/about.html).
+More info [about me]({{ site.url }}/about.html).
