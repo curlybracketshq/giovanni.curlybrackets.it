@@ -7,36 +7,32 @@ layout: post
 
 Git stash is great.
 
-You can forget for a moment about updates you're working on to
+You can forget for a moment about the updates you're currently working on to
 focus on the nth unexpected event.
 
 Use `git stash` to save the current state of your work.
 
     $ git stash save "work in progress for foo feature"
 
-This command will save your changes away to the stash, and reset
-your working tree and the index to match the tip of your current
-branch.
+This command will save your changes away to the stash, and reset your working
+tree and the index to match the tip of your current branch.
 
-Then handle the unexpected event, fix bugs, update code, write
-tests.
+Then handle the unexpected event, fix bugs, update code, write tests.
 
     $ git commit -a -m "Fix typo"
 
-After that, you can go back to what you were working on with
-`git stash apply`:
+After that, you can go back to what you were working on with `git stash apply`:
 
     $ git stash apply
 
-Updates saved to stash are queued, if you run `git stash list`
-you can see which stashes you have saved.
+Updates saved to stash are queued, if you run `git stash list` you can see which
+stashes you have saved.
 
     $ git stash list
     stash@{0}: WIP on develop: 51bea1d Update license
     stash@{1}: WIP on master: 9705ae6 Fix images
 
-Then you can apply them individually with `git stash apply
-stash@{1}`.
+Then you can apply them individually with `git stash apply stash@{1}`.
 
 You can clear out the list with `git stash clear`.
 

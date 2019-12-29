@@ -28,22 +28,20 @@ simulation game**.
 Well, FBSE is one of the ugliest apps I've ever see but I love it anyway.
 
 The coolest part of the idea is to make stocks gain or lose value following
-people social interaction level but you should also be able to buy and sell
+people social interaction level, but you should also be able to buy and sell
 stocks and to manage your portfolio.
 
-We worked hard to set it up and running but it didn't change our final result:
+We worked hard to set it up and running, but it didn't change our final result:
 *a total failure*. The app was too big and our knowledge of node.js too small.
 
 We used [express.js][express] as web framework, [mongoose ORM][mongoose],
 [everyauth][everyauth] and [mongoose-auth][mongooseauth] to handle
-authentication and a lot of [redis][redis] data structures to hold trading
+authentication and a lot of [redis][redis] data structures to store trading
 data.
 
 Stocks prices and price variations are updated in realtime using the Facebook
 realtime API and [socket.io][socket].
 
-I'd like also to thank my girlfriend Giorgia Marenda for the delicious "pasta
-fredda", Massimo Scarpis for the prototype idea and for your support,
-Guglielmo Alati for the beautiful logo we didn't use, Paolo Bernagozzi,
-Maurizio Adamo, Lea di Cursi, Federico Piovesan, Francesco Fraioli and H-farm
-for the hosting.
+I'd like also to thank my girlfriend Giorgia for the delicious *pasta fredda*,
+Massimo Scarpis for the prototype idea and for your support, and Guglielmo Alati
+for the beautiful logo we didn't have the chance to use.

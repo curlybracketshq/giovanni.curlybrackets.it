@@ -3,8 +3,8 @@ title: How to make games with gist-txt
 layout: post
 ---
 
-**Disclaimer:** content of this post is not original, most of it is taken from Anna
-Anthropy's ["How to make games with
+**Disclaimer:** content of this post is not original, most of it is taken from
+Anna Anthropy's ["How to make games with
 Twine"](http://www.auntiepixelante.com/twine/)
 
 #### What is gist-txt?
@@ -16,7 +16,7 @@ host interactive stories.
 
 1. It's free
 1. You don't need to know how to program
-1. You don't need to intall any program to use it
+1. You don't need to install any program to use it
 1. Finished stories can be shared with a simple link
 
 #### The basics
@@ -28,8 +28,7 @@ The first scene in your story is called `index.markdown`.
 Other scenes can be named whatever you like, but the name of the first scene
 **has to be `index.markdown`**.
 
-![First
-scene]({{ site.url }}/assets/posts/first-scene.png)]({{ site.url }}/assets/posts/first-scene-original.png)
+![First scene]({{ site.url }}/assets/posts/first-scene.png)
 
 A **scene** is the equivalent of a page in a *Choose Your Own Adventure* book,
 but it can be as long or short as you like. Click on the text area to write in
@@ -43,11 +42,11 @@ looks like:
 
 ![Link]({{ site.url }}/assets/posts/link.png)
 
-The text inside the square brackets is what the player sees. The text inside
-the round brackets is the name of the scene she goes to when she clicks on it.
-Now if you were using Twine you would see an exclamation point in the corner of
-the scene saying that the scene pointed by the link is missing, but since
-you're using gist-txt there's no such thing!
+The text inside the square brackets is what the player sees. The text inside the
+round brackets is the name of the scene she goes to when she clicks on it. Now
+if you were using Twine you would see an exclamation point in the corner of the
+scene saying that the scene pointed by the link is missing, but since you're
+using gist-txt there's no such thing!
 
 Add a new file in the gist with the name you gave to the scene linked
 (`passage.markdown`)
@@ -70,5 +69,6 @@ and copy the id of the gist.
 ![Copy Gist id]({{ site.url }}/assets/posts/copy-id.png)
 
 Now open `http://potomak.github.io/gist-txt/#<gist-id>` in a new tab to share
-the story..
+the story.
+
 ![Publish]({{ site.url }}/assets/posts/publish.png)

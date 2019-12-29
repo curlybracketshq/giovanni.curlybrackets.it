@@ -3,8 +3,6 @@ title: Update GitHub fork
 layout: post
 ---
 
-[github]: http://help.github.com/fork-a-repo/ "Fork a repo"
-
 You need *A feature* and you know how to make it by extending *B*,
 an open source project repo hosted on GitHub.
 
@@ -25,8 +23,8 @@ you update your fork getting code from the main repo?
 
 1. Merge `upstream/master` in your current branch to apply updates
 
-        $ git merge upstream/master 
+        $ git merge upstream/master
 
 Resources:
 
-[GitHub Help - Fork a repo][github]
+* [GitHub Help - Fork a repo](http://help.github.com/fork-a-repo/)

@@ -3,13 +3,9 @@ title: La Roba
 layout: post
 ---
 
-[laroba]: http://www.laroba.com "La Roba"
-[yourban]: http://www.yourban.org "Yourban"
-[laroba_image]: /assets/posts/la_roba.jpg "La Roba"
+![La Roba]({{ site.url }}/assets/posts/la_roba.jpg)
 
-![La Roba][laroba_image]
+Today I'd like to tell about a collective design project from Thiene called *"La
+Roba"*.
 
-Today I'd like to told about a collective design project from Thiene.
-They are three guys formerly known as "La Roba". Their works are great, you can check them out at [http://www.laroba.com][laroba].
-
-I discovered them from [Yourban][yourban] party flyers, wow!
+I discovered them from [Yourban](http://www.yourban.org) party flyers, wow!

@@ -8,15 +8,25 @@ layout: post
 [jack]: http://jackaudio.org
 
 
-[**Live coding**][live_coding] is a programming practice centred upon the use of improvised interactive programming. Live coding is often used to create sound and image based digital media, and is particularly prevalent in computer music, combining algorithmic composition with improvisation.
+[**Live coding**][live_coding] is a programming practice centered upon the use
+of improvised interactive programming. Live coding is often used to create sound
+and image based digital media, and is particularly prevalent in computer music,
+combining algorithmic composition with improvisation.
 
 To start live coding I chose [**ChucK**][chuck].
 
-ChucK is a concurrent, strongly timed audio programming language for real-time synthesis, composition, and performance. It is designed to favor readability and flexibility for the programmer over other considerations such as raw performance. It natively supports deterministic concurrency and multiple, simultaneous, dynamic control rates. Another key feature is the ability to live code; adding, removing, and modifying code on the fly, while the program is running, without stopping or restarting.
+ChucK is a concurrent, strongly timed audio programming language for real-time
+synthesis, composition, and performance. It is designed to favor readability and
+flexibility for the programmer over other considerations such as raw
+performance. It natively supports deterministic concurrency and multiple,
+simultaneous, dynamic control rates. Another key feature is the ability to live
+code; adding, removing, and modifying code on the fly, while the program is
+running, without stopping or restarting.
 
 ### Getting started with ChucK
 
-If you don't need the latest version of ChucK you can choose to download and install the apt package.
+If you don't need the latest version of ChucK you can choose to download and
+install the apt package.
 
 Run
 
@@ -38,7 +48,7 @@ Run
     Unpacking chuck (from .../chuck_1.2.0.8.dfsg-1.4_i386.deb) ...
     Processing triggers for man-db ...
     Setting up chuck (1.2.0.8.dfsg-1.4) ...
-    
+
     $ chuck
     [chuck]: no input files... (try --help)
 
@@ -49,11 +59,14 @@ As a starting point you can try running examples
     [chuck]: (via rtaudio): no devices found for compiled audio APIs!
     [chuck]: cannot initialize audio device (try using --silent/-s)
 
-You're getting this error message because you're running ChucK without a running jackd.
+You're getting this error message because you're running ChucK without a running
+`jackd`.
 
-[**JACK Audio Connection Kit**][jack] (or JACK) is a professional sound server daemon that provides real-time, low latency connections for both audio and MIDI data between applications that implement its API.
+[**JACK Audio Connection Kit**][jack] (or JACK) is a professional sound server
+daemon that provides real-time, low latency connections for both audio and MIDI
+data between applications that implement its API.
 
-As apt suggested you'll need the jackd package:
+As apt suggested you'll need the `jackd` package:
 
     $ sudo apt-get install jackd
     Reading package lists... Done
@@ -68,7 +81,7 @@ As apt suggested you'll need the jackd package:
     0 upgraded, 7 newly installed, 0 to remove and 0 not upgraded.
     Need to get 2,641 kB of archives.
     After this operation, 7,950 kB of additional disk space will be used.
-    Do you want to continue [Y/n]? 
+    Do you want to continue [Y/n]?
     Get:1 http://it.archive.ubuntu.com/ubuntu/ precise/universe jackd2 i386 1.9.8~dfsg.1-1ubuntu1 [531 kB]
     Get:2 http://it.archive.ubuntu.com/ubuntu/ precise/universe jackd all 5 [2,072 B]
     Get:3 http://it.archive.ubuntu.com/ubuntu/ precise/main libconfig++8 i386 1.3.2-2ubuntu2 [36.0 kB]
@@ -109,7 +122,7 @@ As apt suggested you'll need the jackd package:
     Processing triggers for libc-bin ...
     ldconfig deferred processing now taking place
 
-Then you should start jackd daemon in another shell
+Then you should start `jackd` daemon in another shell
 
     $ jackd -d alsa
     jackdmp 1.9.8
@@ -136,7 +149,7 @@ Then you should start jackd daemon in another shell
     ALSA: use 2 periods for playback
     Cannot use real-time scheduling (RR/10)(1: Operation not permitted)
 
-Now try running examples, you should start earing some beats
+Now try running examples, you should start hearing some beats
 
     $ chuck otf_01.ck &
     [1] 7869
@@ -150,7 +163,8 @@ Now try running examples, you should start earing some beats
     $ chuck --kill
     [chuck](VM): removing all (6) shreds...
     [chuck](VM): KILL received....
-    
+
     [1]+  Exit 1                  chuck otf_01.ck
 
-You can find more resources about ChucK at [http://chuck.cs.princeton.edu/doc/](http://chuck.cs.princeton.edu/doc/).
+You can find more resources about ChucK at
+[http://chuck.cs.princeton.edu/doc/](http://chuck.cs.princeton.edu/doc/).
