@@ -38,38 +38,38 @@ Try cloning the example gist at
 [https://gist.github.com/potomak/49832b4426a5f093037d](https://gist.github.com/potomak/49832b4426a5f093037d)
 by running
 
-{% highlight bash %}
+```bash
 giovanni$ git clone git@gist.github.com:/49832b4426a5f093037d.git hello-world
-{% endhighlight %}
+```
 
 Now you can work on the gist as you would usually do with other git
 repositories. You can for instance update the `hello-world.txt` file, add it
 to the staging area, and commit your changes logging a commit message.
 
-{% highlight bash %}
+```bash
 giovanni$ cd hello-world
 giovanni$ echo "Foo" >> hello-world.txt
 giovanni$ git add hello-world.txt
 giovanni$ git commit -m "Update file"
-{% endhighlight %}
+```
 
 If you run `git log` you should see two commits:
 
 1. the initial commit I made to create the gist
 1. the second commit where I updated `hello-world.txt`
 
-{% highlight bash %}
+```bash
 giovanni$ git log --pretty=format:"%h - %an, %ar: %s"
 b24c6d3 - Giovanni Cappellotto, 5 minutes ago: Update file
 0927aec - Giovanni Cappellotto, 41 minutes ago:
-{% endhighlight %}
+```
 
 To write your changes into the hosted repository *push* your local `master`
 branch to the default `origin` remote.
 
-{% highlight bash %}
+```bash
 giovanni$ git push origin master
-{% endhighlight %}
+```
 
 Note: after the push you can view the full [list of
 commits](https://help.github.com/articles/forking-and-cloning-gists/#viewing-gist-commit-history)
@@ -86,40 +86,40 @@ As a different GitHub user you can fork the example gist, for instance
 [https://gist.github.com/gmarenda/57c23d008b770b4904ba](https://gist.github.com/gmarenda/57c23d008b770b4904ba),
 clone it, and update it, following the steps:
 
-{% highlight bash %}
+```bash
 giorgia$ git clone git@gist.github.com:/57c23d008b770b4904ba.git hello-world
 giorgia$ cd hello-world
 giorgia$ echo " Bar" >> hello-world.txt
 giorgia$ git add hello-world.txt
 giorgia$ git commit -m "Update file from fork"
-{% endhighlight %}
+```
 
 Doing so Giorgia updated `hello-world.txt` and committed her changes on her
 local repository, associated with the remote fork.
 
 After her changes, log on Giorgia's local repository will look like this:
 
-{% highlight bash %}
+```bash
 giorgia$ git log --pretty=format:"%h - %an, %ar: %s"
 e5a386d - Giorgia, 47 seconds ago: Update file from fork
 b24c6d3 - Giovanni Cappellotto, 48 minutes ago: Update file
 0927aec - Giovanni Cappellotto, 84 minutes ago:
-{% endhighlight %}
+```
 
 Now if she pushes her changes to the `origin` remote
 
-{% highlight bash %}
+```bash
 giorgia$ git push origin master
-{% endhighlight %}
+```
 
 I'll be able to add her `origin` remote as a new `gmarenda` remote on my
 repository to merge her `master` branch with mine.
 
-{% highlight bash %}
+```bash
 giovanni$ git remote add gmarenda git@gist.github.com:/57c23d008b770b4904ba.git
 giovanni$ git fetch gmarenda
 giovanni$ git merge gmarenda/master
-{% endhighlight %}
+```
 
 In the local repo now there are
 
@@ -134,9 +134,9 @@ has been merged from her `master` branch, that has been taken from the
 Now I can push my updated `master` branch to `origin` to persist changes on the
 hosted repo.
 
-{% highlight bash %}
+```bash
 giovanni$ git push origin master
-{% endhighlight %}
+```
 
 ## Conclusion
 
