@@ -3,8 +3,8 @@ title: It's AdventureJam time
 layout: post
 ---
 
-The team is composed of [me](https://twitter.com/johnnyaboh) (Giovanni
-Cappellotto), [Daniel](https://twitter.com/campoverdi),
+The team is composed by [me]({{ site.url }}/about.html),
+[Daniel](https://twitter.com/campoverdi),
 [Francesco](https://twitter.com/pinakes), and
 [Luca](https://twitter.com/lucaderosso).
 

@@ -22,9 +22,10 @@ description: A place where I write posts about different matters.
       </time>
       {% if post.categories.size > 0 %}
         <p class="categories">
+          Categories:
           {% for category in post.categories %}
             <a href="{{ site.url }}/{{ category }}">
-              {{ category | capitalize | replace: '-', ' ' }}
+              {{ site.data.categories[category] }}
             </a>
           {% endfor %}
         </p>
