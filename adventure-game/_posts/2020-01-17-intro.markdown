@@ -27,5 +27,7 @@ share these posts on
 [r/iOSProgramming](https://www.reddit.com/r/iOSProgramming/) for starting a
 conversation.
 
+## Conclusion
+
 In the next post I'll talk a little bit about the SpriteKit framework and how
 I've setup a cross platform project.
