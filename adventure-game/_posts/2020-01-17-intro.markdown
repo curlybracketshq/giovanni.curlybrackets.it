@@ -1,0 +1,31 @@
+---
+title: Intro
+layout: post
+---
+
+I've recently played [The Secret of Monkey
+Island](https://en.wikipedia.org/wiki/The_Secret_of_Monkey_Island), maybe for
+the third time in my life. That game is awesome! It's a little bit outdated now,
+but still.
+
+I thought it would be cool to try and make an adventure game myself. I would
+take this as an opportunity for learning some Swift and SpriteKit, that seems
+like a good candidate for developing a 2D game.
+
+I will write posts to keep track of my progress and to share some of the
+knowledge I gain. The plan is to publish at least one post every week.
+
+In these posts I would like to talk mainly about technical challenges and game
+design decisions.
+
+I'm going to share these information as an amateur iOS developer and wanna be
+game designer, so don't expect a very detailed guide on how to make 2D adventure
+games, but I'm enjoying writing this, so I hope you'll enjoy reading it too.
+
+I'm also seeking for feedback, but I want to keep this blog simple, so I will
+share these posts on
+[r/iOSProgramming](https://www.reddit.com/r/iOSProgramming/) for starting a
+conversation.
+
+In the next post I'll talk a little bit about the SpriteKit framework and how
+I've setup a cross platform project.
