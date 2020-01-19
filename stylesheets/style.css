@@ -97,24 +97,31 @@ strong {
   font-weight: bold;
 }
 
-code, pre {
-  border: 1px solid #DDD;
-  background-color: #EEE;
+code, pre.highlight {
+  border: 1px solid #EEE;
+  background-color: #F8F8F8;
   border-radius: 3px;
 }
 
 code {
+  font-size: 90%;
   font-family: monospace;
-  padding: 0 5px;
+  padding: 0 4px;
   white-space: nowrap;
 }
 
-pre {
-  padding: 10px;
+pre.highlight {
+  padding: 6px 10px;
   overflow: auto;
 }
 
+pre.lineno {
+  margin-right: 20px;
+  color: #BBB;
+}
+
 pre > code {
+  font-size: 70%;
   padding: 0;
   border: 0 none;
   white-space: pre;
