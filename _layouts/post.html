@@ -25,6 +25,14 @@ layout: default
   {{ content }}
 </article>
 
+{% if page.discussion %}
+  <nav>
+    <ul class="unstyled">
+      <li><strong>Discussion on <a href="{{ page.discussion.url }}">{{ page.discussion.name }}</a></strong></li>
+    </ul>
+  </nav>
+{% endif %}
+
 {% if page.next.url %}
   <nav>
     <ul class="unstyled">

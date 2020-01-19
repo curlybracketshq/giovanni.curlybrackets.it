@@ -1,6 +1,9 @@
 ---
 title: Getting started with SpriteKit
 layout: post
+discussion:
+  url: https://www.reddit.com/r/iOSProgramming/comments/eqnmjj/adventure_game_development_using_spritekit_intro/
+  name: r/iOSProgramming
 ---
 
 ## SpriteKit
