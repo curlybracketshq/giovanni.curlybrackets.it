@@ -24,7 +24,7 @@ description: A place where I write posts about different matters.
           Categories:
           {% for category in post.categories %}
             <a href="{{ site.url }}/{{ category }}">
-              {{ site.data.categories[category] }}
+              {{ site.data.categories[category].name }}
             </a>
           {% endfor %}
         </p>

@@ -1,2 +1,8 @@
-adventure-jam: AdventureJam
-adventure-game: Adventure Game
+adventure-jam:
+  name: AdventureJam
+adventure-game:
+  name: Adventure Game
+  intro: |
+    In this series of posts I describe the process I've followed, as an amateur
+    game designer, for developing an adventure game written in Swift using the
+    SpriteKit framework for iOS.

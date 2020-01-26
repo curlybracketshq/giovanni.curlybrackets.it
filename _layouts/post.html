@@ -15,28 +15,30 @@ layout: default
         Categories:
         {% for category in page.categories %}
           <a href="{{ site.url }}/{{ category }}">
-            {{ site.data.categories[category] }}
+            {{ site.data.categories[category].name }}
           </a>
         {% endfor %}
       </p>
     {% endif %}
   </header>
 
+  {% if page.categories.size > 0 and site.data.categories[page.categories.first] and site.data.categories[page.categories.first].intro %}
+    <p class="intro">
+      {{ site.data.categories[page.categories.first].intro }}
+    </p>
+  {% endif %}
+
   {{ content }}
 </article>
 
 {% if page.discussion %}
-  <p>
-    <strong>
-      Discussion on <a href="{{ page.discussion.url }}">{{ page.discussion.name }}</a>
-    </strong>
+  <p class="discussion">
+    Discussion on <a href="{{ page.discussion.url }}">{{ page.discussion.name }}</a>
   </p>
 {% endif %}
 
 {% if page.next.url %}
-  <p>
-    <strong>
-      Next: <a href="{{ page.next.url }}">{{ page.next.title }}</a>
-    </strong>
+  <p class="next">
+    Next: <a href="{{ page.next.url }}">{{ page.next.title }}</a>
   </p>
 {% endif %}
