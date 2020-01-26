@@ -1,6 +1,9 @@
 ---
-title: "Introduction to shape nodes - The cursor"
+title: Introduction to shape nodes - The cursor
 layout: post
+discussion:
+  url: https://www.reddit.com/r/iOSProgramming/comments/etukc4/adventure_game_development_using_spritekit/
+  name: r/iOSProgramming
 ---
 
 In the world of adventure games, one of the main innovations introduced by
