@@ -185,7 +185,7 @@ In the next post I'll talk about touch events.
 
 ## Resources
 
-- [SKShapeNode](https://developer.apple.com/documentation/spritekit/skshapenode)
-- [SKScene.didMove](https://developer.apple.com/documentation/spritekit/skscene/1519607-didmove)
-- [SKTexture.filteringMode](https://developer.apple.com/documentation/spritekit/sktexture/1519659-filteringmode)
+- [`SKShapeNode`](https://developer.apple.com/documentation/spritekit/skshapenode)
+- [`SKScene.didMove(to:)`](https://developer.apple.com/documentation/spritekit/skscene/1519607-didmove)
+- [`SKTexture.filteringMode`](https://developer.apple.com/documentation/spritekit/sktexture/1519659-filteringmode)
 - [iOS Displays](https://developer.apple.com/library/archive/documentation/DeviceInformation/Reference/iOSDeviceCompatibility/Displays/Displays.html)
