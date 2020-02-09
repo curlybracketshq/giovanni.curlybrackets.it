@@ -1,6 +1,9 @@
 ---
 title: Handling touch events
 layout: post
+discussion:
+  url: https://www.reddit.com/r/iOSProgramming/comments/f1fyvq/adventure_game_development_using_spritekit/
+  name: r/iOSProgramming
 ---
 
 ## Introduction
