@@ -8,8 +8,15 @@ discussion:
 
 ## Introduction
 
-All games support some kind of user interaction, right? Let's start by handling
-touch events on iOS and tvOS.
+All games support some kind of user interaction, right? In the case of a classic
+point and click adventure game, I'm going to add support for mouse or touch
+events, depending on the target device, for interacting with the game
+environment, talking to other characters, and selecting actions from the
+<acronym title="Head-up display">HUD</acronym>.
+
+Let's start by handling touch events on iOS and tvOS.
+
+## Controlling User Interaction on Nodes
 
 `SKNode` subclasses `UIResponder` in iOS and tvOS, and `NSResponder` in macOS,
 that means that I can override the methods `touches*` or `mouse*` respectively
@@ -40,14 +47,14 @@ override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
 }
 ```
 
-The implementation of both handlers is the same, so I could share the common
+The implementation of both handlers is the same, so I could share their common
 implementation in a function, but for the sake of simplicity let's just
 duplicate some code.
 
-`touches` includes a set of `UITouch` because iOS devices have multi-touch
-support, but for now I just care about the first touch. The `guard` in first
-line of the function does exactly that. It assigns the location of the first
-touch in the set to `location` or it returns if `touches` is empty.
+`touches` is a set of `UITouch` because iOS devices have multi-touch support,
+but for now I just care about the first touch. The `guard` in first line of the
+function does exactly that. It assigns the position of the first touch in the
+set to `location` or it returns if `touches` is empty.
 
 `location(in: self)` is used to return a `CGPoint` for the position of the touch
 in the scene (`self`).
@@ -63,8 +70,7 @@ instance to the local variable `cursor`:
 let cursor = Cursor(120)
 ```
 
-with a new private instance property `cursor` that's lazily initialized in the
-same way:
+with a new private instance property `cursor` that's lazily initialized:
 
 ```swift
 private lazy var cursor = Cursor(120)
@@ -77,8 +83,8 @@ This is the result on iPhone:
   Sorry, your browser doesn't support embedded videos.
 </video>
 
-There's a little problem with the movements of the cursor on tvOS. The cursor
-re-starts moving always from the center of the screen:
+There's a small issue with the movements of the cursor on tvOS. The cursor
+starts moving always from the center of the screen:
 
 <video controls>
   <source src="{{ site.url }}/adventure-game/assets/2020-02-09-tvos-broken.mp4" type="video/mp4">
@@ -99,14 +105,18 @@ property in `Cursor`:
 var lastPosition: CGPoint = .zero
 ```
 
-initialize it with the initial cursor position in `setUpScene`:
+This instance property will keep track of the last cursor position at the end of
+each touch events series. Its initial value is the cursor's position and it's
+assigned right after setting the initial cursor position in `setUpScene`:
 
 ```swift
-cursor.lastPosition = CGPoint(x: frame.midX, y: frame.midY)
+cursor.position = CGPoint(x: frame.midX, y: frame.midY)
+cursor.lastPosition = cursor.position
+addChild(cursor)
 ```
 
-update it in both `touchesEnded` and `touchesCancelled`, when a touches series
-ends, with the last cursor position:
+`lastPosition` is updated in both `touchesEnded` and `touchesCancelled`, when a
+touch events series ends, with the current cursor position:
 
 ```swift
 override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -120,10 +130,10 @@ override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
 }
 ```
 
-and change the implementation of `touchesBegan` and `touchesMoved` to call
-`touchHandler`, that is a private instance method (the one that I lazily refused
-to create earlier) to update the cursor position relatively to its last position
-if the device os is `tvOS`:
+The new implementation of `touchesBegan` and `touchesMoved` call `touchHandler`,
+that is a `GameScene`'s private instance method (the one that I lazily refused
+to create earlier), to update the cursor position relatively to its last
+position if the device os is `tvOS`:
 
 ```swift
 override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -156,12 +166,12 @@ private func touchHandler(_ location: CGPoint) {
 }
 ```
 
-If `os(iOS)` nothing changes, the next cursor position is simply the touch
-event's position. If `os(tvOS)` I compute the delta between the touch event's
-position and the mid point on the screen. This offsets the event's position by
-`(frame.midX, frame.midY)` because `location` starts always at the mid point of
-the screen. Then I compute the next cursor position by adding the delta to the
-cursor's last position.
+If `os(iOS)` is true nothing changes, the next cursor position is simply the
+touch event position. Alternatively, if `os(tvOS)` is true, the function
+computes the delta between the touch event position and the screen mid point.
+This offsets the event position by `(frame.midX, frame.midY)` because `location`
+starts always at the screen mid point. Then the function computes the next
+cursor position by adding the delta to the cursor last position.
 
 This is the result on tvOS:
 
