@@ -192,7 +192,7 @@ p.intro {
   width: 640px;
 }
 
-@media screen and (max-width:825px) {
+@media screen and (max-width: 825px) {
   #triangles {
     width: 100%;
   }
@@ -200,5 +200,11 @@ p.intro {
   #container {
     width: auto;
     max-width: 100%;
+  }
+}
+
+@media screen and (max-device-width: 480px) {
+  body {
+    -webkit-text-size-adjust: none;
   }
 }
