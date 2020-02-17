@@ -15,7 +15,7 @@ description: A place where I write posts about different matters.
 <ul class="unstyled">
   {% for post in site.posts %}
     <li>
-      <h4><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h4>
+      <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
       <time datetime='{{ post.date | date: "%Y-%m-%d" }}'>
         {{ post.date | date: "%B %e, %Y" }}
       </time>
@@ -23,7 +23,7 @@ description: A place where I write posts about different matters.
         <p class="categories">
           Categories:
           {% for category in post.categories %}
-            <a href="{{ site.url }}/{{ category }}">
+            <a href="{{ '/' | append: category | relative_url }}">
               {{ site.data.categories[category].name }}
             </a>
           {% endfor %}

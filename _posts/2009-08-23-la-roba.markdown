@@ -3,7 +3,7 @@ title: La Roba
 layout: post
 ---
 
-![La Roba]({{ site.url }}/assets/posts/la_roba.jpg)
+![La Roba]({{ '/assets/posts/la_roba.jpg' | relative_url }})
 
 Today I'd like to tell about a collective design project from Thiene called *"La
 Roba"*.

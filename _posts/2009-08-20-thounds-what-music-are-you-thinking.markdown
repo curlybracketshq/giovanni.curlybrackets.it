@@ -3,7 +3,7 @@ title: Thounds, what music are you thinking?
 layout: post
 ---
 
-![Thounds]({{ site.url }}/assets/posts/thounds_logo.png)
+![Thounds]({{ '/assets/posts/thounds_logo.png' | relative_url }})
 
 Hey,
 

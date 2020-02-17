@@ -23,7 +23,7 @@ week of late night hacking, and thanks to
 applications, the first version of
 [haskell-player](http://hackage.haskell.org/package/haskell-player) was ready.
 
-![haskell-player 0.1.3.2]({{ site.url }}/assets/posts/haskell-player-0.1.3.2.png)
+![haskell-player 0.1.3.2]({{ '/assets/posts/haskell-player-0.1.3.2.png' | relative_url }})
 
 The set of features of the current version is really minimal and the app works
 only on OS X, because it requires `afplay` and `afinfo`, but I'm still pretty

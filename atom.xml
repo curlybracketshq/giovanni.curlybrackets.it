@@ -4,8 +4,8 @@ layout: null
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Giovanni Cappellotto's Blog</title>
-  <link href="{{ site.url }}/atom.xml" rel="self"/>
-  <link href="{{ site.url }}"/>
+  <link href="{{ '/' | absolute_url }}"/>
+  <link href="{{ '/atom.xml' | absolute_url }}" rel="self"/>
   <updated>{{ site.time | date_to_xmlschema }}</updated>
   <id>{{ site.url }}/</id>
   <author>
@@ -15,9 +15,9 @@ layout: null
   {% for post in site.posts %}
   <entry>
     <title>{{ post.title }}</title>
-    <link href="{{ site.url }}{{ post.url }}"/>
+    <link href="{{ post.url | absolute_url }}"/>
     <updated>{{ post.date | date_to_xmlschema }}</updated>
-    <id>{{ site.url }}{{ post.id }}</id>
+    <id>{{ post.id | absolute_url }}</id>
     <content type="html">{{ post.content | xml_escape }}</content>
   </entry>
   {% endfor %}

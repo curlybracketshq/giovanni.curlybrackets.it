@@ -28,19 +28,19 @@ The first scene in your story is called `index.markdown`.
 Other scenes can be named whatever you like, but the name of the first scene
 **has to be `index.markdown`**.
 
-![First scene]({{ site.url }}/assets/posts/first-scene.png)
+![First scene]({{ '/assets/posts/first-scene.png' | relative_url }})
 
 A **scene** is the equivalent of a page in a *Choose Your Own Adventure* book,
 but it can be as long or short as you like. Click on the text area to write in
 it.
 
-![First scene]({{ site.url }}/assets/posts/first-scene-2.png)
+![First scene]({{ '/assets/posts/first-scene-2.png' | relative_url }})
 
 Radical! Now let's create a link to another scene. The player can go to that
 scene by clicking on the link, like HTML pages hyperlink. Here's what a link
 looks like:
 
-![Link]({{ site.url }}/assets/posts/link.png)
+![Link]({{ '/assets/posts/link.png' | relative_url }})
 
 The text inside the square brackets is what the player sees. The text inside the
 round brackets is the name of the scene she goes to when she clicks on it. Now
@@ -51,24 +51,24 @@ using gist-txt there's no such thing!
 Add a new file in the gist with the name you gave to the scene linked
 (`passage.markdown`)
 
-![Add file]({{ site.url }}/assets/posts/add-file.png)
+![Add file]({{ '/assets/posts/add-file.png' | relative_url }})
 
 and write text of the scene in it.
 
-![Second scene]({{ site.url }}/assets/posts/second-scene.png)
+![Second scene]({{ '/assets/posts/second-scene.png' | relative_url }})
 
 If you go back to the first scene, add a new link to another scene, now you've
 got a branching story! Now the player has a choice!
 
 Or at least she will when you publish the story. Click "Create public Gist"
 
-![Create public Gist]({{ site.url }}/assets/posts/create-gist.png)
+![Create public Gist]({{ '/assets/posts/create-gist.png' | relative_url }})
 
 and copy the id of the gist.
 
-![Copy Gist id]({{ site.url }}/assets/posts/copy-id.png)
+![Copy Gist id]({{ '/assets/posts/copy-id.png' | relative_url }})
 
 Now open `http://potomak.github.io/gist-txt/#<gist-id>` in a new tab to share
 the story.
 
-![Publish]({{ site.url }}/assets/posts/publish.png)
+![Publish]({{ '/assets/posts/publish.png' | relative_url }})

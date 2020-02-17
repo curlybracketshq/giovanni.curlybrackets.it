@@ -162,12 +162,12 @@ black bands, either vertically or horizontally, depending on the screen size.
 For instance iPhone X Pro devices will display vertical borders (landscape
 orientation):
 
-![iPhone]({{ site.url }}/adventure-game/assets/2020-01-25-iphone.png)
+![iPhone]({{ '/adventure-game/assets/2020-01-25-iphone.png' | relative_url }})
 
 while iPad devices will display horizontal borders (landscape
 orientation):
 
-![iPad]({{ site.url }}/adventure-game/assets/2020-01-25-ipad.png)
+![iPad]({{ '/adventure-game/assets/2020-01-25-ipad.png' | relative_url }})
 
 ## Conclusion
 

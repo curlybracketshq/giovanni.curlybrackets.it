@@ -3,7 +3,7 @@ layout: page
 title: About
 ---
 
-![Giovanni Cappellotto]({{ site.url }}/assets/me.jpg)
+![Giovanni Cappellotto]({{ '/assets/me.jpg' | relative_url }})
 
 Hi,<br>
 I'm Giovanni Cappellotto.

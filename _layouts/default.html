@@ -5,10 +5,10 @@
   <meta charset="utf-8" />
   <title>{% if page.categories.size > 0 %}{{ site.data.categories[page.categories.first].name }} - {% endif %}{{ page.title }}</title>
   <meta name="description" content="{{ page.description }}">
-  <link rel="stylesheet" type="text/css" href="{{ site.url }}/stylesheets/reset.css" />
-  <link rel="stylesheet" type="text/css" href="{{ site.url }}/stylesheets/highlight.css" />
-  <link rel="stylesheet" type="text/css" href="{{ site.url }}/stylesheets/style.css" />
-  <link rel="alternate" type="application/rss+xml" href="{{ site.url }}/atom.xml" title="Giovanni Cappellotto's Blog" />
+  <link rel="stylesheet" type="text/css" href="{{ '/stylesheets/reset.css' | relative_url }}" />
+  <link rel="stylesheet" type="text/css" href="{{ '/stylesheets/highlight.css' | relative_url }}" />
+  <link rel="stylesheet" type="text/css" href="{{ '/stylesheets/style.css' | relative_url }}" />
+  <link rel="alternate" type="application/rss+xml" href="{{ '/atom.xml' | relative_url }}" title="Giovanni Cappellotto's Blog" />
 </head>
 
 <body>

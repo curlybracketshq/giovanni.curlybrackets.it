@@ -14,7 +14,7 @@ layout: default
       <p class="categories">
         Categories:
         {% for category in page.categories %}
-          <a href="{{ site.url }}/{{ category }}">
+          <a href="{{ '/' | append: category | relative_url }}">
             {{ site.data.categories[category].name }}
           </a>
         {% endfor %}

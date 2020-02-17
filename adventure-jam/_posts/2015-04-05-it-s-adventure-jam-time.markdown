@@ -3,7 +3,7 @@ title: It's AdventureJam time
 layout: post
 ---
 
-The team is composed by [me]({{ site.url }}/about.html),
+The team is composed by [me]({{ '/about.html' | relative_url }}),
 [Daniel](https://twitter.com/campoverdi),
 [Francesco](https://twitter.com/pinakes), and
 [Luca](https://twitter.com/lucaderosso).

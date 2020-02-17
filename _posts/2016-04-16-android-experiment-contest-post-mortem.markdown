@@ -33,18 +33,18 @@ Atsume](https://play.google.com/store/apps/details?id=jp.co.hit_point.nekoatsume
 So I asked [Giorgia](http://twitter.com/sono_la_gii) to work on the
 illustrations. Well, she did a great job, I love those illustrations!
 
-![Hamusuta]({{ site.url }}/assets/posts/hamusuta.png)
+![Hamusuta]({{ '/assets/posts/hamusuta.png' | relative_url }})
 
 She perfectly interpreted my idea and after some sketches she was already
 drawing the hamster animations and all the other elements of the UI.
 
 The first version of the app:
 
-![Hashire Hamusuta 1.0]({{ site.url }}/assets/posts/hashire-hamusuta-1.0.png)
+![Hashire Hamusuta 1.0]({{ '/assets/posts/hashire-hamusuta-1.0.png' | relative_url }})
 
 The latest version of the app:
 
-![Hashire Hamusuta 2.2]({{ site.url }}/assets/posts/hashire-hamusuta-2.2.png)
+![Hashire Hamusuta 2.2]({{ '/assets/posts/hashire-hamusuta-2.2.png' | relative_url }})
 
 ### Go and Google App Engine
 
