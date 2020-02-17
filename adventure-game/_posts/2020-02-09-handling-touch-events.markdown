@@ -8,11 +8,15 @@ discussion:
 
 ## Introduction
 
-All games support some kind of user interaction, right? In the case of a classic
-point and click adventure game, I'm going to add support for mouse or touch
-events, depending on the target device, for interacting with the game
-environment, talking to other characters, and selecting actions from the
-<acronym title="Head-up display">HUD</acronym>.
+All games support some kind of user interaction, right?
+
+In the case of classic point and click adventure games, the player should be
+able to move the cursor and click to interact with the game environment, talking
+to other characters, and selecting actions from the <acronym title="Head-up
+display">HUD</acronym>.
+
+In the next two posts I'm going to add support for mouse and touch events,
+depending on the target device, for moving the cursor node.
 
 Let's start by handling touch events on iOS and tvOS.
 
