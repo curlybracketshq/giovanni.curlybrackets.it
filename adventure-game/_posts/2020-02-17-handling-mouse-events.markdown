@@ -1,6 +1,9 @@
 ---
 title: Handling mouse events
 layout: post
+discussion:
+  url: https://www.reddit.com/r/iOSProgramming/comments/f5ia1u/adventure_game_development_using_spritekit/
+  name: r/iOSProgramming
 ---
 
 ## Introduction
