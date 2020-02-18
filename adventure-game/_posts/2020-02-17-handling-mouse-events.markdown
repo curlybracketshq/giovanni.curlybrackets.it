@@ -8,17 +8,16 @@ discussion:
 
 ## Introduction
 
-Last week I've implemented four callbacks for [handling touch events]({%
-post_url adventure-game/2020-02-09-handling-touch-events %}) on iOS and tvOS.
+Last week I've implemented the callbacks for [handling touch events]({% post_url
+adventure-game/2020-02-09-handling-touch-events %}) on iOS and tvOS.
 
 This week I'm implementing a callback for handling mouse events on macOS.
 
 ## Moving the cursor (on macOS)
 
-The only callback that I need to implement for now is `mouseMoved`. It informs
-the receiver that the mouse has moved. Each function call will update the
-position of the cursor node with the relative position of the mouse in the game
-scene:
+The only method that I need to override for now is `mouseMoved`. It informs the
+receiver that the mouse has moved. Each function call will update the position
+of the cursor node with the relative position of the mouse in the game scene:
 
 ```swift
 #if os(OSX)
@@ -33,18 +32,19 @@ extension GameScene {
 #endif
 ```
 
-As soon as I build the app for the macOS target, I get this compilation error:
+The code is pretty straight forward, but soon as I build the app for the macOS
+target, I get this compilation error:
 
 ```
 GameScene.swift: Use of unresolved identifier 'nextPosition'
 ```
 
-This error happens because in `touchHandler`, I've defined `nextPosition` only
-if either `os(iOS)` or `os(tvOS)` is true. In order to fix this issue, because
-`touchHandler` makes sense only when the app is built for iOS or tvOS, I can
-just wrap the whole function in a `#if os(iOS) || os(tvOS)` block to
-conditionally compile that portion of code only when the target is either iOS or
-tvOS:
+This error happens because in the `touchHandler` method I've defined
+`nextPosition` only if either `os(iOS)` or `os(tvOS)` is true, but then I'm
+using it even when the target is macOS. In order to fix this issue, because
+`touchHandler` makes sense only for touch devices, I can just wrap the whole
+method definition in a `#if os(iOS) || os(tvOS)` block to conditionally compile
+that portion of code only when the target is either iOS or tvOS:
 
 ```swift
 #if os(iOS) || os(tvOS)
@@ -54,10 +54,10 @@ private func touchHandler(_ location: CGPoint) {
 #endif
 ```
 
-Fixed this error, the app builds successfully. The app's window appears, I move
-the mouse and... nothing happens :(
+Fixed this error, the app builds successfully. The app starts, a window appears
+on the screen, I move the mouse and... nothing happens :(
 
-The cursor stands still at the center of the game scene.
+The cursor is still at the center of the game scene.
 
 After a small search, I find the solution: I'm missing a *tracking area*!
 
@@ -121,7 +121,7 @@ override func mouseExited(with event: NSEvent) {
 }
 ```
 
-For same reason these callbacks never run.
+For some reason these callbacks never run.
 
 I tried to search for a solution, but I couldn't find anything that doesn't
 involve subclassing the main game view (`SKView`), so I've decided to just do
