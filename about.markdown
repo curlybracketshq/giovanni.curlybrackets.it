@@ -3,7 +3,8 @@ layout: page
 title: About
 ---
 
-![Giovanni Cappellotto]({{ '/assets/me.jpg' | relative_url }})
+<div id="mosaic" data-src="{{ '/assets/me.jpg' | relative_url }}"></div>
+<script type="text/javascript" src="{{ '/javascripts/mosaic.js' | relative_url }}"></script>
 
 Hi,<br>
 I'm Giovanni Cappellotto.
