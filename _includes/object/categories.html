@@ -1,0 +1,10 @@
+{% if object.categories.size > 0 %}
+  <p class="categories">
+    Categories:
+    {% for category in object.categories %}
+      <a href="{{ '/' | append: category | relative_url }}">
+        {{ site.data.categories[category].name }}
+      </a>
+    {% endfor %}
+  </p>
+{% endif %}

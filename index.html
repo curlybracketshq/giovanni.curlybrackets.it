@@ -14,21 +14,8 @@ description: A place where I write posts about different matters.
 
 <ul class="unstyled">
   {% for post in site.posts %}
-    <li>
-      <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
-      <time datetime='{{ post.date | date: "%Y-%m-%d" }}'>
-        {{ post.date | date: "%B %e, %Y" }}
-      </time>
-      {% if post.categories.size > 0 %}
-        <p class="categories">
-          Categories:
-          {% for category in post.categories %}
-            <a href="{{ '/' | append: category | relative_url }}">
-              {{ site.data.categories[category].name }}
-            </a>
-          {% endfor %}
-        </p>
-      {% endif %}
-    </li>
+    {% assign object = post %}
+    {% assign show_category = true %}
+    {% include object/list_item.html %}
   {% endfor %}
 </ul>

@@ -12,11 +12,7 @@ layout: default
 
 <ul class="unstyled">
   {% for post in site.categories[page.category] %}
-    <li>
-      <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
-      <time datetime='{{ post.date | date: "%Y-%m-%d" }}'>
-        {{ post.date | date: "%B %e, %Y" }}
-      </time>
-    </li>
+    {% assign object = post %}
+    {% include object/list_item.html %}
   {% endfor %}
 </ul>
