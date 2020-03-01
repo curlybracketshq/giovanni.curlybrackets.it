@@ -10,112 +10,83 @@
   var scaleFactor = 20;
   var samples = Math.ceil(scaleFactor * scaleFactor / 100);
 
+  // Transparent color
   var tr = [0, 0, 0, 0];
   var smileyColor = randColor();
   var smileys = [
-    [
-      '00000000',
-      '00111100',
-      '01011010',
-      '01111110',
-      '01111110',
-      '00100100',
-      '00000000',
-      '00000000',
-    ],
-    [
-      '00000000',
-      '00000000',
-      '00100100',
-      '01111110',
-      '01111110',
-      '00111100',
-      '00011000',
-      '00000000',
-    ],
-    [
-      '00000000',
-      '00000000',
-      '00100100',
-      '00000000',
-      '01000010',
-      '00111100',
-      '00000000',
-      '00000000',
-    ],
-    [
-      '00000000',
-      '00000000',
-      '00100100',
-      '00000000',
-      '00000000',
-      '00111100',
-      '00000000',
-      '00000000',
-    ],
-    [
-      '00000000',
-      '00000000',
-      '00100100',
-      '00000000',
-      '00000000',
-      '00111100',
-      '01000010',
-      '00000000',
-    ],
-    [
-      '00000000',
-      '01000010',
-      '00100100',
-      '00011000',
-      '00011000',
-      '00100100',
-      '01000010',
-      '00000000',
-    ]
+    '003C5A7E7E240000',
+    '0000247E7E3C1800',
+    '00002400423C0000',
+    '00002400003C0000',
+    '00002400003C4200',
+    '0042241818244200'
   ];
+
   var smiley = (function () {
-    var overlayIndex = document.location.search.indexOf('overlay=');
+    var paramName = 'overlay=';
+    var overlayIndex = document.location.search.indexOf(paramName);
     if (overlayIndex > -1) {
-      var overlay = document.location.search.slice(overlayIndex);
-      overlay = overlay.split('&')[0];
-      var overlayData = overlay.split('=')[1];
+      var overlayData = document.location.search.slice(
+        overlayIndex + paramName.length
+      ).split('&')[0];
       try {
         return decodeOverlay(overlayData);
-      } catch(err) {
+      } catch (err) {
         console.error('Overlay data decoding failed :( -', err);
       }
     }
-    return smileys[randInt(smileys.length)];
+    return decodeOverlay(smileys[randInt(smileys.length)]);
   })();
 
+  // Decode a 16 digits long hexadecimal number into 64 bits (stored as 8 arrays
+  // of 8 chars long strings of 0s and 1s).
   function decodeOverlay(data) {
-    if (data.length != 64) {
-      throw new Error('Wrong data length');
+    if (!/^[a-f0-9]{16}$/i.test(data)) {
+      throw new Error('Wrong data format');
     }
-    var i, overlay = [];
-    for (i = 0; i < 8; i++) {
-      overlay.push(data.slice(i * 8, i * 8 + 8));
+    var i, j, d, overlay = [];
+    for (i = 0; i < 16; i++) {
+      d = (16 + parseInt(data[i], 16)).toString(2).slice(1);
+      j = Math.floor(i / 2);
+      overlay[j] = overlay[j] == null ? d : overlay[j] + d;
     }
     return overlay;
   }
 
+  // Encode 64 bits of data (stored as 8 arrays of 8 chars long strings of 0s
+  // and 1s) as a hexadecimal number.
+  function encodeOverlay(data) {
+    return data.reduce(function (acc, n) {
+      return acc + (256 + parseInt(n, 2)).toString(16).slice(1);
+    }, '');
+  }
+
+  // Returns a pseudo random color.
+  //
+  // These colors have at most one or two high components. That means there
+  // should be at most 3 + 3 possible color classes.
+  //
+  // "High component" means a component that has a value between 255 - 32 and
+  // 255. In contrast, "low component", is a component that has a value between
+  // 0 and 31.
+  //
+  // The alpha is a value between 0.25 and 0.75.
   function randColor() {
     var comp = 32;
-    var highComponent1 = randInt(3);
-    var highComponent2 = randInt(3);
-    var color = [
-      randInt(comp),
-      randInt(comp),
-      randInt(comp),
+    var highComponents = 1 << randInt(3) | 1 << randInt(3);
+    return [
+      randInt(comp) + (highComponents & 1 << 2 ? 256 - comp : 0),
+      randInt(comp) + (highComponents & 1 << 1 ? 256 - comp : 0),
+      randInt(comp) + (highComponents & 1 << 0 ? 256 - comp : 0),
       0.25 + Math.random() / 2
     ];
-    color[highComponent1] += 255 - comp;
-    if (highComponent1 != highComponent2) {
-      color[highComponent2] += 255 - comp;
-    }
-    return color;
   };
+
+  // Returns a CSS string representation of a color composed by 4 components:
+  // red, green, blue, and alpha.
+  function colorToString(c) {
+    return 'rgba(' + c[0] + ', ' + c[1] + ', ' + c[2] + ', ' + c[3] + ')';
+  }
 
   function getColorAtCoord(x, y, imageData) {
     var redIndex = y * (imageData.width * 4) + x * 4;
@@ -204,7 +175,7 @@
     var x, y;
     for (y = 0; y < data.length; y++) {
       for (x = 0; x < data[y].length; x++) {
-        ctx.fillStyle = 'rgba(' + data[y][x][0] + ', ' + data[y][x][1] + ', ' + data[y][x][2] + ', ' + data[y][x][3] + ')'
+        ctx.fillStyle = colorToString(data[y][x]);
         ctx.fillRect(x * scaleFactor, y * scaleFactor, scaleFactor, scaleFactor);
       }
     }
