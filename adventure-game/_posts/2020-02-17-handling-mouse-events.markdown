@@ -92,10 +92,7 @@ if let frame = view?.frame {
 
 This is the final result:
 
-<video controls>
-  <source src="{{ '/adventure-game/assets/2020-02-17-macos.mp4' | relative_url }}" type="video/mp4">
-  Sorry, your browser doesn't support embedded videos.
-</video>
+{% include video.html src='/adventure-game/assets/2020-02-17-macos.mp4' %}
 
 ## Hiding the default cursor
 

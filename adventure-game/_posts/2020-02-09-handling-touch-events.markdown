@@ -82,18 +82,12 @@ private lazy var cursor = Cursor(120)
 
 This is the result on iPhone:
 
-<video controls>
-  <source src="{{ '/adventure-game/assets/2020-02-09-iphone.mp4' | relative_url }}" type="video/mp4">
-  Sorry, your browser doesn't support embedded videos.
-</video>
+{% include video.html src='/adventure-game/assets/2020-02-09-iphone.mp4' %}
 
 There's a small issue with the movements of the cursor on tvOS. The cursor
 starts moving always from the center of the screen:
 
-<video controls>
-  <source src="{{ '/adventure-game/assets/2020-02-09-tvos-broken.mp4' | relative_url }}" type="video/mp4">
-  Sorry, your browser doesn't support embedded videos.
-</video>
+{% include video.html src='/adventure-game/assets/2020-02-09-tvos-broken.mp4' %}
 
 The reason why this is happening is because on tvOS `touchesBegan` *resets* the
 position of touch events in the current touches series.
@@ -179,10 +173,7 @@ cursor position by adding the delta to the cursor last position.
 
 This is the result on tvOS:
 
-<video controls>
-  <source src="{{ '/adventure-game/assets/2020-02-09-tvos-fixed.mp4' | relative_url }}" type="video/mp4">
-  Sorry, your browser doesn't support embedded videos.
-</video>
+{% include video.html src='/adventure-game/assets/2020-02-09-tvos-fixed.mp4' %}
 
 ## Conclusion
 
