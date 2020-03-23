@@ -1,6 +1,9 @@
 ---
 title: Label nodes and debugging cursor's position
 layout: post
+discussion:
+  url: https://www.reddit.com/r/iOSProgramming/comments/fncgaj/adventure_game_development_using_spritekit_label/
+  name: r/iOSProgramming
 ---
 
 ## Introduction
