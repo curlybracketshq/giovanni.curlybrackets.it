@@ -1,7 +1,7 @@
-{% if object.categories.size > 0 %}
+{% if include.post.categories.size > 0 %}
   <p class="categories">
     Categories:
-    {% for category in object.categories %}
+    {% for category in include.post.categories %}
       <a href="{{ '/' | append: category | relative_url }}">
         {{ site.data.categories[category].name }}
       </a>

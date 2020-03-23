@@ -1,0 +1,8 @@
+<li>
+  <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
+
+  {% include time.html post=post %}
+  {% if include.show_category %}
+    {% include categories.html post=post %}
+  {% endif %}
+</li>

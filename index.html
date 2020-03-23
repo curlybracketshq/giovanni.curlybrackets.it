@@ -14,8 +14,6 @@ description: A place where I write posts about different matters.
 
 <ul class="unstyled">
   {% for post in site.posts %}
-    {% assign object = post %}
-    {% assign show_category = true %}
-    {% include object/list_item.html %}
+    {% include list_item.html post=post show_category=true %}
   {% endfor %}
 </ul>

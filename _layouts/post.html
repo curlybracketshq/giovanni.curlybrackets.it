@@ -6,9 +6,8 @@ layout: default
   <header>
     <h1>{{ page.title }}</h1>
 
-    {% assign object = page %}
-    {% include object/time.html %}
-    {% include object/categories.html %}
+    {% include time.html post=page %}
+    {% include categories.html post=page %}
   </header>
 
   {% if page.categories.size > 0 and site.data.categories[page.categories.first] and site.data.categories[page.categories.first].intro %}
