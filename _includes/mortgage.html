@@ -1,0 +1,25 @@
+<div class="form">
+  I will pay $
+  <input id="principal" type="text" name="principal" placeholder="500000" />
+  in
+  <input id="time_years" type="text" name="time_years" placeholder="15" />
+  years starting from
+  <input id="start_date" type="text" name="start_date" placeholder="05/2019" />
+  with an annual interest rate of
+  <input id="interest_rate" type="text" name="interest_rate" placeholder="3.5" />
+  %
+</div>
+
+<div id='output_summary'></div>
+<div id='output_schedule'></div>
+
+<script type="text/javascript" src="{{ '/javascripts/mortgage.js' | relative_url }}"></script>
+<script type="text/javascript">
+  var head = document.getElementsByTagName('head')[0];
+  var link = document.createElement("link");
+  link.href = "{{ '/mortgage/style.css' | relative_url }}";
+  link.media = 'screen';
+  link.type = 'text/css';
+  link.rel = 'stylesheet';
+  head.appendChild(link);
+</script>

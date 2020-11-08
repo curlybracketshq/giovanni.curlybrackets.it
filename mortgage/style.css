@@ -1,0 +1,69 @@
+table {
+  width: 100%;
+  border-left: 1px solid #CCC;
+  border-top: 1px solid #CCC;
+}
+
+th {
+  font-weight: bold;
+}
+
+td, th {
+  padding: 4px;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+}
+
+td.payment_amount,
+td.payment_interest_amount,
+td.payment_principal_amount,
+td.remaining_principal {
+  text-align: right;
+}
+
+.form,
+.form input {
+  color: #333;
+  font-size: 28px;
+  font-family: -apple-system, sans-serif;
+}
+
+.form {
+  margin: 20px auto;
+}
+
+.form input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #EEE;
+}
+
+.form input:focus {
+  outline: none;
+  border-bottom: 1px solid #CCC;
+}
+
+#principal {
+  width: 130px;
+}
+
+#time_years {
+  width: 40px;
+}
+
+#start_date {
+  width: 110px;
+}
+
+#interest_rate {
+  width: 60px;
+}
+
+#output_summary,
+#output_schedule {
+  margin: 20px auto;
+}
+
+#output_summary div {
+  margin: 6px auto;
+}
