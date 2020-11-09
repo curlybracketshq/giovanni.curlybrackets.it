@@ -22,10 +22,15 @@ td.remaining_principal {
 }
 
 .form,
-.form input {
+.form input,
+button {
   color: #333;
-  font-size: 28px;
   font-family: -apple-system, sans-serif;
+}
+
+.form,
+.form input {
+  font-size: 28px;
 }
 
 .form {
@@ -43,7 +48,19 @@ td.remaining_principal {
   border-bottom: 1px solid #CCC;
 }
 
-#principal {
+button {
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 18px;
+}
+
+button.remove_pre_payment {
+  margin-top: 8px;
+}
+
+#principal,
+.pre_payment {
   width: 130px;
 }
 
@@ -51,7 +68,8 @@ td.remaining_principal {
   width: 40px;
 }
 
-#start_date {
+#start_date,
+.pre_payment_date {
   width: 110px;
 }
 
