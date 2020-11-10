@@ -5,6 +5,8 @@
   var DATE_SEPARATOR = '/';
   var DECIMAL_SEPARATOR = '.';
   var THOUNSANDS_SEPARATOR = ',';
+  var VIZ_ABSOLUTE_SIZE = 200;
+  var VIZ_RELATIVE_SIZE = 100;
   var DEFAULT_CURRENCY_SYMBOL = '$';
   var TIME_UNIT_YEARS = 'years';
   var INPUT_PRINCIPAL = document.getElementById('principal');
@@ -16,6 +18,21 @@
   var BUTTON_ADD_PRE_PAYMENT = document.getElementById('add_pre_payment');
   var OUTPUT_SUMMARY = document.getElementById('output_summary');
   var OUTPUT_SCHEDULE = document.getElementById('output_schedule');
+  var SVG_VIZ_HOUSE = document.getElementById('house');
+  var SVG_VIZ_BANK = document.getElementById('bank');
+  var SVG_VIZ_PRINCIPAL_PROGRESS = document.getElementById('principal_progress');
+  var SVG_VIZ_INTEREST_PROGRESS = document.getElementById('interest_progress');
+  var INPUT_VIZ_TIME = document.getElementById('viz_time');
+  var SCHEDULE_ROW_ID_PREFIX = 'period_';
+  var SELECTED_PERIOD_CLASS = 'selected_period';
+  var SELECTED_DATE = new Date();
+  var SCHEDULE_COLS = [
+    'date',
+    'payment_amount',
+    'payment_interest_amount',
+    'payment_principal_amount',
+    'remaining_principal',
+  ];
 
   function updateData(key, type, event) {
     INPUT_DATA[key] = parseInput(type, event.target.value);
@@ -300,12 +317,21 @@
     }
   }
 
-  function buildScheduleRow(columns) {
+  // Convert a JS date to a date object.
+  function toDate(date) {
+    return {
+      month: date.getMonth() + 1,
+      year: date.getFullYear()
+    };
+  }
+
+  function buildScheduleRow(data) {
     var row = document.createElement('tr');
-    for (var i = 0; i < columns.length; i++) {
+    for (var i = 0; i < SCHEDULE_COLS.length; i++) {
       var cell = document.createElement('td');
-      cell.className = columns[i].key;
-      cell.textContent = formatDataValue(columns[i].key, columns[i].value);
+      var key = SCHEDULE_COLS[i];
+      cell.className = key;
+      cell.textContent = formatDataValue(key, data[key]);
       row.appendChild(cell);
     }
     return row;
@@ -329,19 +355,72 @@
     var table = document.createElement('table');
     OUTPUT_SCHEDULE.appendChild(table);
 
-    var firstRow = SCHEDULE_DATA[0];
     var headerRow = document.createElement('tr');
-    for (var i = 0; i < firstRow.length; i++) {
+    for (var i = 0; i < SCHEDULE_COLS.length; i++) {
       var cell = document.createElement('th');
-      cell.textContent = toHuman(firstRow[i].key);
+      cell.textContent = toHuman(SCHEDULE_COLS[i]);
       headerRow.appendChild(cell);
     }
     table.appendChild(headerRow);
 
     for (var i = 0; i < SCHEDULE_DATA.length; i++) {
       var row = buildScheduleRow(SCHEDULE_DATA[i]);
+      row.id = SCHEDULE_ROW_ID_PREFIX + (i + 1);
+      if (dateDelta(SCHEDULE_DATA[i].date, toDate(SELECTED_DATE)) == 0) {
+        row.className = SELECTED_PERIOD_CLASS;
+      }
       table.appendChild(row);
     }
+  }
+
+  function displayViz() {
+    if (!isInputDataValid(INPUT_DATA)) {
+      return;
+    }
+
+    if (COMPUTED_DATA.periods < 1) {
+      return;
+    }
+
+    var interestToPrincipalRatio = COMPUTED_DATA.total_interest / INPUT_DATA.principal;
+
+    SVG_VIZ_HOUSE.setAttribute('width', VIZ_ABSOLUTE_SIZE);
+    SVG_VIZ_HOUSE.setAttribute('height', VIZ_ABSOLUTE_SIZE);
+    SVG_VIZ_BANK.setAttribute('width', VIZ_ABSOLUTE_SIZE * interestToPrincipalRatio);
+    SVG_VIZ_BANK.setAttribute('height', VIZ_ABSOLUTE_SIZE * interestToPrincipalRatio);
+
+    INPUT_VIZ_TIME.setAttribute('max', COMPUTED_DATA.periods - 1);
+    var currentPeriod = dateDelta(INPUT_DATA.start_date, toDate(SELECTED_DATE));
+    INPUT_VIZ_TIME.setAttribute('value', currentPeriod);
+    updateDataViz(currentPeriod);
+  }
+
+  function updateDataViz(period) {
+    var principalProgressSum = 0;
+    var interestProgressSum = 0;
+    for (var i = 0; i <= period && i < SCHEDULE_DATA.length; i++) {
+      principalProgressSum += SCHEDULE_DATA[i].payment_principal_amount;
+      interestProgressSum += SCHEDULE_DATA[i].payment_interest_amount;
+    }
+    var principalProgressRatio = principalProgressSum / INPUT_DATA.principal;
+    var interestProgressRatio = interestProgressSum / COMPUTED_DATA.total_interest;
+
+    SVG_VIZ_PRINCIPAL_PROGRESS.setAttribute('height', VIZ_RELATIVE_SIZE * principalProgressRatio);
+    SVG_VIZ_PRINCIPAL_PROGRESS.setAttribute('y', VIZ_RELATIVE_SIZE * (1 - principalProgressRatio));
+    SVG_VIZ_INTEREST_PROGRESS.setAttribute('height', VIZ_RELATIVE_SIZE * interestProgressRatio);
+    SVG_VIZ_INTEREST_PROGRESS.setAttribute('y', VIZ_RELATIVE_SIZE * (1 - interestProgressRatio));
+
+    // Update selected row in the amortization schedule
+    OUTPUT_SCHEDULE.getElementsByClassName(SELECTED_PERIOD_CLASS)[0].className = '';
+    document.getElementById(SCHEDULE_ROW_ID_PREFIX + (period + 1)).className = SELECTED_PERIOD_CLASS;
+  }
+
+  function setTheme() {
+    var accentColor = '#0cf';
+    var secondaryColor = '#c0f';
+
+    SVG_VIZ_PRINCIPAL_PROGRESS.setAttribute('fill', accentColor);
+    SVG_VIZ_INTEREST_PROGRESS.setAttribute('fill', secondaryColor);
   }
 
   function addMonths(startDate, months) {
@@ -352,13 +431,18 @@
     }
   }
 
-  // Returns the number of months between start and end dates.
-  function subtractDate(startDate, endDate) {
+  // Returns the number of months between start and end date.
+  function dateDelta(startDate, endDate) {
     var yearDelta = endDate.year - startDate.year;
-    var monthDelta = yearDelta > 0 ?
-      endDate.month + (12 - startDate.month) :
-      endDate.month - startDate.month;
-    return monthDelta + Math.max(0, yearDelta - 1) * 12;
+    if (yearDelta == 0) {
+      return endDate.month - startDate.month;
+    }
+
+    var startMonth = yearDelta > 0 ? startDate.month : endDate.month;
+    var endMonth = yearDelta > 0 ? endDate.month : startDate.month;
+    var monthDelta = endMonth + (12 - startMonth);
+    var sign = yearDelta > 0 ? 1 : -1;
+    return sign * (monthDelta + Math.max(0, Math.abs(yearDelta) - 1) * 12);
   }
 
   function computeData() {
@@ -381,7 +465,7 @@
       }
       var prePaymentsByPeriod = {};
       for (var i = 0; i < prePayments.length; i++) {
-        var period = subtractDate(INPUT_DATA.start_date, prePayments[i].pre_payment_date);
+        var period = dateDelta(INPUT_DATA.start_date, prePayments[i].pre_payment_date);
         prePaymentsByPeriod[period] = prePayments[i].pre_payment;
       }
 
@@ -395,6 +479,7 @@
 
     displaySummary();
     displaySchedule();
+    displayViz();
   }
 
   function computeAmortizationSchedule(prePaymentsByPeriod) {
@@ -413,13 +498,13 @@
       var paymentPrincipalAmount = paymentAmount - paymentInterestAmount + prePayment;
       principal -= paymentPrincipalAmount;
       var effectivePaymentAmount = paymentAmount + prePayment;
-      output.schedule_data.push([
-        {key: 'date', value: addMonths(INPUT_DATA.start_date, i)},
-        {key: 'payment_amount', value: effectivePaymentAmount},
-        {key: 'payment_interest_amount', value: paymentInterestAmount},
-        {key: 'payment_principal_amount', value: paymentPrincipalAmount},
-        {key: 'remaining_principal', value: principal},
-      ]);
+      output.schedule_data.push({
+        date: addMonths(INPUT_DATA.start_date, i),
+        payment_amount: effectivePaymentAmount,
+        payment_interest_amount: paymentInterestAmount,
+        payment_principal_amount: paymentPrincipalAmount,
+        remaining_principal: principal,
+      });
       output.total_mortgage += effectivePaymentAmount;
     }
 
@@ -433,6 +518,10 @@
   INPUT_START_DATE.addEventListener('input', updateData.bind(this, 'start_date', 'date'));
 
   BUTTON_ADD_PRE_PAYMENT.addEventListener('click', addPrePayment);
+
+  INPUT_VIZ_TIME.addEventListener('input', function (event) {
+    return updateDataViz(parseInt(event.target.value, 10));
+  });
 
   var INPUT_DATA = {
     principal: parseInput('float', INPUT_PRINCIPAL.value),
@@ -467,5 +556,6 @@
     };
   }
 
+  setTheme();
   computeData();
 }());

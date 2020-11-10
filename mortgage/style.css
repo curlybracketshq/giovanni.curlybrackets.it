@@ -14,6 +14,10 @@ td, th {
   border-bottom: 1px solid #CCC;
 }
 
+tr.selected_period {
+  background-color: #EEE;
+}
+
 td.payment_amount,
 td.payment_interest_amount,
 td.payment_principal_amount,
