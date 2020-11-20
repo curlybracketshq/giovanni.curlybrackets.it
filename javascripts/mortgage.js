@@ -1,38 +1,102 @@
-'use strict';
-
 (function () {
-  var DEBUG = false;
-  var DATE_SEPARATOR = '/';
-  var DECIMAL_SEPARATOR = '.';
-  var THOUNSANDS_SEPARATOR = ',';
-  var VIZ_ABSOLUTE_SIZE = 200;
-  var VIZ_RELATIVE_SIZE = 100;
-  var DEFAULT_CURRENCY_SYMBOL = '$';
-  var TIME_UNIT_YEARS = 'years';
-  var INPUT_PRINCIPAL = document.getElementById('principal');
-  var INPUT_TIME_YEARS = document.getElementById('time_years');
-  var INPUT_INTEREST_RATE = document.getElementById('interest_rate');
-  var INPUT_START_DATE = document.getElementById('start_date');
-  var PRE_PAYMENT_INDEX = 0;
-  var PRE_PAYMENT_FORMS = document.getElementById('pre_payment_forms');
-  var BUTTON_ADD_PRE_PAYMENT = document.getElementById('add_pre_payment');
-  var OUTPUT_SUMMARY = document.getElementById('output_summary');
-  var OUTPUT_SCHEDULE = document.getElementById('output_schedule');
-  var SVG_VIZ_HOUSE = document.getElementById('house');
-  var SVG_VIZ_BANK = document.getElementById('bank');
-  var SVG_VIZ_PRINCIPAL_PROGRESS = document.getElementById('principal_progress');
-  var SVG_VIZ_INTEREST_PROGRESS = document.getElementById('interest_progress');
-  var INPUT_VIZ_TIME = document.getElementById('viz_time');
-  var SCHEDULE_ROW_ID_PREFIX = 'period_';
-  var SELECTED_PERIOD_CLASS = 'selected_period';
-  var SELECTED_DATE = new Date();
-  var SCHEDULE_COLS = [
-    'date',
-    'payment_amount',
-    'payment_interest_amount',
-    'payment_principal_amount',
-    'remaining_principal',
-  ];
+  'use strict';
+
+  // Configuration values
+  var C = {
+    debug: true,
+    dateSeparator: '/',
+    decimalSeparator: '.',
+    thounsandsSeparator: ',',
+    vizAbsoluteSize: 200,
+    vizRelativeSize: 100,
+    currencySymbol: '$',
+    timeUnitYears: 'years',
+    scheduleRowIdPrefix: 'period_',
+    selectedPeriodClass: 'selected_period',
+    scheduleCols: [
+      'date',
+      'payment_amount',
+      'payment_interest_amount',
+      'payment_principal_amount',
+      'remaining_principal',
+    ],
+  };
+
+  // Elements
+  var E = {
+    inputPrincipal: document.getElementById('principal'),
+    inputTimeYears: document.getElementById('time_years'),
+    inputInterestRate: document.getElementById('interest_rate'),
+    inputStartDate: document.getElementById('start_date'),
+    prePaymentForms: document.getElementById('pre_payment_forms'),
+    buttonAddPrePayment: document.getElementById('add_pre_payment'),
+    outputSummary: document.getElementById('output_summary'),
+    outputSchedule: document.getElementById('output_schedule'),
+    svgVizHouse: document.getElementById('house'),
+    svgVizBank: document.getElementById('bank'),
+    svgVizPrincipalProgress: document.getElementById('principal_progress'),
+    svgVizInterestProgress: document.getElementById('interest_progress'),
+    inputVizTime: document.getElementById('viz_time'),
+  };
+
+  // Global state
+  var G = {
+    prePaymentIndex: 0,
+    selectedDate: new Date(),
+  };
+
+  // Attach event listeners
+  E.inputPrincipal.addEventListener('input', updateData.bind(this, 'principal', 'float'));
+  E.inputTimeYears.addEventListener('input', updateData.bind(this, 'time_years', 'integer'));
+  E.inputInterestRate.addEventListener('input', updateData.bind(this, 'interest_rate', 'float'));
+  E.inputStartDate.addEventListener('input', updateData.bind(this, 'start_date', 'date'));
+  E.buttonAddPrePayment.addEventListener('click', addPrePayment);
+  E.inputVizTime.addEventListener('input', function (event) {
+    return updateDataViz(parseInt(event.target.value, 10));
+  });
+
+  // Data model
+  var INPUT_DATA = {
+    principal: parseInput('float', E.inputPrincipal.value),
+    time_years: parseInput('integer', E.inputTimeYears.value),
+    interest_rate: parseInput('float', E.inputInterestRate.value),
+    start_date: parseInput('date', E.inputStartDate.value),
+  };
+  var COMPUTED_DATA = {
+    periods: null,
+    periodic_interest: null,
+    periodic_payment: null,
+    total_mortgage: null,
+    total_interest: null,
+  };
+  var COMPUTED_DATA_WITHOUT_PRE_PAYMENTS = {
+    total_mortgage: null,
+    total_interest: null,
+  };
+  var SCHEDULE_DATA = [];
+  var PRE_PAYMENTS_DATA = {};
+
+  // Initialization for debugging purpose
+  if (C.debug) {
+    E.inputPrincipal.value = 500000;
+    E.inputTimeYears.value = 15;
+    E.inputInterestRate.value = 3.5;
+    E.inputStartDate.value = '05/2019';
+    INPUT_DATA = {
+      principal: 500000,
+      time_years: 15,
+      interest_rate: 3.5,
+      start_date: {month: 5, year: 2019},
+    };
+  }
+
+  // Initialization
+  setTheme();
+  computeData();
+
+  //
+  // Functions
+  //
 
   function updateData(key, type, event) {
     INPUT_DATA[key] = parseInput(type, event.target.value);
@@ -61,27 +125,24 @@
     prePaymentInput.className = 'pre_payment';
     prePaymentInput.type = 'text';
     prePaymentInput.placeholder = '70000';
-    prePaymentInput.addEventListener(
-      'input',
-      updatePrePaymentData.bind(this, PRE_PAYMENT_INDEX, 'pre_payment', 'float'),
-    );
+    prePaymentInput.addEventListener('input', function (event) {
+      updatePrePaymentData(G.prePaymentIndex, 'pre_payment', 'float', event);
+    });
 
     var prePaymentDateInput = document.createElement('input');
     prePaymentDateInput.className = 'pre_payment_date';
     prePaymentDateInput.type = 'text';
     prePaymentDateInput.placeholder = '11/2020';
-    prePaymentDateInput.addEventListener(
-      'input',
-      updatePrePaymentData.bind(this, PRE_PAYMENT_INDEX, 'pre_payment_date', 'date'),
-    );
+    prePaymentDateInput.addEventListener('input', function (event) {
+      updatePrePaymentData(G.prePaymentIndex, 'pre_payment_date', 'date', event);
+    });
 
     var removePrePaymentButton = document.createElement('button');
     removePrePaymentButton.className = 'remove_pre_payment';
     removePrePaymentButton.textContent = 'Remove pre-payment';
-    removePrePaymentButton.addEventListener(
-      'click',
-      removePrePayment.bind(this, PRE_PAYMENT_INDEX, form),
-    );
+    removePrePaymentButton.addEventListener('click', function (event) {
+      removePrePayment(G.prePaymentIndex, form, event);
+    });
 
     var formContent = document.createElement('div');
     formContent.className = 'form_content';
@@ -92,26 +153,18 @@
     form.appendChild(formContent);
     form.appendChild(removePrePaymentButton);
 
-    PRE_PAYMENT_FORMS.appendChild(form);
-    PRE_PAYMENTS_DATA[PRE_PAYMENT_INDEX] = {
+    E.prePaymentForms.appendChild(form);
+    PRE_PAYMENTS_DATA[G.prePaymentIndex] = {
       pre_payment: null,
       pre_payment_date: {month: null, year: null},
     };
-    PRE_PAYMENT_INDEX++;
+    G.prePaymentIndex++;
   }
 
   function removePrePayment(index, node, event) {
     node.remove();
     delete PRE_PAYMENTS_DATA[index];
     computeData();
-  }
-
-  function queryPrePaymentInputs() {
-    return document.getElementsByClassName('pre_payment');
-  }
-
-  function queryPrePaymentDateInputs() {
-    return document.getElementsByClassName('pre_payment_date');
   }
 
   function parseInput(type, value) {
@@ -121,7 +174,7 @@
       case 'float':
         return parseFloat(value);
       case 'date':
-        var dateSections = value.split(DATE_SEPARATOR);
+        var dateSections = value.split(C.dateSeparator);
         return {
           month: parseInt(dateSections[0], 10),
           year: parseInt(dateSections[1], 10),
@@ -176,7 +229,7 @@
     var decimal = rounded % power;
     var decimalStr = ((decimal + power * signFactor) * signFactor).toString().substr(1);
     var integer = (rounded - decimal) / power;
-    return toThounsands(integer) + DECIMAL_SEPARATOR + decimalStr;
+    return toThounsands(integer) + C.decimalSeparator + decimalStr;
   }
 
   function toThounsands(value) {
@@ -185,7 +238,7 @@
     var output = [];
     for (var i = 0; i < valueStr.length; i++) {
       if (i > 0 && i % 3 == 0) {
-        output.push(THOUNSANDS_SEPARATOR);
+        output.push(C.thounsandsSeparator);
       }
       output.push(valueStr[valueStr.length - 1 - i]);
     }
@@ -193,7 +246,7 @@
   }
 
   function formatCurrency(value) {
-    return DEFAULT_CURRENCY_SYMBOL + toFixedWithPadding(value, 2);
+    return C.currencySymbol + toFixedWithPadding(value, 2);
   }
 
   function formatCurrencyWithComparison(value, oldValue) {
@@ -217,7 +270,7 @@
 
   function formatDate(value) {
     var month = (100 + value.month).toString().substr(1);
-    return month + DATE_SEPARATOR + value.year.toString();
+    return month + C.dateSeparator + value.year.toString();
   }
 
   function formatDataValue(key, value) {
@@ -233,10 +286,10 @@
       case 'total_interest':
         return formatCurrencyWithComparison(
           value,
-          COMPUTED_DATA_WITHOUT_PRE_PAYMENTS[key],
+          COMPUTED_DATA_WITHOUT_PRE_PAYMENTS[key]
         );
       case 'time_years':
-        return formatTime(value, TIME_UNIT_YEARS);
+        return formatTime(value, C.timeUnitYears);
       case 'interest_rate':
         return formatPercentage(value, 2);
       case 'periodic_interest':
@@ -276,10 +329,8 @@
   }
 
   function isInputDataValid(data) {
-    var isValid = true;
     for (var key in data) {
-      isValid = isValid && isInputDataValueValid(key, data[key]);
-      if (!isValid) {
+      if (data.hasOwnProperty(key) && !isInputDataValueValid(key, data[key])) {
         return false;
       }
     }
@@ -298,21 +349,28 @@
   }
 
   function displaySummary() {
-    OUTPUT_SUMMARY.textContent = '';
+    E.outputSummary.textContent = '';
 
     var title = document.createElement('h2');
     title.textContent = 'Summary';
-    OUTPUT_SUMMARY.appendChild(title);
+    E.outputSummary.appendChild(title);
 
-    for (var key in INPUT_DATA) {
-      var item = buildSummaryItem(key, INPUT_DATA[key]);
-      OUTPUT_SUMMARY.appendChild(item);
+    var key, item;
+    for (key in INPUT_DATA) {
+      if (INPUT_DATA.hasOwnProperty(key)) {
+        item = buildSummaryItem(key, INPUT_DATA[key]);
+        E.outputSummary.appendChild(item);
+      }
     }
 
-    if (isInputDataValid(INPUT_DATA)) {
-      for (var key in COMPUTED_DATA) {
-        var item = buildSummaryItem(key, COMPUTED_DATA[key]);
-        OUTPUT_SUMMARY.appendChild(item);
+    if (!isInputDataValid(INPUT_DATA)) {
+      return;
+    }
+
+    for (key in COMPUTED_DATA) {
+      if (COMPUTED_DATA.hasOwnProperty(key)) {
+        item = buildSummaryItem(key, COMPUTED_DATA[key]);
+        E.outputSummary.appendChild(item);
       }
     }
   }
@@ -327,9 +385,9 @@
 
   function buildScheduleRow(data) {
     var row = document.createElement('tr');
-    for (var i = 0; i < SCHEDULE_COLS.length; i++) {
+    for (var i = 0; i < C.scheduleCols.length; i++) {
       var cell = document.createElement('td');
-      var key = SCHEDULE_COLS[i];
+      var key = C.scheduleCols[i];
       cell.className = key;
       cell.textContent = formatDataValue(key, data[key]);
       row.appendChild(cell);
@@ -338,7 +396,7 @@
   }
 
   function displaySchedule() {
-    OUTPUT_SCHEDULE.textContent = '';
+    E.outputSchedule.textContent = '';
 
     if (!isInputDataValid(INPUT_DATA)) {
       return;
@@ -350,24 +408,25 @@
 
     var title = document.createElement('h2');
     title.textContent = 'Amortization Schedule';
-    OUTPUT_SCHEDULE.appendChild(title);
+    E.outputSchedule.appendChild(title);
 
     var table = document.createElement('table');
-    OUTPUT_SCHEDULE.appendChild(table);
+    E.outputSchedule.appendChild(table);
 
+    var i = 0;
     var headerRow = document.createElement('tr');
-    for (var i = 0; i < SCHEDULE_COLS.length; i++) {
+    for (i = 0; i < C.scheduleCols.length; i++) {
       var cell = document.createElement('th');
-      cell.textContent = toHuman(SCHEDULE_COLS[i]);
+      cell.textContent = toHuman(C.scheduleCols[i]);
       headerRow.appendChild(cell);
     }
     table.appendChild(headerRow);
 
-    for (var i = 0; i < SCHEDULE_DATA.length; i++) {
+    for (i = 0; i < SCHEDULE_DATA.length; i++) {
       var row = buildScheduleRow(SCHEDULE_DATA[i]);
-      row.id = SCHEDULE_ROW_ID_PREFIX + (i + 1);
-      if (dateDelta(SCHEDULE_DATA[i].date, toDate(SELECTED_DATE)) == 0) {
-        row.className = SELECTED_PERIOD_CLASS;
+      row.id = C.scheduleRowIdPrefix + (i + 1);
+      if (dateDelta(SCHEDULE_DATA[i].date, toDate(G.selectedDate)) == 0) {
+        row.className = C.selectedPeriodClass;
       }
       table.appendChild(row);
     }
@@ -384,14 +443,14 @@
 
     var interestToPrincipalRatio = COMPUTED_DATA.total_interest / INPUT_DATA.principal;
 
-    SVG_VIZ_HOUSE.setAttribute('width', VIZ_ABSOLUTE_SIZE);
-    SVG_VIZ_HOUSE.setAttribute('height', VIZ_ABSOLUTE_SIZE);
-    SVG_VIZ_BANK.setAttribute('width', VIZ_ABSOLUTE_SIZE * interestToPrincipalRatio);
-    SVG_VIZ_BANK.setAttribute('height', VIZ_ABSOLUTE_SIZE * interestToPrincipalRatio);
+    E.svgVizHouse.setAttribute('width', C.vizAbsoluteSize);
+    E.svgVizHouse.setAttribute('height', C.vizAbsoluteSize);
+    E.svgVizBank.setAttribute('width', C.vizAbsoluteSize * interestToPrincipalRatio);
+    E.svgVizBank.setAttribute('height', C.vizAbsoluteSize * interestToPrincipalRatio);
 
-    INPUT_VIZ_TIME.setAttribute('max', COMPUTED_DATA.periods - 1);
-    var currentPeriod = dateDelta(INPUT_DATA.start_date, toDate(SELECTED_DATE));
-    INPUT_VIZ_TIME.setAttribute('value', currentPeriod);
+    E.inputVizTime.setAttribute('max', COMPUTED_DATA.periods - 1);
+    var currentPeriod = dateDelta(INPUT_DATA.start_date, toDate(G.selectedDate));
+    E.inputVizTime.setAttribute('value', currentPeriod);
     updateDataViz(currentPeriod);
   }
 
@@ -405,22 +464,22 @@
     var principalProgressRatio = principalProgressSum / INPUT_DATA.principal;
     var interestProgressRatio = interestProgressSum / COMPUTED_DATA.total_interest;
 
-    SVG_VIZ_PRINCIPAL_PROGRESS.setAttribute('height', VIZ_RELATIVE_SIZE * principalProgressRatio);
-    SVG_VIZ_PRINCIPAL_PROGRESS.setAttribute('y', VIZ_RELATIVE_SIZE * (1 - principalProgressRatio));
-    SVG_VIZ_INTEREST_PROGRESS.setAttribute('height', VIZ_RELATIVE_SIZE * interestProgressRatio);
-    SVG_VIZ_INTEREST_PROGRESS.setAttribute('y', VIZ_RELATIVE_SIZE * (1 - interestProgressRatio));
+    E.svgVizPrincipalProgress.setAttribute('height', C.vizRelativeSize * principalProgressRatio);
+    E.svgVizPrincipalProgress.setAttribute('y', C.vizRelativeSize * (1 - principalProgressRatio));
+    E.svgVizInterestProgress.setAttribute('height', C.vizRelativeSize * interestProgressRatio);
+    E.svgVizInterestProgress.setAttribute('y', C.vizRelativeSize * (1 - interestProgressRatio));
 
     // Update selected row in the amortization schedule
-    OUTPUT_SCHEDULE.getElementsByClassName(SELECTED_PERIOD_CLASS)[0].className = '';
-    document.getElementById(SCHEDULE_ROW_ID_PREFIX + (period + 1)).className = SELECTED_PERIOD_CLASS;
+    E.outputSchedule.getElementsByClassName(C.selectedPeriodClass)[0].className = '';
+    document.getElementById(C.scheduleRowIdPrefix + (period + 1)).className = C.selectedPeriodClass;
   }
 
   function setTheme() {
     var accentColor = '#0cf';
     var secondaryColor = '#c0f';
 
-    SVG_VIZ_PRINCIPAL_PROGRESS.setAttribute('fill', accentColor);
-    SVG_VIZ_INTEREST_PROGRESS.setAttribute('fill', secondaryColor);
+    E.svgVizPrincipalProgress.setAttribute('fill', accentColor);
+    E.svgVizInterestProgress.setAttribute('fill', secondaryColor);
   }
 
   function addMonths(startDate, months) {
@@ -428,7 +487,7 @@
     return {
       month: months % 12 + 1,
       year: startDate.year + Math.floor(months / 12),
-    }
+    };
   }
 
   // Returns the number of months between start and end date.
@@ -458,9 +517,8 @@
 
       var prePayments = [];
       for (var key in PRE_PAYMENTS_DATA) {
-        var prePaymentsData = PRE_PAYMENTS_DATA[key];
-        if (isInputDataValid(prePaymentsData)) {
-          prePayments.push(prePaymentsData);
+        if (PRE_PAYMENTS_DATA.hasOwnProperty(key) && isInputDataValid(PRE_PAYMENTS_DATA[key])) {
+          prePayments.push(PRE_PAYMENTS_DATA[key]);
         }
       }
       var prePaymentsByPeriod = {};
@@ -483,7 +541,7 @@
   }
 
   function computeAmortizationSchedule(prePaymentsByPeriod) {
-    var output = {}
+    var output = {};
     output.total_mortgage = 0;
     output.schedule_data = [];
     var principal = INPUT_DATA.principal;
@@ -493,7 +551,7 @@
       var paymentInterestAmount = principal * COMPUTED_DATA.periodic_interest;
       var paymentAmount = Math.min(
         principal + paymentInterestAmount,
-        COMPUTED_DATA.periodic_payment,
+        COMPUTED_DATA.periodic_payment
       );
       var paymentPrincipalAmount = paymentAmount - paymentInterestAmount + prePayment;
       principal -= paymentPrincipalAmount;
@@ -511,51 +569,4 @@
     output.total_interest = output.total_mortgage - INPUT_DATA.principal;
     return output;
   }
-
-  INPUT_PRINCIPAL.addEventListener('input', updateData.bind(this, 'principal', 'float'));
-  INPUT_TIME_YEARS.addEventListener('input', updateData.bind(this, 'time_years', 'integer'));
-  INPUT_INTEREST_RATE.addEventListener('input', updateData.bind(this, 'interest_rate', 'float'));
-  INPUT_START_DATE.addEventListener('input', updateData.bind(this, 'start_date', 'date'));
-
-  BUTTON_ADD_PRE_PAYMENT.addEventListener('click', addPrePayment);
-
-  INPUT_VIZ_TIME.addEventListener('input', function (event) {
-    return updateDataViz(parseInt(event.target.value, 10));
-  });
-
-  var INPUT_DATA = {
-    principal: parseInput('float', INPUT_PRINCIPAL.value),
-    time_years: parseInput('integer', INPUT_TIME_YEARS.value),
-    interest_rate: parseInput('float', INPUT_INTEREST_RATE.value),
-    start_date: parseInput('date', INPUT_START_DATE.value),
-  };
-  var COMPUTED_DATA = {
-    periods: null,
-    periodic_interest: null,
-    periodic_payment: null,
-    total_mortgage: null,
-    total_interest: null,
-  };
-  var COMPUTED_DATA_WITHOUT_PRE_PAYMENTS = {
-    total_mortgage: null,
-    total_interest: null,
-  };
-  var SCHEDULE_DATA = [];
-  var PRE_PAYMENTS_DATA = {};
-
-  if (DEBUG) {
-    INPUT_PRINCIPAL.value = 500000;
-    INPUT_TIME_YEARS.value = 15;
-    INPUT_INTEREST_RATE.value = 3.5;
-    INPUT_START_DATE.value = '05/2019';
-    INPUT_DATA = {
-      principal: 500000,
-      time_years: 15,
-      interest_rate: 3.5,
-      start_date: {month: 5, year: 2019},
-    };
-  }
-
-  setTheme();
-  computeData();
 }());
