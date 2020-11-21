@@ -24,10 +24,12 @@
 
   // Elements
   var E = {
-    inputPrincipal: document.getElementById('principal'),
-    inputTimeYears: document.getElementById('time_years'),
-    inputInterestRate: document.getElementById('interest_rate'),
-    inputStartDate: document.getElementById('start_date'),
+    input: {
+      principal: document.getElementById('principal'),
+      timeYears: document.getElementById('time_years'),
+      interestRate: document.getElementById('interest_rate'),
+      startDate: document.getElementById('start_date'),
+    },
     prePaymentForms: document.getElementById('pre_payment_forms'),
     buttonAddPrePayment: document.getElementById('add_pre_payment'),
     outputSummary: document.getElementById('output_summary'),
@@ -46,10 +48,10 @@
   };
 
   // Attach event listeners
-  E.inputPrincipal.addEventListener('input', updateData.bind(this, 'principal', 'float'));
-  E.inputTimeYears.addEventListener('input', updateData.bind(this, 'timeYears', 'integer'));
-  E.inputInterestRate.addEventListener('input', updateData.bind(this, 'interestRate', 'float'));
-  E.inputStartDate.addEventListener('input', updateData.bind(this, 'startDate', 'date'));
+  E.input.principal.addEventListener('input', updateData.bind(this, 'principal', 'float'));
+  E.input.timeYears.addEventListener('input', updateData.bind(this, 'timeYears', 'integer'));
+  E.input.interestRate.addEventListener('input', updateData.bind(this, 'interestRate', 'float'));
+  E.input.startDate.addEventListener('input', updateData.bind(this, 'startDate', 'date'));
   E.buttonAddPrePayment.addEventListener('click', addPrePayment);
   E.inputVizTime.addEventListener('input', function (event) {
     return updateDataViz(parseInt(event.target.value, 10));
@@ -58,10 +60,10 @@
   // Data model
   var M = {
     input: {
-      principal: parseInput('float', E.inputPrincipal.value),
-      timeYears: parseInput('integer', E.inputTimeYears.value),
-      interestRate: parseInput('float', E.inputInterestRate.value),
-      startDate: parseInput('date', E.inputStartDate.value),
+      principal: null,
+      timeYears: null,
+      interestRate: null,
+      startDate: null,
     },
     computed: {
       periods: null,
@@ -80,19 +82,22 @@
 
   // Initialization for debugging purpose
   if (C.debug) {
-    E.inputPrincipal.value = 500000;
-    E.inputTimeYears.value = 15;
-    E.inputInterestRate.value = 3.5;
-    E.inputStartDate.value = '05/2019';
-    M.input = {
+    document.location.hash = encodeURIComponent(JSON.stringify({
       principal: 500000,
       timeYears: 15,
       interestRate: 3.5,
       startDate: {month: 5, year: 2019},
-    };
+      prePayments: {
+        one: {
+          prePayment: 73000,
+          prePaymentDate: {month: 11, year: 2020},
+        },
+      },
+    }));
   }
 
   // Initialization
+  initializeInputData(parseHashParams());
   setTheme();
   computeData();
 
@@ -100,26 +105,81 @@
   // Functions
   //
 
+  function parseHashParams() {
+    var paramsStr = document.location.hash.substr(1);
+
+    try {
+      return JSON.parse(decodeURIComponent(paramsStr));
+    } catch (e) {
+      if (C.debug) {
+        console.error(e);
+      }
+    }
+  }
+
+  function initializeInputData(params) {
+    if (params == null) {
+      return;
+    }
+
+    var key;
+    for (key in M.input) {
+      M.input[key] = params[key] != null ? params[key] : null;
+
+      if (M.input.hasOwnProperty(key)) {
+        E.input[key].value = toInputElementValue(key, M.input[key]);
+      }
+    }
+
+    var prePayment;
+    if (params.prePayments != null) {
+      for (key in params.prePayments) {
+        if (params.prePayments.hasOwnProperty(key)) {
+          addPrePaymentForm(params.prePayments[key]);
+        }
+      }
+    }
+  }
+
+  function toInputElementValue(key, value) {
+    if (!isInputDataValueValid(key, value)) {
+      return '';
+    }
+
+    switch (key) {
+      case 'principal':
+      case 'timeYears':
+      case 'interestRate':
+      case 'prePayment':
+        return value;
+      case 'startDate':
+      case 'prePaymentDate':
+        return formatDate(value);
+    }
+  }
+
   function updateData(key, type, event) {
     M.input[key] = parseInput(type, event.target.value);
     computeData();
   }
 
-  function updatePrePaymentData(index, key, type, event) {
-    var prePaymentData = M.prePayments[index];
-    if (prePaymentData == null) {
-      return;
+  function updatePrePaymentData(index, key, type) {
+    return function (event) {
+      var prePaymentData = M.prePayments[index];
+      if (prePaymentData == null) {
+        return;
+      }
+      prePaymentData[key] = parseInput(type, event.target.value);
+      computeData();
     }
-    prePaymentData[key] = parseInput(type, event.target.value);
-    computeData();
   }
 
   function addPrePayment(event) {
-    addPrePaymentForm();
+    addPrePaymentForm({});
     computeData();
   }
 
-  function addPrePaymentForm() {
+  function addPrePaymentForm(initialData) {
     var form = document.createElement('div');
     form.className = 'form';
 
@@ -127,17 +187,27 @@
     prePaymentInput.className = 'pre_payment';
     prePaymentInput.type = 'text';
     prePaymentInput.placeholder = '70000';
-    prePaymentInput.addEventListener('input', function (event) {
-      updatePrePaymentData(G.prePaymentIndex, 'prePayment', 'float', event);
-    });
+    prePaymentInput.value = toInputElementValue(
+      'prePayment',
+      initialData.prePayment
+    );
+    prePaymentInput.addEventListener(
+      'input',
+      updatePrePaymentData(G.prePaymentIndex, 'prePayment', 'float')
+    );
 
     var prePaymentDateInput = document.createElement('input');
     prePaymentDateInput.className = 'pre_payment_date';
     prePaymentDateInput.type = 'text';
     prePaymentDateInput.placeholder = '11/2020';
-    prePaymentDateInput.addEventListener('input', function (event) {
-      updatePrePaymentData(G.prePaymentIndex, 'prePaymentDate', 'date', event);
-    });
+    prePaymentDateInput.value = toInputElementValue(
+      'prePaymentDate',
+      initialData.prePaymentDate
+    );
+    prePaymentDateInput.addEventListener(
+      'input',
+      updatePrePaymentData(G.prePaymentIndex, 'prePaymentDate', 'date')
+    );
 
     var removePrePaymentButton = document.createElement('button');
     removePrePaymentButton.className = 'remove_pre_payment';
@@ -157,8 +227,8 @@
 
     E.prePaymentForms.appendChild(form);
     M.prePayments[G.prePaymentIndex] = {
-      prePayment: null,
-      prePaymentDate: {month: null, year: null},
+      prePayment: initialData.prePayment != null ? initialData.prePayment : null,
+      prePaymentDate: initialData.prePaymentDate != null ? initialData.prePaymentDate : null,
     };
     G.prePaymentIndex++;
   }
@@ -248,7 +318,11 @@
   }
 
   function formatCurrency(value) {
-    return C.currencySymbol + toFixedWithPadding(value, 2);
+    if (value >= 0) {
+      return C.currencySymbol + toFixedWithPadding(value, 2);
+    }
+
+    return '-' + formatCurrency(Math.abs(value));
   }
 
   function formatCurrencyWithComparison(value, oldValue) {
@@ -309,14 +383,14 @@
       case 'timeYears':
       // TODO: Check that prePayment is at least less than principal
       case 'prePayment':
-        return !isNaN(value) && value > 0;
+        return value != null && !isNaN(value) && value > 0;
       case 'interestRate':
-        return !isNaN(value) && value >= 0 && value <= 100;
+        return value != null && !isNaN(value) && value >= 0 && value <= 100;
       case 'startDate':
       // TODO: Check that prePaymentDate is after startDate and before the
       // end of the mortgage
       case 'prePaymentDate':
-        return !isNaN(value.month) && !isNaN(value.year) &&
+        return value != null && !isNaN(value.month) && !isNaN(value.year) &&
           value.month >= 1 && value.month <= 12 &&
           value.year >= 1980 && value.year <= 3000;
       // Computed values are valid by construction
