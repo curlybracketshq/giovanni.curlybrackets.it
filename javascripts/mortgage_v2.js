@@ -8,22 +8,33 @@
     decimalSeparator: '.',
     thounsandsSeparator: ',',
     viz: {
-      size: {width: 200, height: 200},
+      size: {
+        width: 200,
+        height: 200
+      },
       cols: 10,
       rows: 20,
+      margin: {
+        horizontal: 10,
+        vertical: 10
+      },
       coin: {
         offsetVariance: 2,
-        cornerRadius: 5,
-        strokeWidth: 3,
+        cornerRadius: 3,
+        strokeWidth: 2,
+      },
+      color: {
+        fill: '#fff8d6',
+        stroke: '#fff0ad',
       },
       progressColor: {
         fill: '#ffd500',
         stroke: '#e4b61a',
       },
-      color: {
-        fill: '#fff8d6',
-        stroke: '#fff0ad',
-      }
+      disabledColor: {
+        fill: '#f8f9fa',
+        stroke: '#e9ecef',
+      },
     },
     currencySymbol: '$',
     timeUnitYears: 'years',
@@ -55,6 +66,7 @@
     svgVizPrincipal: document.getElementById('viz_principal'),
     svgVizInterest: document.getElementById('viz_interest'),
     inputVizTime: document.getElementById('viz_time'),
+    vizCurrentPeriod: document.getElementById('viz_current_period'),
     vizLegend: document.getElementById('viz_legend'),
   };
 
@@ -125,7 +137,6 @@
 
   // Initialization
   initializeInputData(parseHashParams());
-  setTheme();
   computeData();
 
   //
@@ -340,11 +351,6 @@
         return 'Remaining principal';
     }
     return key;
-  }
-
-  function toFixed(value, precision) {
-    var power = Math.pow(10, precision);
-    return (Math.round(value * power) / power).toString();
   }
 
   function truncate(value, precision) {
@@ -594,12 +600,12 @@
     legend.textContent = 'Each coin corresponds to ' + formatCurrency(M.viz.cellAmount);
     E.vizLegend.appendChild(legend);
 
-    E.svgVizPrincipal.setAttribute('width', C.viz.size.width + 10 + C.viz.cols * C.viz.coin.offsetVariance * 2);
-    E.svgVizPrincipal.setAttribute('height', C.viz.size.height + 10);
-    E.svgVizInterest.setAttribute('width', C.viz.size.width + 10 + C.viz.cols * C.viz.coin.offsetVariance * 2);
-    E.svgVizInterest.setAttribute('height', C.viz.size.height + 10);
+    E.svgVizPrincipal.setAttribute('width', C.viz.size.width + C.viz.margin.horizontal + C.viz.cols * C.viz.coin.offsetVariance * 2);
+    E.svgVizPrincipal.setAttribute('height', C.viz.size.height + C.viz.margin.vertical);
+    E.svgVizInterest.setAttribute('width', C.viz.size.width + C.viz.margin.horizontal + C.viz.cols * C.viz.coin.offsetVariance * 2);
+    E.svgVizInterest.setAttribute('height', C.viz.size.height + C.viz.margin.vertical);
 
-    E.inputVizTime.setAttribute('max', M.computed.periods - 1);
+    E.inputVizTime.setAttribute('max', M.schedule.length - 1);
     var currentPeriod = dateDelta(M.input.startDate, toDate(G.selectedDate));
     E.inputVizTime.setAttribute('value', currentPeriod);
     updateDataViz(currentPeriod);
@@ -609,43 +615,63 @@
 
   function updateDataViz(period) {
     E.svgVizPrincipal.textContent = '';
+    E.vizCurrentPeriod.textContent = '';
 
-    var principal = M.input.principal;
     var principalProgress = 0;
+    var interestProgress = 0;
     for (var i = 0; i <= period && i < M.schedule.length; i++) {
       principalProgress += M.schedule[i].paymentPrincipalAmount;
+      interestProgress += M.schedule[i].paymentInterestAmount;
     }
 
     // Draw cells
-    drawCoins(principal, principalProgress, );
+    drawCoins(E.svgVizPrincipal, M.input.principal, principalProgress);
+    drawCoins(E.svgVizInterest, M.computed.totalInterest, interestProgress, M.computedWithoutPrePayments.totalInterest);
+
+    // Update current period label
+    var currentPeriodText = document.createElement('div');
+    currentPeriodText.textContent = 'Selected period: ' + formatDate(addMonths(M.input.startDate, period));
+    E.vizCurrentPeriod.appendChild(currentPeriodText);
 
     // Update selected row in the amortization schedule
     E.outputSchedule.getElementsByClassName(C.selectedPeriodClass)[0].className = '';
     document.getElementById(C.scheduleRowIdPrefix + (period + 1)).className = C.selectedPeriodClass;
   }
 
-  function drawCoins(amount, progressAmount, fill, stroke) {
+  function drawCoins(container, amount, progressAmount, initialAmount) {
+    if (initialAmount == null) {
+      initialAmount = amount;
+    }
+
+    // Preconditions:
+    // * amount >= progressAmount
+    // * if initialAmount is present initialAmount >= amount
+    if (amount < progressAmount && initialAmount < amount) {
+      return;
+    }
+
     var cellSize = {
       width: C.viz.size.width / C.viz.cols,
       height: C.viz.size.height / C.viz.rows,
     };
 
     var coins = [];
-    for (var x = 0; x < C.viz.cols && amount >= M.viz.cellAmount / 2; x++) {
-      for (var y = 0; y < C.viz.rows && amount >= M.viz.cellAmount / 2; y++) {
+    for (var x = 0; x < C.viz.cols && initialAmount >= M.viz.cellAmount / 2; x++) {
+      for (var y = 0; y < C.viz.rows && initialAmount >= M.viz.cellAmount / 2; y++) {
         var randomOffset = C.viz.coin.offsetVariance - R[x * C.viz.cols + y] % (C.viz.coin.offsetVariance * 2);
         var cell = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        cell.setAttribute('fill', progressAmount > 0 ? C.viz.progressColor.fill : C.viz.color.fill);
-        cell.setAttribute('stroke', progressAmount > 0 ? C.viz.progressColor.stroke : C.viz.color.stroke);
+        cell.setAttribute('fill', progressAmount > 0 ? C.viz.progressColor.fill : amount > 0 ? C.viz.color.fill : C.viz.disabledColor.fill);
+        cell.setAttribute('stroke', progressAmount > 0 ? C.viz.progressColor.stroke : amount > 0 ? C.viz.color.stroke : C.viz.disabledColor.stroke);
         cell.setAttribute('stroke-width', C.viz.coin.strokeWidth);
         cell.setAttribute('rx', C.viz.coin.cornerRadius);
         cell.setAttribute('width', cellSize.width);
         cell.setAttribute('height', cellSize.height);
-        cell.setAttribute('x', (cellSize.width + C.viz.coin.offsetVariance * 2) * x + 5 + randomOffset);
-        cell.setAttribute('y', C.viz.size.height - cellSize.height - (cellSize.height * y) + 5);
+        cell.setAttribute('x', (cellSize.width + C.viz.coin.offsetVariance * 2) * x + (C.viz.margin.horizontal / 2) + randomOffset);
+        cell.setAttribute('y', C.viz.size.height - cellSize.height - (cellSize.height * y) + (C.viz.margin.vertical / 2));
         coins.push(cell);
         amount -= M.viz.cellAmount;
         progressAmount -= M.viz.cellAmount;
+        initialAmount -= M.viz.cellAmount;
       }
     }
 
@@ -653,17 +679,12 @@
     // this case the last coin should be the first in the document in order to
     // be displayed behind the rest of the coins in the stack
     for (var i = coins.length - 1; i >= 0; i--) {
-      E.svgVizPrincipal.append(coins[i]);
+      container.append(coins[i]);
     }
   }
 
   function randomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
-  }
-
-  function setTheme() {
-    var accentColor = '#0cf';
-    var secondaryColor = '#c0f';
   }
 
   function addMonths(startDate, months) {
