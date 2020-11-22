@@ -81,11 +81,13 @@ button.remove_pre_payment {
   width: 60px;
 }
 
+#share,
 #output_summary,
 #output_schedule {
   margin: 20px auto;
 }
 
+#share div,
 #output_summary div {
   margin: 6px auto;
 }

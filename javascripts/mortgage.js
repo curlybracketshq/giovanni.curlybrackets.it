@@ -1,9 +1,9 @@
-(function () {
+(function() {
   'use strict';
 
   // Configuration values
   var C = {
-    debug: true,
+    debug: false,
     dateSeparator: '/',
     decimalSeparator: '.',
     thounsandsSeparator: ',',
@@ -32,8 +32,10 @@
     },
     prePaymentForms: document.getElementById('pre_payment_forms'),
     buttonAddPrePayment: document.getElementById('add_pre_payment'),
+    buttonGenerateLink: document.getElementById('generate_link'),
     outputSummary: document.getElementById('output_summary'),
     outputSchedule: document.getElementById('output_schedule'),
+    svgViz: document.getElementById('viz'),
     svgVizHouse: document.getElementById('house'),
     svgVizBank: document.getElementById('bank'),
     svgVizPrincipalProgress: document.getElementById('principal_progress'),
@@ -53,7 +55,8 @@
   E.input.interestRate.addEventListener('input', updateData.bind(this, 'interestRate', 'float'));
   E.input.startDate.addEventListener('input', updateData.bind(this, 'startDate', 'date'));
   E.buttonAddPrePayment.addEventListener('click', addPrePayment);
-  E.inputVizTime.addEventListener('input', function (event) {
+  E.buttonGenerateLink.addEventListener('click', writeHashParams);
+  E.inputVizTime.addEventListener('input', function(event) {
     return updateDataViz(parseInt(event.target.value, 10));
   });
 
@@ -117,6 +120,31 @@
     }
   }
 
+  function objectSize(object) {
+    var size = 0;
+    for (var key in object) {
+      if (object.hasOwnProperty(key)) {
+        size++;
+      }
+    }
+    return size;
+  }
+
+  function writeHashParams() {
+    var params = {};
+    for (var key in M.input) {
+      if (M.input.hasOwnProperty(key) && isInputDataValueValid(key, M.input[key])) {
+        params[key] = M.input[key];
+      }
+    }
+
+    if (objectSize(M.prePayments) > 0) {
+      params.prePayments = M.prePayments;
+    }
+
+    document.location.hash = encodeURIComponent(JSON.stringify(params));
+  }
+
   function initializeInputData(params) {
     if (params == null) {
       return;
@@ -124,14 +152,12 @@
 
     var key;
     for (key in M.input) {
-      M.input[key] = params[key] != null ? params[key] : null;
-
       if (M.input.hasOwnProperty(key)) {
+        M.input[key] = params[key] != null ? params[key] : null;
         E.input[key].value = toInputElementValue(key, M.input[key]);
       }
     }
 
-    var prePayment;
     if (params.prePayments != null) {
       for (key in params.prePayments) {
         if (params.prePayments.hasOwnProperty(key)) {
@@ -164,14 +190,14 @@
   }
 
   function updatePrePaymentData(index, key, type) {
-    return function (event) {
+    return function(event) {
       var prePaymentData = M.prePayments[index];
       if (prePaymentData == null) {
         return;
       }
       prePaymentData[key] = parseInput(type, event.target.value);
       computeData();
-    }
+    };
   }
 
   function addPrePayment(event) {
@@ -212,9 +238,10 @@
     var removePrePaymentButton = document.createElement('button');
     removePrePaymentButton.className = 'remove_pre_payment';
     removePrePaymentButton.textContent = 'Remove pre-payment';
-    removePrePaymentButton.addEventListener('click', function (event) {
-      removePrePayment(G.prePaymentIndex, form, event);
-    });
+    removePrePaymentButton.addEventListener(
+      'click',
+      removePrePayment(G.prePaymentIndex, form)
+    );
 
     var formContent = document.createElement('div');
     formContent.className = 'form_content';
@@ -233,10 +260,12 @@
     G.prePaymentIndex++;
   }
 
-  function removePrePayment(index, node, event) {
-    node.remove();
-    delete M.prePayments[index];
-    computeData();
+  function removePrePayment(index, node) {
+    return function(event) {
+      node.remove();
+      delete M.prePayments[index];
+      computeData();
+    };
   }
 
   function parseInput(type, value) {
@@ -509,11 +538,8 @@
   }
 
   function displayViz() {
-    if (!isInputDataValid(M.input)) {
-      return;
-    }
-
-    if (M.computed.periods < 1) {
+    if (!isInputDataValid(M.input) || M.computed.periods < 1) {
+      E.svgViz.style.display = 'none';
       return;
     }
 
@@ -528,6 +554,8 @@
     var currentPeriod = dateDelta(M.input.startDate, toDate(G.selectedDate));
     E.inputVizTime.setAttribute('value', currentPeriod);
     updateDataViz(currentPeriod);
+
+    E.svgViz.style.display = 'block';
   }
 
   function updateDataViz(period) {
