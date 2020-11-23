@@ -488,33 +488,6 @@
     return item;
   }
 
-  function displaySummary() {
-    E.outputSummary.textContent = '';
-
-    var title = document.createElement('h2');
-    title.textContent = 'Summary';
-    E.outputSummary.appendChild(title);
-
-    var key, item;
-    for (key in M.input) {
-      if (M.input.hasOwnProperty(key)) {
-        item = buildSummaryItem(key, M.input[key]);
-        E.outputSummary.appendChild(item);
-      }
-    }
-
-    if (!isInputDataValid(M.input)) {
-      return;
-    }
-
-    for (key in M.computed) {
-      if (M.computed.hasOwnProperty(key)) {
-        item = buildSummaryItem(key, M.computed[key]);
-        E.outputSummary.appendChild(item);
-      }
-    }
-  }
-
   // Convert a JS date to a date object.
   function toDate(date) {
     return {
@@ -740,7 +713,6 @@
       M.computedWithoutPrePayments = computeAmortizationSchedule({});
     }
 
-    displaySummary();
     displaySchedule();
     displayViz();
   }

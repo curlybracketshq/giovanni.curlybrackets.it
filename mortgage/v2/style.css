@@ -1,0 +1,107 @@
+table {
+  width: 100%;
+  border-left: 1px solid #CCC;
+  border-top: 1px solid #CCC;
+}
+
+th {
+  font-weight: bold;
+}
+
+td, th {
+  padding: 4px;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+}
+
+tr.selected_period {
+  background-color: #EEE;
+}
+
+td.payment_amount,
+td.payment_interest_amount,
+td.payment_principal_amount,
+td.remaining_principal {
+  text-align: right;
+}
+
+.form,
+.form input,
+button {
+  color: #333;
+  font-family: -apple-system, sans-serif;
+}
+
+.form,
+.form input {
+  font-size: 28px;
+}
+
+.form {
+  margin: 20px auto;
+}
+
+.form input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #EEE;
+}
+
+.form input:focus {
+  outline: none;
+  border-bottom: 1px solid #CCC;
+}
+
+.button_container {
+  overflow: hidden;
+  clear: both;
+}
+
+.button_container button {
+  float: right;
+}
+
+button {
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 18px;
+  margin-top: 8px;
+}
+
+#principal,
+.pre_payment {
+  width: 130px;
+}
+
+#time_years {
+  width: 40px;
+}
+
+#start_date,
+.pre_payment_date {
+  width: 110px;
+}
+
+#interest_rate {
+  width: 60px;
+}
+
+#share,
+#output_summary,
+#output_schedule {
+  margin: 20px auto;
+}
+
+#inputs div,
+#share div,
+#viz div,
+#output_summary div {
+  margin: 6px auto;
+}
+
+/* Override global styles */
+
+#container {
+  width: 800px;
+}
