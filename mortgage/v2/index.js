@@ -51,17 +51,24 @@
 
   // Elements
   var E = {
+    // Mortgage input data
     input: {
       principal: document.getElementById('principal'),
       timeYears: document.getElementById('time_years'),
       interestRate: document.getElementById('interest_rate'),
       startDate: document.getElementById('start_date'),
     },
+    // Pre payments
+    prePayments: document.getElementById('pre_payments'),
     prePaymentForms: document.getElementById('pre_payment_forms'),
     buttonAddPrePayment: document.getElementById('add_pre_payment'),
+    // Share
+    share: document.getElementById('share'),
     buttonGenerateLink: document.getElementById('generate_link'),
-    outputSummary: document.getElementById('output_summary'),
+    // Amortization schedule
+    schedule: document.getElementById('schedule'),
     outputSchedule: document.getElementById('output_schedule'),
+    // Vizualization
     svgViz: document.getElementById('viz'),
     svgVizPrincipal: document.getElementById('viz_principal'),
     svgVizInterest: document.getElementById('viz_interest'),
@@ -142,6 +149,14 @@
   //
   // Functions
   //
+
+  function hide(element) {
+    element.style.display = 'none';
+  }
+
+  function show(element) {
+    element.style.display = 'block';
+  }
 
   function parseHashParams() {
     var paramsStr = document.location.hash.substr(1);
@@ -477,17 +492,6 @@
     return true;
   }
 
-  function buildSummaryItem(key, value) {
-    var content = toHuman(key) + ': ';
-    // Print number only if it's valid
-    if (isInputDataValueValid(key, value)) {
-      content += formatDataValue(key, value);
-    }
-    var item = document.createElement('div');
-    item.textContent = content;
-    return item;
-  }
-
   // Convert a JS date to a date object.
   function toDate(date) {
     return {
@@ -496,12 +500,43 @@
     };
   }
 
+  function displayPrePayments() {
+    // Preconditions:
+    // * input data is valid
+    if (!isInputDataValid(M.input)) {
+      hide(E.prePayments);
+      return;
+    }
+
+    show(E.prePayments);
+  }
+
+  function displayShare() {
+    // Preconditions:
+    // * input data is valid
+    if (!isInputDataValid(M.input)) {
+      hide(E.share);
+      return;
+    }
+
+    show(E.share);
+  }
+
+  function snakeCase(string) {
+    return string.split('').map(function(c) {
+      if (c >= 'A' && c <= 'Z') {
+        return '_' + c.toLowerCase();
+      }
+      return c;
+    }).join('');
+  }
+
   function buildScheduleRow(data) {
     var row = document.createElement('tr');
     for (var i = 0; i < C.scheduleCols.length; i++) {
       var cell = document.createElement('td');
       var key = C.scheduleCols[i];
-      cell.className = key;
+      cell.className = snakeCase(key);
       cell.textContent = formatDataValue(key, data[key]);
       row.appendChild(cell);
     }
@@ -509,19 +544,15 @@
   }
 
   function displaySchedule() {
+    // Preconditions:
+    // * input data is valid
+    // * there is at least one period
+    if (!isInputDataValid(M.input) || M.schedule.length < 1) {
+      hide(E.schedule);
+      return;
+    }
+
     E.outputSchedule.textContent = '';
-
-    if (!isInputDataValid(M.input)) {
-      return;
-    }
-
-    if (M.schedule.length < 1) {
-      return;
-    }
-
-    var title = document.createElement('h2');
-    title.textContent = 'Amortization Schedule';
-    E.outputSchedule.appendChild(title);
 
     var table = document.createElement('table');
     E.outputSchedule.appendChild(table);
@@ -543,6 +574,8 @@
       }
       table.appendChild(row);
     }
+
+    show(E.schedule);
   }
 
   function displayViz() {
@@ -551,7 +584,7 @@
     // * there is at least one period
     // * principal amount > interest amount
     if (!isInputDataValid(M.input) || M.computed.periods < 1 || M.input.principal < M.computed.totalInterest) {
-      E.svgViz.style.display = 'none';
+      hide(E.svgViz);
       return;
     }
 
@@ -583,7 +616,7 @@
     E.inputVizTime.setAttribute('value', currentPeriod);
     updateDataViz(currentPeriod);
 
-    E.svgViz.style.display = 'block';
+    show(E.svgViz);
   }
 
   function updateDataViz(period) {
@@ -713,6 +746,8 @@
       M.computedWithoutPrePayments = computeAmortizationSchedule({});
     }
 
+    displayPrePayments();
+    displayShare();
     displaySchedule();
     displayViz();
   }

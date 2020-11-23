@@ -25,6 +25,11 @@ td.remaining_principal {
   text-align: right;
 }
 
+h1 {
+  font-size: 300%;
+  color: #666;
+}
+
 .form,
 .form input,
 button {
@@ -38,7 +43,8 @@ button {
 }
 
 .form {
-  margin: 20px auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .form input {
@@ -50,6 +56,19 @@ button {
 .form input:focus {
   outline: none;
   border-bottom: 1px solid #CCC;
+}
+
+::placeholder {
+  color: #CCC;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 
 .button_container {
@@ -88,15 +107,13 @@ button {
 }
 
 #share,
-#output_summary,
-#output_schedule {
+#schedule {
   margin: 20px auto;
 }
 
 #inputs div,
 #share div,
-#viz div,
-#output_summary div {
+#viz div, {
   margin: 6px auto;
 }
 

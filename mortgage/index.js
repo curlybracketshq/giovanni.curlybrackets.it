@@ -318,11 +318,6 @@
     return key;
   }
 
-  function toFixed(value, precision) {
-    var power = Math.pow(10, precision);
-    return (Math.round(value * power) / power).toString();
-  }
-
   function toFixedWithPadding(value, precision) {
     var signFactor = value < 0 ? -1 : 1;
     var power = Math.pow(10, precision);
@@ -488,12 +483,21 @@
     };
   }
 
+  function snakeCase(string) {
+    return string.split('').map(function(c) {
+      if (c >= 'A' && c <= 'Z') {
+        return '_' + c.toLowerCase();
+      }
+      return c;
+    }).join('');
+  }
+
   function buildScheduleRow(data) {
     var row = document.createElement('tr');
     for (var i = 0; i < C.scheduleCols.length; i++) {
       var cell = document.createElement('td');
       var key = C.scheduleCols[i];
-      cell.className = key;
+      cell.className = snakeCase(key);
       cell.textContent = formatDataValue(key, data[key]);
       row.appendChild(cell);
     }
