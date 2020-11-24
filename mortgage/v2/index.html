@@ -5,7 +5,7 @@ description: A tool for visualizing your mortgate amortization schedule.
 ---
 
 <div id="input">
-  <h1>Input</h1>
+  <h1>Your mortgage</h1>
   <div class="form">
     <div>
       I will pay $
@@ -18,19 +18,42 @@ description: A tool for visualizing your mortgate amortization schedule.
       <input id="interest_rate" type="number" placeholder="3.5" />
       %
     </div>
-    <div class="button_container">
+    <!-- <div class="button_container">
       <button id="compute">Calculate</button>
-    </div>
+    </div> -->
   </div>
 </div>
 
 <div id="viz">
-  <svg id="viz_principal"></svg>
-  <svg id="viz_interest"></svg>
+  <h1>Summary</h1>
+  <h2>Total mortgage amount: <span id="output_total_amount"></span></h2>
+  <h2>Monthly payment: <span id="output_monthly_payment"></span></h2>
+
+  <div class="clear">
+    <div id="principal_container" class="left_container">
+      <h2 class="primary">Principal</h2>
+      <h2 id="output_principal" class="secondary"></h2>
+    </div>
+    <div id="interest_container" class="right_container">
+      <h2 class="primary">Interest</h2>
+      <h2 id="output_interest" class="secondary"></h2>
+    </div>
+  </div>
+
+  <div class="clear">
+    <div class="left_container">
+      <svg id="viz_principal"></svg>
+    </div>
+    <div class="right_container">
+      <svg id="viz_interest"></svg>
+    </div>
+  </div>
+
   <div id="slider">
     <input type="range" id="viz_time" min="0" max="180" value="0" />
     <label for="viz_time">Time</label>
   </div>
+
   <div id="viz_current_period"></div>
   <div id="viz_legend"></div>
 </div>

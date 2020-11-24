@@ -25,9 +25,12 @@ td.remaining_principal {
   text-align: right;
 }
 
+h1, h2 {
+  color: #555;
+}
+
 h1 {
   font-size: 300%;
-  color: #666;
 }
 
 .form,
@@ -43,7 +46,7 @@ button {
 }
 
 .form {
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -117,8 +120,77 @@ button {
   margin: 6px auto;
 }
 
+#viz .clear {
+  margin: 20px auto;
+}
+
+#principal_container .primary {
+  color: #007f5f;
+}
+
+#principal_container .secondary {
+  color: #55a630;
+}
+
+#interest_container .primary {
+  color: #dc2f02;
+}
+
+#interest_container .secondary {
+  color: #f48c06;
+}
+
+#viz_time {
+  display: block;
+  width: 600px;
+  margin: 0 auto;
+}
+
+.clear {
+  overflow: hidden;
+  clear: both;
+}
+
+.left_container,
+.right_container {
+  width: 400px;
+}
+
+.left_container {
+  float: left;
+}
+
+.right_container {
+  float: right;
+}
+
+/* Small screens */
+
+@media screen and (max-width: 825px) {
+  .clear {
+    overflow: auto;
+    clear: none;
+  }
+
+  .left_container,
+  .right_container {
+    width: auto;
+    float: none;
+  }
+
+  #viz_time {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
 /* Override global styles */
 
 #container {
   width: 800px;
+}
+
+#container > nav.menu {
+  display: none;
 }

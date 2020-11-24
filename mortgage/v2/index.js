@@ -70,8 +70,12 @@
     outputSchedule: document.getElementById('output_schedule'),
     // Vizualization
     svgViz: document.getElementById('viz'),
+    outputTotalAmount: document.getElementById('output_total_amount'),
+    outputMonthlyPayment: document.getElementById('output_monthly_payment'),
     svgVizPrincipal: document.getElementById('viz_principal'),
+    outputPrincipal: document.getElementById('output_principal'),
     svgVizInterest: document.getElementById('viz_interest'),
+    outputInterest: document.getElementById('output_interest'),
     inputVizTime: document.getElementById('viz_time'),
     vizCurrentPeriod: document.getElementById('viz_current_period'),
     vizLegend: document.getElementById('viz_legend'),
@@ -397,6 +401,10 @@
   }
 
   function formatCurrency(value) {
+    if (isNaN(value)) {
+      return;
+    }
+
     if (value >= 0) {
       return C.currencySymbol + toFixedWithPadding(value, 2);
     }
@@ -615,6 +623,11 @@
     var currentPeriod = dateDelta(M.input.startDate, toDate(G.selectedDate));
     E.inputVizTime.setAttribute('value', currentPeriod);
     updateDataViz(currentPeriod);
+
+    E.outputTotalAmount.textContent = formatCurrency(M.computed.totalMortgage);
+    E.outputMonthlyPayment.textContent = formatCurrency(M.computed.periodicPayment);
+    E.outputPrincipal.textContent = formatCurrency(M.input.principal);
+    E.outputInterest.textContent = formatCurrencyWithComparison(M.computed.totalInterest, M.computedWithoutPrePayments.totalInterest);
 
     show(E.svgViz);
   }
