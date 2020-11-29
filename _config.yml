@@ -8,3 +8,4 @@ kramdown:
   syntax_highlighter_opts:
     block:
       line_numbers: true
+source_url: https://github.com/curlybracketshq/giovanni.curlybrackets.it
