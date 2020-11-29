@@ -1,0 +1,58 @@
+---
+layout: default
+title: Experiments
+description: Some experiments for the mortgage visualization
+---
+
+<header>
+  <h1>{{ page.title }}</h1>
+</header>
+
+<h2>Text Gradient</h2>
+
+<div id="text_gradient_container_1"></div>
+<div id="text_gradient_container_2"></div>
+
+<script type="text/javascript" src="{{ '/mortgage/experiments/text_gradient.js' | relative_url }}"></script>
+<script type="text/javascript">
+  TEXT_GRADIENT(
+    document.getElementById('text_gradient_container_1'),
+    {
+      content: 'Your Mortgage',
+      width: 300,
+      height: 100,
+      fontSize: 40,
+      colors: ['#0cf', '#c0f', '#0fc'],
+    }
+  );
+
+  TEXT_GRADIENT(
+    document.getElementById('text_gradient_container_2'),
+    {
+      content: 'Your Mortgage',
+      width: 400,
+      height: 100,
+      fontSize: 60,
+      colors: ['#8f0', '#80f', '#f80'],
+    }
+  );
+</script>
+
+<h2>Word Art</h2>
+
+<div id="word_art_container_1"></div>
+
+<script type="text/javascript" src="{{ '/mortgage/experiments/word_art.js' | relative_url }}"></script>
+<script type="text/javascript">
+  WORD_ART(
+    document.getElementById('word_art_container_1'),
+    {
+      content: 'Your Mortgage',
+      width: 500,
+      height: 150,
+      fontSize: 60,
+      fill: '#ffff3f',
+      stroke: '#00296b',
+    }
+  );
+</script>

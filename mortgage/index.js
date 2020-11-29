@@ -7,8 +7,35 @@
     dateSeparator: '/',
     decimalSeparator: '.',
     thounsandsSeparator: ',',
-    vizAbsoluteSize: 200,
-    vizRelativeSize: 100,
+    viz: {
+      size: {
+        width: 200,
+        height: 200
+      },
+      cols: 10,
+      rows: 20,
+      margin: {
+        horizontal: 10,
+        vertical: 10
+      },
+      coin: {
+        offsetVariance: 2,
+        cornerRadius: 3,
+        strokeWidth: 2,
+      },
+      color: {
+        fill: '#fff8d6',
+        stroke: '#fff0ad',
+      },
+      progressColor: {
+        fill: '#ffd500',
+        stroke: '#e4b61a',
+      },
+      disabledColor: {
+        fill: '#f8f9fa',
+        stroke: '#e9ecef',
+      },
+    },
     currencySymbol: '$',
     timeUnitYears: 'years',
     scheduleRowIdPrefix: 'period_',
@@ -24,23 +51,34 @@
 
   // Elements
   var E = {
+    // Mortgage input data
     input: {
       principal: document.getElementById('principal'),
       timeYears: document.getElementById('time_years'),
       interestRate: document.getElementById('interest_rate'),
       startDate: document.getElementById('start_date'),
     },
+    // Pre payments
+    prePayments: document.getElementById('pre_payments'),
     prePaymentForms: document.getElementById('pre_payment_forms'),
     buttonAddPrePayment: document.getElementById('add_pre_payment'),
+    // Share
+    share: document.getElementById('share'),
     buttonGenerateLink: document.getElementById('generate_link'),
-    outputSummary: document.getElementById('output_summary'),
+    // Amortization schedule
+    schedule: document.getElementById('schedule'),
     outputSchedule: document.getElementById('output_schedule'),
+    // Vizualization
     svgViz: document.getElementById('viz'),
-    svgVizHouse: document.getElementById('house'),
-    svgVizBank: document.getElementById('bank'),
-    svgVizPrincipalProgress: document.getElementById('principal_progress'),
-    svgVizInterestProgress: document.getElementById('interest_progress'),
+    outputTotalAmount: document.getElementById('output_total_amount'),
+    outputMonthlyPayment: document.getElementById('output_monthly_payment'),
+    svgVizPrincipal: document.getElementById('viz_principal'),
+    outputPrincipal: document.getElementById('output_principal'),
+    svgVizInterest: document.getElementById('viz_interest'),
+    outputInterest: document.getElementById('output_interest'),
     inputVizTime: document.getElementById('viz_time'),
+    vizCurrentPeriod: document.getElementById('viz_current_period'),
+    vizLegend: document.getElementById('viz_legend'),
   };
 
   // Global state
@@ -79,6 +117,9 @@
       totalMortgage: null,
       totalInterest: null,
     },
+    viz: {
+      cellAmount: 0,
+    },
     schedule: [],
     prePayments: {},
   };
@@ -99,14 +140,28 @@
     }));
   }
 
+  // Generate random numbers used for computing coins offset
+  var R = [];
+  for (var i = 0; i < C.viz.cols * C.viz.rows; i++) {
+    R.push(randomInt(1000));
+  }
+
   // Initialization
+  initPlaceholders();
   initializeInputData(parseHashParams());
-  setTheme();
   computeData();
 
   //
   // Functions
   //
+
+  function hide(element) {
+    element.style.display = 'none';
+  }
+
+  function show(element) {
+    element.style.display = 'block';
+  }
 
   function parseHashParams() {
     var paramsStr = document.location.hash.substr(1);
@@ -143,6 +198,16 @@
     }
 
     document.location.hash = encodeURIComponent(JSON.stringify(params));
+  }
+
+  function initPlaceholders() {
+    E.input.principal.placeholder = (randomInt(10) + 1) * 100000;
+    E.input.timeYears.placeholder = [5, 15, 30][randomInt(3)];
+    var month = randomInt(12);
+    var year = randomInt(20);
+    E.input.startDate.placeholder = (month + 1).toString() + '/' + (year + 2000).toString();
+    var interestRate = (Math.random() * 4) + 2;
+    E.input.interestRate.placeholder = toFixedWithPadding(interestRate, 2);
   }
 
   function initializeInputData(params) {
@@ -318,6 +383,11 @@
     return key;
   }
 
+  function truncate(value, precision) {
+    var power = Math.pow(10, precision);
+    return Math.floor(value / power) * power;
+  }
+
   function toFixedWithPadding(value, precision) {
     var signFactor = value < 0 ? -1 : 1;
     var power = Math.pow(10, precision);
@@ -342,6 +412,10 @@
   }
 
   function formatCurrency(value) {
+    if (isNaN(value)) {
+      return;
+    }
+
     if (value >= 0) {
       return C.currencySymbol + toFixedWithPadding(value, 2);
     }
@@ -437,50 +511,34 @@
     return true;
   }
 
-  function buildSummaryItem(key, value) {
-    var content = toHuman(key) + ': ';
-    // Print number only if it's valid
-    if (isInputDataValueValid(key, value)) {
-      content += formatDataValue(key, value);
-    }
-    var item = document.createElement('div');
-    item.textContent = content;
-    return item;
-  }
-
-  function displaySummary() {
-    E.outputSummary.textContent = '';
-
-    var title = document.createElement('h2');
-    title.textContent = 'Summary';
-    E.outputSummary.appendChild(title);
-
-    var key, item;
-    for (key in M.input) {
-      if (M.input.hasOwnProperty(key)) {
-        item = buildSummaryItem(key, M.input[key]);
-        E.outputSummary.appendChild(item);
-      }
-    }
-
-    if (!isInputDataValid(M.input)) {
-      return;
-    }
-
-    for (key in M.computed) {
-      if (M.computed.hasOwnProperty(key)) {
-        item = buildSummaryItem(key, M.computed[key]);
-        E.outputSummary.appendChild(item);
-      }
-    }
-  }
-
   // Convert a JS date to a date object.
   function toDate(date) {
     return {
       month: date.getMonth() + 1,
       year: date.getFullYear()
     };
+  }
+
+  function displayPrePayments() {
+    // Preconditions:
+    // * input data is valid
+    if (!isInputDataValid(M.input)) {
+      hide(E.prePayments);
+      return;
+    }
+
+    show(E.prePayments);
+  }
+
+  function displayShare() {
+    // Preconditions:
+    // * input data is valid
+    if (!isInputDataValid(M.input)) {
+      hide(E.share);
+      return;
+    }
+
+    show(E.share);
   }
 
   function snakeCase(string) {
@@ -505,19 +563,15 @@
   }
 
   function displaySchedule() {
+    // Preconditions:
+    // * input data is valid
+    // * there is at least one period
+    if (!isInputDataValid(M.input) || M.schedule.length < 1) {
+      hide(E.schedule);
+      return;
+    }
+
     E.outputSchedule.textContent = '';
-
-    if (!isInputDataValid(M.input)) {
-      return;
-    }
-
-    if (M.schedule.length < 1) {
-      return;
-    }
-
-    var title = document.createElement('h2');
-    title.textContent = 'Amortization Schedule';
-    E.outputSchedule.appendChild(title);
 
     var table = document.createElement('table');
     E.outputSchedule.appendChild(table);
@@ -539,55 +593,129 @@
       }
       table.appendChild(row);
     }
+
+    show(E.schedule);
   }
 
   function displayViz() {
-    if (!isInputDataValid(M.input) || M.computed.periods < 1) {
-      E.svgViz.style.display = 'none';
+    // Preconditions:
+    // * input data is valid
+    // * there is at least one period
+    // * principal amount > interest amount
+    if (!isInputDataValid(M.input) || M.computed.periods < 1 || M.input.principal < M.computed.totalInterest) {
+      hide(E.svgViz);
       return;
     }
 
-    var interestToPrincipalRatio = M.computed.totalInterest / M.input.principal;
+    // Reset visualization
+    E.vizLegend.textContent = '';
 
-    E.svgVizHouse.setAttribute('width', C.vizAbsoluteSize);
-    E.svgVizHouse.setAttribute('height', C.vizAbsoluteSize);
-    E.svgVizBank.setAttribute('width', C.vizAbsoluteSize * interestToPrincipalRatio);
-    E.svgVizBank.setAttribute('height', C.vizAbsoluteSize * interestToPrincipalRatio);
+    var cellsNum = C.viz.cols * C.viz.rows;
 
-    E.inputVizTime.setAttribute('max', M.computed.periods - 1);
+    // Find the maximum amount per cell that contains the full principal amount
+    var principal = M.input.principal;
+    var base = 5;
+    for (var i = 0; principal % cellsNum == 0 && principal > 1; i++) {
+      principal /= base;
+    }
+    var cellAmount = Math.ceil(principal / cellsNum) * Math.pow(base, i);
+    M.viz.cellAmount = truncate(cellAmount, 3);
+
+    var legend = document.createElement('div');
+    legend.textContent = 'Each coin corresponds to ' + formatCurrency(M.viz.cellAmount);
+    E.vizLegend.appendChild(legend);
+
+    E.svgVizPrincipal.setAttribute('width', C.viz.size.width + C.viz.margin.horizontal + C.viz.cols * C.viz.coin.offsetVariance * 2);
+    E.svgVizPrincipal.setAttribute('height', C.viz.size.height + C.viz.margin.vertical);
+    E.svgVizInterest.setAttribute('width', C.viz.size.width + C.viz.margin.horizontal + C.viz.cols * C.viz.coin.offsetVariance * 2);
+    E.svgVizInterest.setAttribute('height', C.viz.size.height + C.viz.margin.vertical);
+
+    E.inputVizTime.setAttribute('max', M.schedule.length - 1);
     var currentPeriod = dateDelta(M.input.startDate, toDate(G.selectedDate));
     E.inputVizTime.setAttribute('value', currentPeriod);
     updateDataViz(currentPeriod);
 
-    E.svgViz.style.display = 'block';
+    E.outputTotalAmount.textContent = formatCurrencyWithComparison(M.computed.totalMortgage, M.computedWithoutPrePayments.totalMortgage);
+    E.outputMonthlyPayment.textContent = formatCurrency(M.computed.periodicPayment);
+    E.outputPrincipal.textContent = formatCurrency(M.input.principal);
+    E.outputInterest.textContent = formatCurrencyWithComparison(M.computed.totalInterest, M.computedWithoutPrePayments.totalInterest);
+
+    show(E.svgViz);
   }
 
   function updateDataViz(period) {
-    var principalProgressSum = 0;
-    var interestProgressSum = 0;
-    for (var i = 0; i <= period && i < M.schedule.length; i++) {
-      principalProgressSum += M.schedule[i].paymentPrincipalAmount;
-      interestProgressSum += M.schedule[i].paymentInterestAmount;
-    }
-    var principalProgressRatio = principalProgressSum / M.input.principal;
-    var interestProgressRatio = interestProgressSum / M.computed.totalInterest;
+    E.svgVizPrincipal.textContent = '';
+    E.vizCurrentPeriod.textContent = '';
 
-    E.svgVizPrincipalProgress.setAttribute('height', C.vizRelativeSize * principalProgressRatio);
-    E.svgVizPrincipalProgress.setAttribute('y', C.vizRelativeSize * (1 - principalProgressRatio));
-    E.svgVizInterestProgress.setAttribute('height', C.vizRelativeSize * interestProgressRatio);
-    E.svgVizInterestProgress.setAttribute('y', C.vizRelativeSize * (1 - interestProgressRatio));
+    var principalProgress = 0;
+    var interestProgress = 0;
+    for (var i = 0; i <= period && i < M.schedule.length; i++) {
+      principalProgress += M.schedule[i].paymentPrincipalAmount;
+      interestProgress += M.schedule[i].paymentInterestAmount;
+    }
+
+    // Draw cells
+    drawCoins(E.svgVizPrincipal, M.input.principal, principalProgress);
+    drawCoins(E.svgVizInterest, M.computed.totalInterest, interestProgress, M.computedWithoutPrePayments.totalInterest);
+
+    // Update current period label
+    var currentPeriodText = document.createElement('div');
+    currentPeriodText.textContent = 'Selected period: ' + formatDate(addMonths(M.input.startDate, period));
+    E.vizCurrentPeriod.appendChild(currentPeriodText);
 
     // Update selected row in the amortization schedule
     E.outputSchedule.getElementsByClassName(C.selectedPeriodClass)[0].className = '';
     document.getElementById(C.scheduleRowIdPrefix + (period + 1)).className = C.selectedPeriodClass;
   }
 
-  function setTheme() {
-    var accentColor = '#0cf';
-    var secondaryColor = '#c0f';
+  function drawCoins(container, amount, progressAmount, initialAmount) {
+    if (initialAmount == null) {
+      initialAmount = amount;
+    }
 
-    E.svgVizPrincipalProgress.setAttribute('fill', accentColor);
-    E.svgVizInterestProgress.setAttribute('fill', secondaryColor);
+    // Preconditions:
+    // * amount >= progressAmount
+    // * if initialAmount is present initialAmount >= amount
+    if (amount < progressAmount && initialAmount < amount) {
+      return;
+    }
+
+    var cellSize = {
+      width: C.viz.size.width / C.viz.cols,
+      height: C.viz.size.height / C.viz.rows,
+    };
+
+    var coins = [];
+    for (var x = 0; x < C.viz.cols && initialAmount >= M.viz.cellAmount / 2; x++) {
+      for (var y = 0; y < C.viz.rows && initialAmount >= M.viz.cellAmount / 2; y++) {
+        var randomOffset = C.viz.coin.offsetVariance - R[x * C.viz.cols + y] % (C.viz.coin.offsetVariance * 2);
+        var cell = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        cell.setAttribute('fill', progressAmount > 0 ? C.viz.progressColor.fill : amount > 0 ? C.viz.color.fill : C.viz.disabledColor.fill);
+        cell.setAttribute('stroke', progressAmount > 0 ? C.viz.progressColor.stroke : amount > 0 ? C.viz.color.stroke : C.viz.disabledColor.stroke);
+        cell.setAttribute('stroke-width', C.viz.coin.strokeWidth);
+        cell.setAttribute('rx', C.viz.coin.cornerRadius);
+        cell.setAttribute('width', cellSize.width);
+        cell.setAttribute('height', cellSize.height);
+        cell.setAttribute('x', (cellSize.width + C.viz.coin.offsetVariance * 2) * x + (C.viz.margin.horizontal / 2) + randomOffset);
+        cell.setAttribute('y', C.viz.size.height - cellSize.height - (cellSize.height * y) + (C.viz.margin.vertical / 2));
+        coins.push(cell);
+        amount -= M.viz.cellAmount;
+        progressAmount -= M.viz.cellAmount;
+        initialAmount -= M.viz.cellAmount;
+      }
+    }
+
+    // SVG elements z-index is determined by their order in the document. In
+    // this case the last coin should be the first in the document in order to
+    // be displayed behind the rest of the coins in the stack
+    for (var i = coins.length - 1; i >= 0; i--) {
+      container.append(coins[i]);
+    }
+  }
+
+  // Generates a random number in the range [0, max)
+  function randomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
   }
 
   function addMonths(startDate, months) {
@@ -643,7 +771,8 @@
       M.computedWithoutPrePayments = computeAmortizationSchedule({});
     }
 
-    displaySummary();
+    displayPrePayments();
+    displayShare();
     displaySchedule();
     displayViz();
   }

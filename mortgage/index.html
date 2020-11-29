@@ -1,74 +1,112 @@
 ---
 layout: default
-title: Mortgage Amortization Schedule Visualization
-description: A tool for visualizing your mortgate amortization schedule.
+title: Mortgage Amortization Schedule Tool
+description: A tool for visualizing your mortgage amortization schedule.
 ---
 
-<header>
-  <h1>{{ page.title }}</h1>
-</header>
+<section id="input">
+  <h1>Your mortgage</h1>
+  <div class="form">
+    <div>
+      I will pay $
+      <input id="principal" type="number" placeholder="500000" />
+      in
+      <input id="time_years" type="number" placeholder="15" />
+      years starting on
+      <input id="start_date" type="text" placeholder="05/2019" />
+      with an annual interest rate of
+      <input id="interest_rate" type="number" placeholder="3.5" />
+      %
+    </div>
+  </div>
+</section>
 
-<div class="form">
-  I will pay $
-  <input id="principal" type="text" placeholder="500000" />
-  in
-  <input id="time_years" type="text" placeholder="15" />
-  years starting on
-  <input id="start_date" type="text" placeholder="05/2019" />
-  with an annual interest rate of
-  <input id="interest_rate" type="text" placeholder="3.5" />
-  %
-</div>
+<section id="viz">
+  <h1>Summary</h1>
+  <h2>Total mortgage amount: <span id="output_total_amount"></span></h2>
+  <h2>Monthly payment: <span id="output_monthly_payment"></span></h2>
 
-<div id="pre_payments">
-  <h2>Pre-payments</h2>
-  <div id="pre_payment_forms"></div>
-  <button id="add_pre_payment">Add pre-payment</button>
-</div>
+  <div class="clear">
+    <div id="principal_container" class="left_container">
+      <h2 class="primary">Principal</h2>
+      <h2 id="output_principal" class="secondary"></h2>
+    </div>
+    <div id="interest_container" class="right_container">
+      <h2 class="primary">Interest</h2>
+      <h2 id="output_interest" class="secondary"></h2>
+    </div>
+  </div>
 
-<div id="output_summary"></div>
+  <div class="clear">
+    <div class="left_container">
+      <svg id="viz_principal"></svg>
+    </div>
+    <div class="right_container">
+      <svg id="viz_interest"></svg>
+    </div>
+  </div>
 
-<div id="viz">
-  <svg id="house" viewBox="0 0 100 100">
-    <mask id="mask">
-      <!-- Everything under a black pixel will be invisible -->
-      <rect width="100" height="100" fill="black" />
-
-      <!-- Everything under a white pixel will be visible -->
-      <rect width="100" height="100" rx="8" fill="white" />
-    </mask>
-
-    <rect width="100" height="100" fill="black" mask="url(#mask)" />
-    <rect id="principal_progress" width="100" height="0" mask="url(#mask)" />
-  </svg>
-  <svg id="bank" viewBox="0 0 100 100">
-    <mask id="mask">
-      <!-- Everything under a black pixel will be invisible -->
-      <rect width="100" height="100" fill="black" />
-
-      <!-- Everything under a white pixel will be visible -->
-      <rect width="100" height="100" rx="8" fill="white" />
-    </mask>
-
-    <rect width="100" height="100" fill="black" mask="url(#mask)" />
-    <rect id="interest_progress" width="100" height="0" mask="url(#mask)" />
-  </svg>
   <div id="slider">
     <input type="range" id="viz_time" min="0" max="180" value="0" />
     <label for="viz_time">Time</label>
   </div>
-</div>
 
-<div id="share">
-  <h2>Share</h2>
+  <div id="viz_current_period"></div>
+  <div id="viz_legend"></div>
+</section>
+
+<section id="pre_payments">
+  <h1>Pre-payments</h1>
+  <div id="pre_payment_forms"></div>
+  <button id="add_pre_payment">Add pre-payment</button>
+</section>
+
+<section id="share">
+  <h1>Share</h1>
   <div>
     If you want to share the current inputs, click "Generate link", and share
     the resulting link.
   </div>
   <button id="generate_link">Generate link</button>
-</div>
+</section>
 
-<div id="output_schedule"></div>
+<section id="schedule">
+  <h1>Amortization Schedule</h1>
+  <div id="output_schedule"></div>
+</section>
+
+<section id="about">
+  <h2>About this tool</h2>
+  <p>
+    Use this tool to get useful insights about your mortgage. For instance it
+    will help you understand how to save money by pre-paying part of the
+    principal amount.
+  </p>
+
+  <h2>How to use this tool</h2>
+  <p>
+    Input your mortgage data: principal amount, duration, start date
+    (month/year), and annual interest rate. Summary and amortization schedule
+    table will populate with the result.
+  </p>
+  <p>
+    You can optionally add one or more pre-payments to see how they will impact
+    the amount of interest your need to pay.
+  </p>
+  <p>
+    Click on "Generate link" to save your results as a link that you can send
+    via chat or email.
+  </p>
+
+  <h2>Privacy</h2>
+  <p>
+    This tool is completely self contained and doesn't share any of your data.
+  </p>
+  <p>
+    You can find the source code at
+    <a href="{{ site.source_url }}">{{ site.source_url }}</a>.
+  </p>
+</section>
 
 <script type="text/javascript" src="{{ '/mortgage/index.js' | relative_url }}"></script>
 <script type="text/javascript">
