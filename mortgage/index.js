@@ -202,10 +202,14 @@
 
   function initPlaceholders() {
     E.input.principal.placeholder = (randomInt(10) + 1) * 100000;
-    E.input.timeYears.placeholder = [5, 15, 30][randomInt(3)];
-    var month = randomInt(12);
-    var year = randomInt(20);
-    E.input.startDate.placeholder = (month + 1).toString() + '/' + (year + 2000).toString();
+    var timeYears = [5, 15, 30][randomInt(3)];
+    E.input.timeYears.placeholder = timeYears;
+    var currentYear = (new Date()).getFullYear();
+    var date = {
+      month: randomInt(12) + 1,
+      year: randomInt(currentYear, currentYear - timeYears),
+    };
+    E.input.startDate.placeholder = formatDate(date);
     var interestRate = (Math.random() * 4) + 2;
     E.input.interestRate.placeholder = toFixedWithPadding(interestRate, 2);
   }
@@ -270,35 +274,49 @@
     computeData();
   }
 
+  function createPrePaymentInputElement(initialValue) {
+    var element = document.createElement('input');
+    element.className = 'pre_payment';
+    element.type = 'text';
+    // Assign a random value as a pre-payment example that is a fraction of the
+    // input principal amount.
+    var exampleValue = M.input.principal;
+    while (exampleValue > 10) {
+      exampleValue /= 10;
+    }
+    exampleValue = Math.abs(exampleValue);
+    element.placeholder = randomInt(exampleValue + 1, 1) * 1000;
+    element.value = toInputElementValue('prePayment', initialValue);
+    element.addEventListener(
+      'input',
+      updatePrePaymentData(G.prePaymentIndex, 'prePayment', 'float')
+    );
+    return element;
+  }
+
+  function createPrePaymentDateInputElement(initialValue) {
+    var element = document.createElement('input');
+    element.className = 'pre_payment_date';
+    element.type = 'text';
+    var exampleValue = {
+      month: randomInt(12) + 1,
+      year: randomInt(M.input.startDate.year + M.input.timeYears, M.input.startDate.year + 2),
+    };
+    element.placeholder = formatDate(exampleValue);
+    element.value = toInputElementValue('prePaymentDate', initialValue);
+    element.addEventListener(
+      'input',
+      updatePrePaymentData(G.prePaymentIndex, 'prePaymentDate', 'date')
+    );
+    return element;
+  }
+
   function addPrePaymentForm(initialData) {
     var form = document.createElement('div');
     form.className = 'form';
 
-    var prePaymentInput = document.createElement('input');
-    prePaymentInput.className = 'pre_payment';
-    prePaymentInput.type = 'text';
-    prePaymentInput.placeholder = '70000';
-    prePaymentInput.value = toInputElementValue(
-      'prePayment',
-      initialData.prePayment
-    );
-    prePaymentInput.addEventListener(
-      'input',
-      updatePrePaymentData(G.prePaymentIndex, 'prePayment', 'float')
-    );
-
-    var prePaymentDateInput = document.createElement('input');
-    prePaymentDateInput.className = 'pre_payment_date';
-    prePaymentDateInput.type = 'text';
-    prePaymentDateInput.placeholder = '11/2020';
-    prePaymentDateInput.value = toInputElementValue(
-      'prePaymentDate',
-      initialData.prePaymentDate
-    );
-    prePaymentDateInput.addEventListener(
-      'input',
-      updatePrePaymentData(G.prePaymentIndex, 'prePaymentDate', 'date')
-    );
+    var prePaymentInput = createPrePaymentInputElement(initialData.prePayment);
+    var prePaymentDateInput = createPrePaymentDateInputElement(initialData.prePaymentDate);
 
     var removePrePaymentButton = document.createElement('button');
     removePrePaymentButton.className = 'remove_pre_payment';
@@ -713,9 +731,13 @@
     }
   }
 
-  // Generates a random number in the range [0, max)
-  function randomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
+  // Generates a random number in the range [min, max), where 0 is the default
+  // value for min.
+  function randomInt(max, min) {
+    if (min == null) {
+      min = 0;
+    }
+    return min + Math.floor(Math.random() * Math.floor(max - min));
   }
 
   function addMonths(startDate, months) {
