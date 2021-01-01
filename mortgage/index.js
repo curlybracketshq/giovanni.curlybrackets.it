@@ -38,6 +38,7 @@
     },
     currencySymbol: '$',
     timeUnitYears: 'years',
+    timeUnitMonths: 'months',
     scheduleRowIdPrefix: 'period_',
     selectedPeriodClass: 'selected_period',
     scheduleCols: [
@@ -72,6 +73,8 @@
     svgViz: document.getElementById('viz'),
     outputTotalAmount: document.getElementById('output_total_amount'),
     outputMonthlyPayment: document.getElementById('output_monthly_payment'),
+    outputPeriods: document.getElementById('output_periods'),
+    outputSavings: document.getElementById('output_savings'),
     svgVizPrincipal: document.getElementById('viz_principal'),
     outputPrincipal: document.getElementById('output_principal'),
     svgVizInterest: document.getElementById('viz_interest'),
@@ -183,6 +186,18 @@
       }
     }
     return size;
+  }
+
+  function prePaymentsArray() {
+    var prePayments = [];
+
+    for (var key in M.prePayments) {
+      if (M.prePayments.hasOwnProperty(key) && isInputDataValid(M.prePayments[key])) {
+        prePayments.push(M.prePayments[key]);
+      }
+    }
+
+    return prePayments;
   }
 
   function writeHashParams() {
@@ -456,8 +471,20 @@
     return toFixedWithPadding(value, precision) + '%';
   }
 
-  function formatTime(value, unit) {
-    return value.toString() + ' ' + unit;
+  function formatPeriod(value, unit) {
+    if (unit != null) {
+      return value.toString() + ' ' + unit;
+    }
+
+    var years = Math.floor(value / 12);
+    var months = value % 12;
+
+    var output = formatPeriod(years, C.timeUnitYears);
+    if (months > 0) {
+      output += ' and ' + formatPeriod(months, C.timeUnitMonths);
+    }
+
+    return output;
   }
 
   function formatDate(value) {
@@ -481,7 +508,7 @@
           M.computedWithoutPrePayments[key]
         );
       case 'timeYears':
-        return formatTime(value, C.timeUnitYears);
+        return formatPeriod(value, C.timeUnitYears);
       case 'interestRate':
         return formatPercentage(value, 2);
       case 'periodicInterest':
@@ -655,10 +682,50 @@
 
     E.outputTotalAmount.textContent = formatCurrencyWithComparison(M.computed.totalMortgage, M.computedWithoutPrePayments.totalMortgage);
     E.outputMonthlyPayment.textContent = formatCurrency(M.computed.periodicPayment);
+    E.outputPeriods.textContent = formatPeriod(M.schedule.length);
     E.outputPrincipal.textContent = formatCurrency(M.input.principal);
-    E.outputInterest.textContent = formatCurrencyWithComparison(M.computed.totalInterest, M.computedWithoutPrePayments.totalInterest);
+    E.outputInterest.textContent = formatCurrency(M.computed.totalInterest);
+
+    displaySavings();
 
     show(E.svgViz);
+  }
+
+  function displaySavings() {
+    // Reset savings content
+    E.outputSavings.textContent = '';
+
+    var paragraph;
+    if (M.computed.totalInterest < M.computedWithoutPrePayments.totalInterest) {
+      var prePayments = prePaymentsArray();
+      var totalPrePaymentsAmount = prePayments.reduce(function(sum, data) {
+        return sum + data.prePayment;
+      }, 0);
+      var totalPrePaymentsPercentage = totalPrePaymentsAmount / M.input.principal * 100;
+      var interestDelta = M.computedWithoutPrePayments.totalInterest - M.computed.totalInterest;
+      var interestReductionPercentage = interestDelta / M.computedWithoutPrePayments.totalInterest * 100;
+      paragraph = document.createElement('p');
+      paragraph.textContent = "By pre-paying " + formatCurrency(totalPrePaymentsAmount) +
+        " (" + formatPercentage(totalPrePaymentsPercentage, 2) +
+        " of the principal), you're reducing the interest amount from " +
+        formatCurrency(M.computedWithoutPrePayments.totalInterest) + " to " +
+        formatCurrency(M.computed.totalInterest) + ", that's " +
+        formatCurrency(interestDelta) + " less, a " +
+        formatPercentage(interestReductionPercentage, 2) + " reduction.";
+      E.outputSavings.appendChild(paragraph);
+
+      var targetDate = M.schedule[M.schedule.length - 1].date;
+      var periodsDelta = M.computed.periods - M.schedule.length;
+      paragraph = document.createElement('p');
+      paragraph.textContent = "You'll be able to pay back the loan by " +
+        formatDate(targetDate) + ", that's " + formatPeriod(periodsDelta) +
+        " earlier than expected.";
+      E.outputSavings.appendChild(paragraph);
+    } else {
+      paragraph = document.createElement('p');
+      paragraph.textContent = "Try to add a pre-payment to see how you can reduce interest amount and time needed to pay back your loan.";
+      E.outputSavings.appendChild(paragraph);
+    }
   }
 
   function updateDataViz(period) {
@@ -773,12 +840,7 @@
       var denominator = power - 1;
       M.computed.periodicPayment = M.input.principal * numerator / denominator;
 
-      var prePayments = [];
-      for (var key in M.prePayments) {
-        if (M.prePayments.hasOwnProperty(key) && isInputDataValid(M.prePayments[key])) {
-          prePayments.push(M.prePayments[key]);
-        }
-      }
+      var prePayments = prePaymentsArray();
       var prePaymentsByPeriod = {};
       for (var i = 0; i < prePayments.length; i++) {
         var period = dateDelta(M.input.startDate, prePayments[i].prePaymentDate);

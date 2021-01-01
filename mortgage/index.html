@@ -25,6 +25,9 @@ description: A tool for visualizing your mortgage amortization schedule.
   <h1>Summary</h1>
   <h2>Total mortgage amount: <span id="output_total_amount"></span></h2>
   <h2>Monthly payment: <span id="output_monthly_payment"></span></h2>
+  <h2>Mortgage length: <span id="output_periods"></span></h2>
+  <h2>Savings</h2>
+  <div id="output_savings"></div>
 
   <div class="clear">
     <div id="principal_container" class="left_container">
@@ -57,16 +60,17 @@ description: A tool for visualizing your mortgage amortization schedule.
 
 <section id="pre_payments">
   <h1>Pre-payments</h1>
+  <p>
+    Pre-pay part of the principal amount in order to reduce interest amount and
+    time needed to pay back your loan.
+  </p>
   <div id="pre_payment_forms"></div>
   <button id="add_pre_payment">Add pre-payment</button>
 </section>
 
 <section id="share">
   <h1>Share</h1>
-  <div>
-    If you want to share the current inputs, click "Generate link", and share
-    the resulting link.
-  </div>
+  <p>Click "Generate link" to encode the current inputs in a sharable link.</p>
   <button id="generate_link">Generate link</button>
 </section>
 
