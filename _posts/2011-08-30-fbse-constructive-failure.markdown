@@ -3,10 +3,10 @@ title: "FBSE: costructive failure"
 layout: post
 ---
 
-[ftartaggia]: http://twitter.com/ftartaggia "Francesco Tartaggia"
-[llanziani]: http://twitter.com/_Nss_ "Luca Lanziani"
-[mcentenaro]: http://twitter.com/bugant "Matteo Centenaro"
-[nbrisotto]: http://twitter.com/breezeight "Nicola Brisotto"
+[ftartaggia]: http://twitter.com/ftartaggia "Francesco"
+[llanziani]: http://twitter.com/_Nss_ "Luca"
+[mcentenaro]: http://twitter.com/bugant "Matteo"
+[nbrisotto]: http://twitter.com/breezeight "Nicola"
 [fbse]: http://fbse.no.de "FBSE"
 [express]: http://expressjs.com/ "express.js"
 [mongoose]: http://mongoosejs.com/ "Mongoose ORM"
@@ -18,9 +18,9 @@ layout: post
 Yesterday the Node.js Kockout ended.
 
 Two crazy days - and nights - of coding, brainstorming, having fun, drinking
-and eating with [Francesco Tartaggia][ftartaggia], [Luca Lanziani][llanziani],
-[Matteo Centenaro][mcentenaro] and [Nicola Brisotto][nbrisotto]. Even Luca
-came from Viterbo to participate to the Node.js KO with us.
+and eating with [Francesco][ftartaggia], [Luca][llanziani], [Matteo][mcentenaro]
+and [Nicola][nbrisotto]. Luca travelled directly from Viterbo to attend the
+programming competition.
 
 The product we made is called [**FBSE**][fbse] and it's **a stock exchange
 simulation game**.
@@ -43,5 +43,5 @@ Stocks prices and price variations are updated in realtime using the Facebook
 realtime API and [socket.io][socket].
 
 I'd like also to thank my girlfriend Giorgia for the delicious *pasta fredda*,
-Massimo Scarpis for the prototype idea and for your support, and Guglielmo Alati
-for the beautiful logo we didn't have the chance to use.
+Massimo for the prototype idea and for your support, and Guglielmo for the
+beautiful logo we didn't have the chance to use.

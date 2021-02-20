@@ -5,17 +5,15 @@ layout: post
 
 [stash]: http://book.git-scm.com/4_stashing.html "Git Community Book - Stashing"
 
-Git stash is great.
-
-You can forget for a moment about the updates you're currently working on to
-focus on the nth unexpected event.
+With git stash you can forget for a moment about the updates you're currently
+working on to focus on the nth unexpected event.
 
 Use `git stash` to save the current state of your work.
 
-    $ git stash save "work in progress for foo feature"
+    $ git stash save "work in progress"
 
-This command will save your changes away to the stash, and reset your working
-tree and the index to match the tip of your current branch.
+This command will save your changes away to the stash, and reset working tree
+and index to match the tip of your current branch.
 
 Then handle the unexpected event, fix bugs, update code, write tests.
 

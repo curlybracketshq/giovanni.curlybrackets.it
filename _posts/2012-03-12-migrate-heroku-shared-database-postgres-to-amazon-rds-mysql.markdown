@@ -7,9 +7,9 @@ layout: post
 [amazon_rds]: http://aws.amazon.com/rds/ "Amazon Relational Database Service"
 [heroku_amazon_rds]: http://devcenter.heroku.com/articles/amazon_rds "Heroku Dev Center - Amazon RDS"
 
-Heroku is a great PaaS, it let you deploy an app in seconds, almost everything
-is automated. By default your app will use Heroku *shared database*, a Postgres
-db instance which is a perfect choice for development environments but you just
+Heroku is a PaaS, it lets you deploy an app in seconds, almost everything is
+automated. By default your app will use Heroku *shared database*, a Postgres db
+instance which is a perfect choice for development environments, but you just
 can't use it in production (just take a look at [Heroku status
 blog][heroku_status] to get an idea).
 
@@ -34,7 +34,7 @@ console.
 Migrate your data from Heroku shared database to your new Amazon RDS database
 instance.
 
-You’ll need to aythorize access to the RDS instance from your workstation
+You'll need to authorize access to the RDS instance from your workstation
 running:
 
     $ rds-authorize-db-security-group-ingress default --cidr-ip 1.1.1.1/32

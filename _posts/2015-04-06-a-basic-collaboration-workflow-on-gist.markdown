@@ -3,19 +3,18 @@ title: A basic collaboration workflow on Gist
 layout: post
 ---
 
-The main purpose of this post is to introduce a basic workflow to allow people
-to collaborate on [Gist](https://gist.github.com/).
+The main purpose of this post is to introduce a basic workflow to collaborate on
+[Gist](https://gist.github.com/).
 
 First of all gists are nothing more than git repositories hosted at
 [https://gist.github.com](https://gist.github.com/). They are typically used to
-share snippets of code, but can be used also to write [live code
+share snippets of code, but can they can also be used to write [live code
 examples](http://bl.ocks.org/), [posts](http://gist.io/), and
 [text-adventures](https://github.com/potomak/gist-txt).
 
 You can learn more about how to [create a
 gist](https://help.github.com/articles/creating-gists/) and [about
-gists](https://help.github.com/articles/about-gists/) themselves on GitHub Help
-pages.
+gists](https://help.github.com/articles/about-gists/) on GitHub Help pages.
 
 In this post I will focus on how to manage *forks* and *remotes* to easily
 collaborate on a gist with your coworkers.
@@ -42,9 +41,9 @@ by running
 giovanni$ git clone git@gist.github.com:/49832b4426a5f093037d.git hello-world
 ```
 
-Now you can work on the gist as you would usually do with other git
-repositories. You can for instance update the `hello-world.txt` file, add it
-to the staging area, and commit your changes logging a commit message.
+Now you can work on the gist as you would usually do with any other git
+repository. For instance you can update the `hello-world.txt` file, add it to
+the staging area, and commit your changes.
 
 ```bash
 giovanni$ cd hello-world
@@ -79,7 +78,7 @@ also online at
 ## Forks and remotes
 
 To collaborate on gists repositories your team mates can
-[fork](https://help.github.com/articles/forking-and-cloning-gists/#forking-gists)
+[*fork*](https://help.github.com/articles/forking-and-cloning-gists/#forking-gists)
 them.
 
 As a different GitHub user you can fork the example gist, for instance
@@ -97,7 +96,7 @@ giorgia$ git commit -m "Update file from fork"
 Doing so Giorgia updated `hello-world.txt` and committed her changes on her
 local repository, associated with the remote fork.
 
-After her changes, log on Giorgia's local repository will look like this:
+After her changes, the log on Giorgia's local repository will look like this:
 
 ```bash
 giorgia$ git log --pretty=format:"%h - %an, %ar: %s"
@@ -140,6 +139,6 @@ giovanni$ git push origin master
 
 ## Conclusion
 
-The process is a little more manual than how people are used to do with *pull
+The process is a little more manual than the one people are used to with *pull
 requests* from GitHub's web interface, but I find it interesting and useful to
 use such a simple collaboration flow on Gist.
