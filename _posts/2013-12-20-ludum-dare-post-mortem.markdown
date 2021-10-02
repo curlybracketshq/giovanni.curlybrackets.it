@@ -8,7 +8,7 @@ game jam and now I did and this is the first huge win for me. I built something
 in 48 hours, specifically a video game about choice, a hostile environment, and
 lack of resources.
 
-Don't forget to play and rate ["Loop Desert"](http://www.ludumdare.com/compo/ludum-dare-28/?action=preview&uid=20065).
+Don't forget to play ~~and rate~~ ["Loop Desert"]({{ '/ld28' | relative_url }}).
 
 ![Loop Desert by Giovanni Cappellotto]({{ '/assets/posts/loop-desert.png' | relative_url }})
 
