@@ -9,7 +9,7 @@ The team is composed by [me]({{ '/about.html' | relative_url }}),
 [Luca](https://twitter.com/lucaderosso).
 
 The mission is to build a text-adventure in 14 days for the
-[AdventureJam](http://adventurejam.org).
+[AdventureJam](https://gamejolt.com/c/adventuredev).
 
 Well, we're not starting the project at full speed since I'm writing this post
 while flying to meet my family in Italy for Easter holidays. The team is
