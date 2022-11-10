@@ -19,8 +19,8 @@ One of the smartest solutions was Matteo's (see pull request
 which uses the `artii` gem to create ASCII art.
 
 A drawback of this solution is that you should have the `artii` gem installed on
-your system to run it without errors. A workaround solution is to call a web
-service which uses a sort of `artii` gem to generate ASCII art from a string.
+your system to run it without errors. A workaround is to call a web service that
+can generate ASCII art from a string.
 
 This solution is now available thanks to [ASCII art API][ascii_art_api].
 
@@ -43,7 +43,7 @@ With this API you should be able to build a solution to the contest like this:
     require 'open-uri'
     puts open('http://j.mp/IRG0u1').read
 
-You can find app's source code at
+You can find the app's source code at
 [http://github.com/potomak/artii-api](http://github.com/potomak/artii-api).
 
 Resources:

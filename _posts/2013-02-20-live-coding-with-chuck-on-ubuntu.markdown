@@ -52,7 +52,7 @@ Run
     $ chuck
     [chuck]: no input files... (try --help)
 
-As a starting point you can try running examples
+As a starting point you can try running the examples
 
     $ cd /usr/share/doc/chuck/examples
     $ chuck otf_01.ck

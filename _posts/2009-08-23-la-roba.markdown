@@ -5,7 +5,4 @@ layout: post
 
 ![La Roba]({{ '/assets/posts/la_roba.jpg' | relative_url }})
 
-Today I'd like to tell about a collective design project from Thiene called *"La
-Roba"*.
-
-I discovered them from [Yourban](http://www.yourban.org) party flyers, wow!
+*La Roba* is a collective design project from Thiene.

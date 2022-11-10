@@ -3,25 +3,24 @@ title: Update GitHub fork
 layout: post
 ---
 
-You need *feature A* and you know how to make it by extending *B*, an open
-source project repo hosted on GitHub.
+Let's say you want to contribute with a new feature to an open source project
+hosted on GitHub.
 
-You first should **fork** *repo B*, edit, test and commit your changes.
+You can **fork** the repo, edit, test, commit your changes, and finally open a
+*pull request*.
 
-Then you send your *pull request* and you're done.
+After some time your local repo might become outdated. How can you update your
+fork by getting the most recent version from the main repo?
 
-After some inactivity on your fork your local repo is outdated, how can you
-update your fork getting code from the main repo?
-
-1. Add `upstream` remote to track main repo
+1. Add a new `upstream` remote to track the main repo
 
         $ git remote add upstream git://github.com/octocat/Spoon-Knife.git
 
-1. Fetch upstream remote in your local repo
+2. Fetch upstream in your local repo
 
         $ git fetch upstream
 
-1. Merge `upstream/master` in your current branch to apply updates
+3. Merge `upstream/master` in your current branch to apply the updates
 
         $ git merge upstream/master
 

@@ -7,11 +7,9 @@ layout: post
 [amazon_rds]: http://aws.amazon.com/rds/ "Amazon Relational Database Service"
 [heroku_amazon_rds]: http://devcenter.heroku.com/articles/amazon_rds "Heroku Dev Center - Amazon RDS"
 
-Heroku is a PaaS, it lets you deploy an app in seconds, almost everything is
-automated. By default your app will use Heroku *shared database*, a Postgres db
-instance which is a perfect choice for development environments, but you just
-can't use it in production (just take a look at [Heroku status
-blog][heroku_status] to get an idea).
+Heroku is a PaaS that lets you deploy an app in seconds. By default your app
+will use Heroku *shared database*, a Postgres DB instance which is a good choice
+for development, but unsuitable for production.
 
 A cheap alternative is Amazon Relational Database Service (RDS). It offers MySQL
 instances at competitive prices.
@@ -20,13 +18,13 @@ To make this service available to your Heroku application you should create a
 new database instance at Amazon RDS and then enable this resource by adding the
 relative add-on.
 
-Keep in mind that Heroku dynos are Amazon EC2 instances and should be situated
-in US-East zone so making a RDS instance in the same zone leads to an optimal
-communication speed between app server and db server.
+Keep in mind that Heroku dynos are Amazon EC2 instances and should be located in
+the same zone as your RDS instance for reducing the latency between app server
+and DB server.
 
 #### Step 1
 
-Create an RDS database instance, you can do it using web based Amazon RDS
+Create an RDS database instance, you can do it from the web based Amazon RDS
 console.
 
 #### Step 2
@@ -60,12 +58,12 @@ Add Amazon RDS Heroku add-on
 
     $ heroku addons:add amazon_rds url=mysql2://user:pass@rdshostname.amazonaws.com/databasename
 
-That's all.
+That's it.
 
 #### Notes
 
 If you get `Taps Load Error: no such file to load -- taps/operation` error at
-"Step 2" no worries, just install `taps` on your system by running
+"Step 2", you might need to install `taps` on your system by running
 
     $ gem install taps
 
