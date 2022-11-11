@@ -22,15 +22,16 @@ or else you're going to stick with the code name. This is an easy solution, but
 most of the time you can do a lot better just giving it a little bit more
 thought.
 
-For our AdventureJam project we started with the code name *The daily routine*,
-but after some time we decided to call the game *Routine*. In this case I think
-we've been lucky to have found a good name from the beginning of the project.
+For our [AdventureJam project]({% post_url 2015-04-05-it-s-adventure-jam-time
+%}) we started with the code name *The daily routine*, but after some time we
+decided to call the game *Routine*. In this case I think we've been lucky to
+have found a good name from the beginning of the project.
 
-The game we're working on is a text adventure that tries to better understand
-the pros and cons of our daily routine. What is the subtle difference between a
-life spent repeating the same actions day after day and a life you can consider
-truly lived?
+The game we're working on is a text adventure that is also a reflection on pros
+and cons of our daily routine.
 
-I'm happy to begin to tackle this broad topic with a little game, and hopefully
-it will help me and my team comprehend how almost every aspect of our existence
-has its own meaning, even when they become part of our routine.
+What is the subtle difference between a life spent repeating the same actions
+day after day and a life you can consider truly lived?
+
+How does almost every aspect of our existence have its own meaning, even when
+they become part of our routine?
