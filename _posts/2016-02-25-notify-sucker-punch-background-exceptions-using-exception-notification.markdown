@@ -4,12 +4,12 @@ layout: post
 tags: error_handling celluloid sucker_punch exception_notification
 ---
 
-**[Sucker Punch](https://github.com/brandonhilkert/sucker_punch)** is a Ruby
+[**Sucker Punch**](https://github.com/brandonhilkert/sucker_punch) is a Ruby
 asynchronous processing library using Celluloid, heavily influenced by Sidekiq
 and girl_friday.
 
-The **[Exception
-Notification](https://github.com/smartinez87/exception_notification)** gem
+The [**Exception
+Notification**](https://github.com/smartinez87/exception_notification) gem
 provides a set of notifiers for sending notifications when errors occur in a
 Rack/Rails application.
 

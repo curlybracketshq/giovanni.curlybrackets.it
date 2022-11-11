@@ -11,9 +11,6 @@ The new design has very few concepts in mind:
 1. design responsiveness
 1. minimalism
 
-I took inspiration from a style I created for an old project of mine that I
-reworked a little bit to let it fit this blog.
-
-This is how the index page looked like:
+This is how the blog used to look like:
 
 ![Old style]({{ '/assets/posts/old-style.png' | relative_url }})
