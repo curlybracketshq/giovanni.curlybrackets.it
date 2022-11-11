@@ -1,6 +1,7 @@
 ---
 title: Ludum Dare Post Mortem
 layout: post
+tags: ludumdare
 ---
 
 Ludum Dare 28 was the first Ludum Dare I've ever attended. I always wanted to
