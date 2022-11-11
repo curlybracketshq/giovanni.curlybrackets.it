@@ -23,7 +23,7 @@ simultaneous, dynamic control rates. Another key feature is the ability to live
 code; adding, removing, and modifying code on the fly, while the program is
 running, without stopping or restarting.
 
-### Getting started with ChucK
+## Getting started with ChucK
 
 If you don't need the latest version of ChucK you can choose to download and
 install the apt package.

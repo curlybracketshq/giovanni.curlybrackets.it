@@ -9,7 +9,7 @@ main goal was to identify the most common errors.
 The script started as a single file *blob of code*. After some refactoring I
 created two main classes: `AirbrakeFetcher` and `BarChart`.
 
-### `AirbrakeFetcher`
+## `AirbrakeFetcher`
 
 Use this class to retrieve error groups, see more at [Airbrake API Reference -
 Groups v4](https://airbrake.io/docs/#groups-v4). Create a new instance by
@@ -74,7 +74,7 @@ end
 
 I used `fetch_all_groups` to collect data about error groups.
 
-### `BarChart`
+## `BarChart`
 
 Use this class to build a textual bar chart from a list of couples `[label,
 value]`.
@@ -151,7 +151,7 @@ Note: maybe `draw` is not the best name I could have chosen for this method. I
 guess I could have called it `to_s`, since it doesn't have any *drawing* side
 effect.
 
-### Example usage
+## Example usage
 
 Below an example usage of both classes to show a bar chart of errors grouped by
 error type.
@@ -190,8 +190,8 @@ puts
 ```
 
 From an example execution on a Rails app, the most common error I found was
-`NoMethodError`, that happens most of the time when you try to call a method on
-a `nil` object.
+`NoMethodError`, that usually happens when you try to call a method on a `nil`
+object.
 
 ```
 ---------------------------------

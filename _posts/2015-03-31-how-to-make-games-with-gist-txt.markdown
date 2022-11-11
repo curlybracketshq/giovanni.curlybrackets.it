@@ -7,19 +7,19 @@ layout: post
 Anna Anthropy's ["How to make games with
 Twine"](http://www.auntiepixelante.com/twine/)
 
-#### What is gist-txt?
+## What is gist-txt?
 
 **[gist-txt](https://github.com/potomak/gist-txt)** is a web app that lets you
 host interactive stories.
 
-#### Why is gist-txt so wonderful?
+## Why is gist-txt so wonderful?
 
 1. It's free
 1. You don't need to know how to program
 1. You don't need to install any program to use it
 1. Finished stories can be shared with a simple link
 
-#### The basics
+## The basics
 
 Every story is a [Gist](https://gist.github.com/).
 
