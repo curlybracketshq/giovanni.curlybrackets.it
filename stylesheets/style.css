@@ -37,17 +37,6 @@ sup {
   vertical-align: super;
 }
 
-a,
-a:hover,
-a:active,
-a:visited {
-  text-decoration: none;
-}
-
-a:hover {
-  border-bottom: 1px solid;
-}
-
 p {
   line-height: 24px;
   margin: 24px 0;
