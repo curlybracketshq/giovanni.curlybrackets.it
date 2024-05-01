@@ -9,13 +9,11 @@ discussion:
 ## Introduction
 
 In the conclusion of the last post in this series, I anticipated that I was
-going to talk about how to render sprites, but I need to delay a little bit that
-topic because I still don't have a clear game design idea.
+going to talk about how to render sprites, but I need to delay that topic a little bit because I still don't have a clear game design idea.
 
 I like to think of this as an application of the "Give the player options" rule
 in [Gilbert's Rules of Thumb](https://grumpygamer.com/why_adventure_games_suck)
-for adventure games that don't suck. I'm stuck at the "game design" puzzle, but
-that shouldn't prevent me to post regular updates on the project :)
+for adventure games that don't suck. I'm stuck at the "game design" puzzle, but that shouldn't prevent me from posting regular updates on the project :)
 
 In this post I'll describe how to display text using SpriteKit's label nodes.
 More specifically how to add a small label to the cursor node to display its
@@ -62,7 +60,7 @@ will be horizontally centered (`x: 0`) and vertically at top (`y: half +
 Cursor.positionLabelTopMargin`).
 
 Note: `y` computation includes `Cursor.positionLabelTopMargin` static constant,
-that I use to reference to the numeric value used as the top margin between
+that I use as the reference for the numeric value used as the top margin between
 cursor path and label node.
 
 ```swift
@@ -104,8 +102,7 @@ This is the final result:
 
 ## Conclusion
 
-This was kind of a *placeholder post*, but it was a good excuse for introducing
-a new node type and I think it's useful to get feedback on the cursor's position
+This was kind of a *placeholder post*, but it served as a good opportunity to introduce a new node type and I think it's useful to get feedback on the cursor's position
 for debugging purpose.
 
 In the next post, as soon as I have the design prototype of the first game scene
