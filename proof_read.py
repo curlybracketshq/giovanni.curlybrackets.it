@@ -22,7 +22,9 @@ def main():
     payload = {
         "model": "gpt-4o",
         "messages": [
-            {"role": "system", "content": "You're a professional editor. Proof read the content in input and output a new improved version of the content."},
+            {"role": "system", "content": "You're a professional editor."},
+            {"role": "system", "content": "You should make as few changes as possible to improve the input content to make it more clear, to ensure it meets high-quality standards and achieves its purpose effectively."},
+            {"role": "system", "content": "Proof read the content in input and output a new improved version of the content."},
             {"role": "user", "content": file_content}
         ]
     }
