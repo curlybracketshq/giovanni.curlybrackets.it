@@ -1,20 +1,20 @@
 ---
-title: Intro
+title: Introduction
 layout: post
 ---
 
-I've recently played [The Secret of Monkey Island](https://en.wikipedia.org/wiki/The_Secret_of_Monkey_Island), maybe for the third time in my life. That game is awesome! It's a little bit outdated now, but still.
+I've recently played [The Secret of Monkey Island](https://en.wikipedia.org/wiki/The_Secret_of_Monkey_Island) for perhaps the third time in my life. That game is awesome! Although it's a bit outdated now, it still holds great appeal.
 
-I thought it would be cool to try and make an adventure game myself. I would take this as an opportunity for learning some Swift and SpriteKit, that seems like a good candidate for developing a 2D game.
+I thought it would be cool to try my hand at making an adventure game myself. I'll use this as an opportunity to learn some Swift and SpriteKit, which seem like good choices for developing a 2D game.
 
-I will write posts to keep track of my progress and to share some of the knowledge I gain. The plan is to publish at least one post every week.
+I'll be writing posts to track my progress and share some of the knowledge I acquire. The plan is to publish at least one post every week.
 
-In these posts I would like to talk mainly about technical challenges and game design decisions.
+In these posts, I would like to focus on the technical challenges and game design decisions I encounter.
 
-I'm going to share these information as an amateur iOS developer and wanna be game designer, so don't expect a very detailed guide on how to make 2D adventure games, but I'm enjoying writing this, so I hope you'll enjoy reading it too.
+I'll be sharing this information as an amateur iOS developer and aspiring game designer, so don't expect a very detailed guide on making 2D adventure games. I'm enjoying writing this, so I hope you'll enjoy reading it too.
 
-I'm also seeking for feedback, but I want to keep this blog simple, so I will share these posts on [r/iOSProgramming](https://www.reddit.com/r/iOSProgramming/) for starting a conversation.
+I'm also seeking feedback, but I want to keep this blog simple, so I'll share these posts on [r/iOSProgramming](https://www.reddit.com/r/iOSProgramming/) to start conversations.
 
 ## Conclusion
 
-In the next post I'll talk a little bit about the SpriteKit framework and how I've setup a cross platform project.
+In the next post, I'll discuss the SpriteKit framework and how I've set up a cross-platform project.

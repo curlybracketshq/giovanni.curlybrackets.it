@@ -1,5 +1,5 @@
 ---
-title: Getting started with SpriteKit
+title: Getting Started with SpriteKit
 layout: post
 discussion:
   url: https://www.reddit.com/r/iOSProgramming/comments/eqnmjj/adventure_game_development_using_spritekit_intro/
@@ -12,24 +12,24 @@ SpriteKit is
 
 > a general-purpose framework for drawing shapes, particles, text, images, and video in two dimensions.
 
-It's developed by Apple and it is supported on iOS, macOS, tvOS, and watchOS, and it integrates well with frameworks such as GameplayKit and SceneKit.
+Developed by Apple, SpriteKit is supported on iOS, macOS, tvOS, and watchOS, and it integrates well with frameworks like GameplayKit and SceneKit.
 
-I've chosen it to create a prototype adventure game that resembles those from the late 80's, early 90's.
+I've chosen it to create a prototype adventure game reminiscent of those from the late '80s and early '90s.
 
-I guess that usually people choose SpriteKit for adding custom 2D content and animations to their app, but for creating 2D games maybe it would make more sense to use a framework that supports platforms outside the Apple ecosystem.
+Typically, people choose SpriteKit for adding custom 2D content and animations to their app. However, for developing 2D games, it might make more sense to use a framework that supports platforms outside the Apple ecosystem.
 
-In my case these are the reasons why I've chosen SpriteKit:
+Here are the reasons why I've chosen SpriteKit:
 
-* I like the idea of writing/learning Swift. It's a modern language, strongly typed, and with a lot of cool features
-* I don't care much about supporting a lot of platforms
-* I hope the development is going to be easier by eliminating the class of problems brought by supporting multiple platforms
-* I'd like to keep it simple
+* I like the idea of learning and using Swift. It's a modern language, strongly typed, and packed with cool features.
+* Supporting multiple platforms is not a priority for me.
+* I hope development will be easier by eliminating the complexities brought by supporting multiple platforms.
+* I'd like to keep it simple.
 
-## Getting started
+## Getting Started
 
-I've never created any SpriteKit app. I've barely created any iOS app.
+I've never created a SpriteKit app before and have barely developed any iOS apps.
 
-Lucky me that XCode offers a bunch of templates to start from. In my case I've chosen the "Cross-platform Game" template.
+Thankfully, Xcode offers a range of templates to get started. In my case, I chose the "Cross-platform Game" template.
 
 The resulting project has three targets, one for each platform:
 
@@ -39,26 +39,26 @@ The resulting project has three targets, one for each platform:
 
 Note: I've excluded watchOS. Who will ever [be able to play](https://twitter.com/grumpygamer/status/880182522528710662) an adventure game on watchOS?
 
-For each target there's some code that includes a storyboard with a single controller that renders an `SKView`. `SKView` is a `UIView` subclass, that can render a SpriteKit scene.
+Each target includes code containing a storyboard with a single controller that renders an `SKView`. `SKView` is a `UIView` subclass capable of rendering a SpriteKit scene.
 
-The rest of the code is in a shared folder and it includes the main game scene, that is a subclass of `SKScene`.
+The rest of the code is in a shared folder and includes the main game scene, which is a subclass of `SKScene`.
 
-`GameScene` displays the content from a scene file, that's a file with extension `.sks` that can be configured in Xcode's scene editor. It also handles touch events, to display an animated shape when the player touches the screen.
+`GameScene` displays content from a scene file, with an `.sks` extension, which can be configured in Xcode's scene editor. It also handles touch events to display an animated shape when the player touches the screen.
 
-## Running the app on Apple TV
+## Running the App on Apple TV
 
-Step 0: login with my ([Giorgia](http://giorgia.curlybrackets.it)'s 🙂) Apple Developer credentials to be able to sign the app.
+Step 0: Log in with my ([Giorgia](http://giorgia.curlybrackets.it)'s 🙂) Apple Developer credentials to sign the app.
 
-Apple TV is my main development device. In order to be able to select it from the list of target devices, I need to pair it first.
+Apple TV is my primary development device. To select it from the list of target devices, I need to pair it first.
 
-The pairing process is easy. The device and the laptop just have to be connected to the same WiFi network, and then from the Apple TV settings start the pairing process. After you've verified the device you can build and run the app.
+The pairing process is straightforward. The Apple TV and the laptop need to be connected to the same Wi-Fi network. From the Apple TV settings, start the pairing process. After verifying the device, you can build and run the app.
 
-## Clean slate
+## Clean Slate
 
-I don't think the scene editor will be very useful, at least at the beginning, so the first thing I did was to delete the template scene and to start from scratch.
+I don't think the scene editor will be very useful, at least initially, so the first thing I did was delete the template scene and start from scratch.
 
-I guess at some point I will regret this decision, but first I want to be able to write code without having to keep track of external resources such as scene files. When, and if, the game scales, I may reconsider this choice.
+I might regret this decision later, but I want to be able to write code without managing external resources such as scene files. If and when the game scales, I may reconsider this choice.
 
 ## Conclusion
 
-In the next post I will introduce shape nodes and draw a simple cursor.
+In the next post, I will introduce shape nodes and draw a simple cursor.
