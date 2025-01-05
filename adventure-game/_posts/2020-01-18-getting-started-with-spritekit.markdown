@@ -47,7 +47,7 @@ The rest of the code is in a shared folder and includes the main game scene, whi
 
 ## Running the App on Apple TV
 
-Step 0: Log in with my ([Giorgia](http://giorgia.curlybrackets.it)'s 🙂) Apple Developer credentials to sign the app.
+Step 0: Log in with my ([Giorgia](https://giorgia.curlybrackets.it)'s 🙂) Apple Developer credentials to sign the app.
 
 Apple TV is my primary development device. To select it from the list of target devices, I need to pair it first.
 

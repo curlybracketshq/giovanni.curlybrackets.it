@@ -16,9 +16,7 @@ edit and save the buffer. Done.
 
 Want to edit an old commit message?
 
-If you find a mistake in an older commit you can use git rebase interactive
-mode, with `git rebase -i`, and mark the change that requires correction for
-edit.
+If you find a mistake in an older commit you can use git rebase interactive mode, with `git rebase -i`, and mark the change that requires correction for edit.
 
 Resources:
 

@@ -3,14 +3,11 @@ title: Update GitHub fork
 layout: post
 ---
 
-Let's say you want to contribute with a new feature to an open source project
-hosted on GitHub.
+Let's say you want to contribute with a new feature to an open source project hosted on GitHub.
 
-You can **fork** the repo, edit, test, commit your changes, and finally open a
-*pull request*.
+You can **fork** the repo, edit, test, commit your changes, and finally open a *pull request*.
 
-After some time your local repo might become outdated. How can you update your
-fork by getting the most recent version from the main repo?
+After some time your local repo might become outdated. How can you update your fork by getting the most recent version from the main repo?
 
 1. Add a new `upstream` remote to track the main repo
 

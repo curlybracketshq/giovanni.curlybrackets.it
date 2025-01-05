@@ -3,37 +3,19 @@ title: "scotty-format: A response format helper for the Scotty web framework"
 layout: post
 ---
 
-[scotty-format](https://github.com/potomak/scotty-format) is a helper for the
-Scotty web framework that helps you defining different response formats based
-on the request's `Accept` header value.
+[scotty-format](https://github.com/potomak/scotty-format) is a helper for the Scotty web framework that helps you defining different response formats based on the request's `Accept` header value.
 
-The functional inspiration for this helper comes from how Rails handles
-different response formats. In Rails you can implement actions to respond with
-different formats based on the `Accept` header value.
+The functional inspiration for this helper comes from how Rails handles different response formats. In Rails you can implement actions to respond with different formats based on the `Accept` header value.
 
-For instance a client could accept only responses that contain an
-`application/json` content, in that case if the server doesn't support that
-format it should respond with a `406 Not Acceptable` status code.
+For instance a client could accept only responses that contain an `application/json` content, in that case if the server doesn't support that format it should respond with a `406 Not Acceptable` status code.
 
-If the client accepts more than one content types the response content type
-will be the best available from the list of all types supported.
+If the client accepts more than one content types the response content type will be the best available from the list of all types supported.
 
-If the client doesn't include any acceptable format the first response format
-defined will be used.
+If the client doesn't include any acceptable format the first response format defined will be used.
 
-Rules for choosing the most appropriate response type are defined in
-[RFC-2616](https://www.ietf.org/rfc/rfc2616.txt) and are enforced by the
-[http-media](https://github.com/zmthy/http-media) library.
+Rules for choosing the most appropriate response type are defined in [RFC-2616](https://www.ietf.org/rfc/rfc2616.txt) and are enforced by the [http-media](https://github.com/zmthy/http-media) library.
 
-Inspiration for the implementation of this helper comes from
-[scotty-resource](https://github.com/taphu/scotty-resource), another helper for
-Scotty that lets you define REST resources easily by following HTTP strictly.
-scotty-resource defines a `WebResource` monad that is used to accumulate
-callbacks (`ActionT`) for each HTTP method that you want to support for the
-resource that you're defining. In a similar way scotty-format accumulates
-callbacks in a `ResponseFormat` monad for each format supported by the current
-action. The `respondTo` function will then select the appropriate callback
-according to the client's preferences.
+Inspiration for the implementation of this helper comes from [scotty-resource](https://github.com/taphu/scotty-resource), another helper for Scotty that lets you define REST resources easily by following HTTP strictly. scotty-resource defines a `WebResource` monad that is used to accumulate callbacks (`ActionT`) for each HTTP method that you want to support for the resource that you're defining. In a similar way scotty-format accumulates callbacks in a `ResponseFormat` monad for each format supported by the current action. The `respondTo` function will then select the appropriate callback according to the client's preferences.
 
 Example usage:
 
@@ -52,28 +34,16 @@ main = scotty 8080 $ do
         raw $ encodeUtf8 "1. e4"
 ```
 
-This function will define a Scotty app with one action only (`GET /hello`) that
-will respond with three different formats based on the `Accept` header value
-sent by the client.
+This function will define a Scotty app with one action only (`GET /hello`) that will respond with three different formats based on the `Accept` header value sent by the client.
 
-`curl http://localhost:8080/hello` will return a JSON response, because there's
-no `Accept` header value, the first content defined will be used by default.
+`curl http://localhost:8080/hello` will return a JSON response, because there's no `Accept` header value, the first content defined will be used by default.
 
-`curl -H 'Accept: text/plain' http://localhost:8080/hello` will return a text
-response.
+`curl -H 'Accept: text/plain' http://localhost:8080/hello` will return a text response.
 
-`curl -H 'Accept: image/png' http://localhost:8080/hello` will return a `406
-Not Acceptable` error code because there are no callbacks defined to respond
-with the requested media type.
+`curl -H 'Accept: image/png' http://localhost:8080/hello` will return a `406 Not Acceptable` error code because there are no callbacks defined to respond with the requested media type.
 
-You can use `formatJson`, `formatText`, or `formatHtml`, to accept respectively
-`application/json`, `text/plain`, or `text/html` media types. If you need to
-accept a different media type you can use the `format` function that accepts a
-`Text` parameter that is the media type.
+You can use `formatJson`, `formatText`, or `formatHtml`, to accept respectively `application/json`, `text/plain`, or `text/html` media types. If you need to accept a different media type you can use the `format` function that accepts a `Text` parameter that is the media type.
 
-To use this helper add `scotty-format` to your project's build dependencies
-list and include `respondTo` and `format*` functions.
+To use this helper add `scotty-format` to your project's build dependencies list and include `respondTo` and `format*` functions.
 
-Source code is available at
-[github.com/potomak/scotty-format](https://github.com/potomak/scotty-format)
-under the Apache 2 license.
+Source code is available at [github.com/potomak/scotty-format](https://github.com/potomak/scotty-format) under the Apache 2 license.

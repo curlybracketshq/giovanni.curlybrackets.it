@@ -8,8 +8,7 @@ To make the sqlite3 console output more readable run:
 
     $ (echo ".header ON" && echo ".mode column") > ~/.sqliterc
 
-This will create a file named `.sqliterc` in your home directory with a minimal
-configuration enabling table headers and setting output mode to `column`.
+This will create a file named `.sqliterc` in your home directory with a minimal configuration enabling table headers and setting output mode to `column`.
 
 Before:
 
