@@ -1,25 +1,31 @@
 ---
-title: Sqlite3 readable output
+title: SQLite3 Readable Output
 layout: post
 tags: rails sqlite development output table sqlite3
 ---
 
-To make the sqlite3 console output more readable run:
+To make the SQLite3 console output more readable, execute the following command:
 
-    $ (echo ".header ON" && echo ".mode column") > ~/.sqliterc
+```bash
+(echo ".header ON" && echo ".mode column") > ~/.sqliterc
+```
 
-This will create a file named `.sqliterc` in your home directory with a minimal configuration enabling table headers and setting output mode to `column`.
+This will create a file named `.sqliterc` in your home directory, configuring it to enable table headers and set the output mode to `column`.
 
-Before:
+**Before:**
 
-    sqlite> SELECT users.first_name, users.last_name FROM users;
-    John|Doe
-    Richard|Roe
+```
+sqlite> SELECT users.first_name, users.last_name FROM users;
+John|Doe
+Richard|Roe
+```
 
-After:
+**After:**
 
-    sqlite> SELECT users.first_name, users.last_name FROM users;
-    first_name  last_name
-    ----------  ----------
-    John        Doe
-    Richard     Roe
+```
+sqlite> SELECT users.first_name, users.last_name FROM users;
+first_name  last_name
+----------  ----------
+John        Doe
+Richard     Roe
+```

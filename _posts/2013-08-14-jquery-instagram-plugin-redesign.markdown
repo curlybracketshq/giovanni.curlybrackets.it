@@ -1,41 +1,41 @@
 ---
-title: jQuery Instagram plugin redesign
+title: jQuery Instagram Plugin Redesign
 layout: post
 ---
 
 [issue_33]: https://github.com/potomak/jquery-instagram/issues/33
-[jquery-instagram-page]: http://potomak.github.io/jquery-instagram/
 [grunt-init]: http://gruntjs.com/project-scaffolding
-[jquery-instagram]: http://github.com/potomak/jquery-instagram
 
-The plugin uses the Instagram API to get a list of photos using the JSONP format, the original idea is by Daniel Pavitt.
+The plugin utilizes the Instagram API to retrieve a list of photos using the JSONP format. The original idea is credited to Daniel Pavitt.
 
-Up to version 0.2 you could just make a call to
+In versions up to 0.2, you could populate an element with a list of `<div>` elements containing Instagram photos by making a call like this:
 
-    $('.selector').instagram({
-      hash: 'boat',
-      clientId: 'YOUR-CLIENT-ID'
-    });
+```javascript
+$(".selector").instagram({
+  hash: "boat",
+  clientId: "YOUR-CLIENT-ID",
+});
+```
 
-to populate `.selector` element with a list of `<div>` elements containing photos from Instagram.
+However, you couldn't modify the generated code except by using the `onComplete` callback. For more details, see [issue #33][issue_33].
 
-You couldn't modify the generated code except by using the `onComplete` callback, see [issue #33][issue_33].
+Starting with version 0.3, I removed code generation and callbacks. Now, code generation is the user's responsibility, and `willLoadInstagram` and `didLoadInstagram` events are triggered instead of using callbacks.
 
-Since version 0.3 I removed code generation and callbacks. Now code generation is up to the user and `willLoadInstagram` and `didLoadInstagram` events are triggered instead of using callbacks.
+The `didLoadInstagram` event is triggered when the Instagram API responds. The associated handler can then access the entire response. For example:
 
-The `didLoadInstagram` event is triggered when Instagram API responds, the associated handler can access the whole response. Example:
+```javascript
+$(".selector").on("didLoadInstagram", function (event, response) {
+  console.log(response);
+});
 
-    $('.selector').on('didLoadInstagram', function(event, response) {
-      console.log(response);
-    });
+$(".selector").instagram({
+  hash: "boat",
+  clientId: "YOUR-CLIENT-ID",
+});
+```
 
-    $('.selector').instagram({
-      hash: 'boat',
-      clientId: 'YOUR-CLIENT-ID'
-    });
+You can find more examples at [potomak.github.io/jquery-instagram](http://potomak.github.io/jquery-instagram/).
 
-You can find more examples at [http://potomak.github.io/jquery-instagram/][jquery-instagram-page].
+Additionally, the plugin has been generated using [grunt-init][grunt-init]. It uses Grunt as a build system and includes tests made using the QUnit framework.
 
-Moreover the plugin has been generated using [grunt-init][grunt-init], it uses grunt as build system, and it includes tests made using the QUnit framework.
-
-You can fork the project at [http://github.com/potomak/jquery-instagram][jquery-instagram].
+You can fork the project at [github.com/potomak/jquery-instagram](http://github.com/potomak/jquery-instagram).

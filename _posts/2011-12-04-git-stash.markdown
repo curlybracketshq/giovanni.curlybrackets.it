@@ -5,29 +5,42 @@ layout: post
 
 [stash]: http://book.git-scm.com/4_stashing.html "Git Community Book - Stashing"
 
-With *git stash* you can forget for a moment about the updates you're currently working on to focus on something else.
+With *git stash*, you can temporarily set aside your current updates to focus on other tasks.
 
-Use `git stash` to save the current state of your work.
+Use `git stash` to save the current state of your work:
 
-    $ git stash save "work in progress"
+```bash
+$ git stash save "work in progress"
+```
 
-This command will stash your changes, and reset working tree and index to match the tip of your current branch.
+This command will stash your changes, resetting the working tree and index to match the tip of your current branch.
 
-Now you can focus on something else, fix a bug, write a test, etc.
+Now, you can attend to other tasks, such as fixing a bug or writing a test:
 
-    $ git commit -a -m "Fix typo"
+```bash
+$ git commit -a -m "Fix typo"
+```
 
-After that, you can go back to what you were working on with `git stash apply`:
+Afterward, you can return to your previous work using `git stash apply`:
 
-    $ git stash apply
+```bash
+$ git stash apply
+```
 
-Stashed updates are queued, if you run `git stash list` you can see the queue of changes.
+Stashed updates are queued. To view the queue of changes, run:
 
-    $ git stash list
-    stash@{0}: WIP on develop: 51bea1d Update license
-    stash@{1}: WIP on master: 9705ae6 Fix images
+```bash
+$ git stash list
+```
 
-Then you can apply them individually with `git stash apply stash@{1}`.
+Here is an example of what you might see:
+
+```
+stash@{0}: WIP on develop: 51bea1d Update license
+stash@{1}: WIP on master: 9705ae6 Fix images
+```
+
+You can apply them individually using `git stash apply stash@{1}`.
 
 You can clear out the list with `git stash clear`.
 

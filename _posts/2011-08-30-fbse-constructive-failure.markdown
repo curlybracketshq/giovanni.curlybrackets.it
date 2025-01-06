@@ -10,18 +10,18 @@ layout: post
 [redis]: http://redis.io/ "Redis"
 [socket]: http://socket.io/ "socket.io"
 
-Yesterday marked the end of Node.js Kockout.
+Yesterday marked the end of Node.js Knockout.
 
-Two days - and nights - of coding with Francesco, Luca, Matteo and Nicola. Luca came to Treviso from Viterbo to attend the programming competition.
+It was two days, and nights, of coding with Francesco, Luca, Matteo, and Nicola. Luca traveled from Viterbo to Treviso to participate in the programming competition.
 
-The project we created is called **FBSE** and it's **a stock exchange simulation game**.
+Our project, **FBSE**, is a **stock exchange simulation game**.
 
-The main idea is to trade *social stocks* tha gain and lose value according to people social interactions.
+The main idea is to trade *social stocks* that gain and lose value according to people's social interactions.
 
-We worked hard to set it up and running, but we didn't succeed. The project was a bit too ambitious compared to our little knowledge of node.js.
+We worked hard to set it up and running, but we didn't succeed. The project was a bit too ambitious given our limited knowledge of Node.js.
 
-We used [express.js][express] as web framework, [mongoose ORM][mongoose], [everyauth][everyauth] and [mongoose-auth][mongooseauth] to handle authentication, and [redis][redis] to store trading data.
+We used [express.js][express] as the web framework, [mongoose ORM][mongoose], [everyauth][everyauth], [mongoose-auth][mongooseauth] to handle authentication, and [redis][redis] to store trading data.
 
-Stock prices and price variations are updated in realtime using the Facebook realtime API and [socket.io][socket].
+Stock prices and variations are updated in real-time using the Facebook Realtime API and [socket.io][socket].
 
-Thanks [Giorgia](https://giorgia.curlybrackets.it) for supporting us and for cooking *pasta fredda*, Massimo for the prototype idea, Guglielmo for the logo design.
+Thanks to [Giorgia](https://giorgia.curlybrackets.it) for supporting us and for cooking *pasta fredda*, Massimo for the prototype idea, and Guglielmo for the logo design.

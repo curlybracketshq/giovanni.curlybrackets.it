@@ -1,16 +1,16 @@
 ---
-title: Blog redesign
+title: Blog Redesign
 layout: post
 ---
 
-After about 5 years I decided to completely redesign this blog.
+After about five years, I decided to completely redesign this blog.
 
-The new design has very few concepts in mind:
+The new design focuses on three key concepts:
 
-1. readability
-1. design responsiveness
-1. minimalism
+1. Readability
+2. Design responsiveness
+3. Minimalism
 
-This is how the blog used to look like:
+Here is how the blog used to look:
 
 ![Old style]({{ '/assets/posts/old-style.png' | relative_url }})

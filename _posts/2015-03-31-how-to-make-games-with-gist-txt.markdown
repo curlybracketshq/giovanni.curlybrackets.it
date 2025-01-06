@@ -1,59 +1,59 @@
 ---
-title: How to make games with gist-txt
+title: How to Make Games with gist-txt
 layout: post
 ---
 
-**Disclaimer:** content of this post is not original, most of it is taken from Anna Anthropy's ["How to make games with Twine"](http://www.auntiepixelante.com/twine/)
+**Disclaimer:** The content of this post is not original. Most of it is from Anna Anthropy's ["How to Make Games with Twine"](http://www.auntiepixelante.com/twine/).
 
 ## What is gist-txt?
 
-**[gist-txt](https://github.com/potomak/gist-txt)** is a web app that lets you host interactive stories.
+**[gist-txt](https://github.com/potomak/gist-txt)** is a web app that allows you to host interactive stories.
 
 ## Why is gist-txt so wonderful?
 
-1. It's free
-1. You don't need to know how to program
-1. You don't need to install any program to use it
-1. Finished stories can be shared with a simple link
+1. It's free.
+2. You don't need to know how to program.
+3. You don't need to install any software to use it.
+4. Finished stories can be shared with a simple link.
 
-## The basics
+## The Basics
 
 Every story is a [Gist](https://gist.github.com/).
 
-The first scene in your story is called `index.markdown`.
+The first scene in your story is named `index.markdown`.
 
-Other scenes can be named whatever you like, but the name of the first scene **has to be `index.markdown`**.
+Other scenes can be named anything you like, but the name of the first scene **must be `index.markdown`**.
 
 ![First scene]({{ '/assets/posts/first-scene.png' | relative_url }})
 
-A **scene** is the equivalent of a page in a *Choose Your Own Adventure* book, but it can be as long or short as you like. Click on the text area to write in it.
+A **scene** is equivalent to a page in a *Choose Your Own Adventure* book and can be as long or short as you prefer. Click on the text area to write in it.
 
 ![First scene]({{ '/assets/posts/first-scene-2.png' | relative_url }})
 
-Radical! Now let's create a link to another scene. The player can go to that scene by clicking on the link, like HTML pages hyperlink. Here's what a link looks like:
+Great! Now, let's create a link to another scene. The player can access that scene by clicking on the link, similar to hyperlinks in HTML pages. Here's what a link looks like:
 
 ![Link]({{ '/assets/posts/link.png' | relative_url }})
 
-The text inside the square brackets is what the player sees. The text inside the round brackets is the name of the scene she goes to when she clicks on it. Now if you were using Twine you would see an exclamation point in the corner of the scene saying that the scene pointed by the link is missing, but since you're using gist-txt there's no such thing!
+The text inside the square brackets is what the player sees. The text inside the parentheses is the name of the scene they go to when they click on it. If you were using Twine, you would see an exclamation point in the corner of the scene indicating that the linked scene is missing. However, since you're using gist-txt, there's no such alert!
 
-Add a new file in the gist with the name you gave to the scene linked (`passage.markdown`)
+Add a new file in the Gist with the name you assigned to the linked scene (`passage.markdown`).
 
 ![Add file]({{ '/assets/posts/add-file.png' | relative_url }})
 
-and write text of the scene in it.
+Then, write the text of the scene in it.
 
 ![Second scene]({{ '/assets/posts/second-scene.png' | relative_url }})
 
-If you go back to the first scene, add a new link to another scene, now you've got a branching story! Now the player has a choice!
+If you return to the first scene and add a new link to another scene, you've now created a branching story! Now the player has a choice.
 
-Or at least she will when you publish the story. Click "Create public Gist"
+Or at least they will once you publish the story. Click "Create public Gist".
 
 ![Create public Gist]({{ '/assets/posts/create-gist.png' | relative_url }})
 
-and copy the id of the gist.
+Copy the ID of the Gist.
 
-![Copy Gist id]({{ '/assets/posts/copy-id.png' | relative_url }})
+![Copy Gist ID]({{ '/assets/posts/copy-id.png' | relative_url }})
 
-Now open `http://potomak.github.io/gist-txt/#<gist-id>` in a new tab to share the story.
+Now, open `http://potomak.github.io/gist-txt/#<gist-id>` in a new tab to share the story.
 
 ![Publish]({{ '/assets/posts/publish.png' | relative_url }})
