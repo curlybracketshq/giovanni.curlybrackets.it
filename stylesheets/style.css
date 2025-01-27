@@ -42,11 +42,12 @@ sup {
 }
 
 p {
-  line-height: 24px;
+  line-height: 1.3em;
   margin: 24px 0;
 }
 
 ul, ol {
+  line-height: 1.3em;
   margin-top: 10px;
   padding-left: 40px;
 }
@@ -61,6 +62,10 @@ ul {
 
 li {
   margin-bottom: 10px;
+}
+
+li.archive_item > h4 {
+  margin-bottom: 2px;
 }
 
 ul.unstyled,
@@ -165,10 +170,6 @@ footer {
 p.categories {
   font-size: 75%;
   margin: 0;
-}
-
-p.discussion, p.next {
-  font-weight: bold;
 }
 
 p.intro {

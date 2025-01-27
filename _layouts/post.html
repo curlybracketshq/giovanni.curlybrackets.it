@@ -20,13 +20,13 @@ layout: default
 </article>
 
 {% if page.discussion %}
-  <p class="discussion">
+  <h4 class="discussion">
     Discussion on <a href="{{ page.discussion.url }}">{{ page.discussion.name }}</a>
-  </p>
+  </h4>
 {% endif %}
 
 {% if page.next.url %}
-  <p class="next">
+  <h4 class="next">
     Next: <a href="{{ page.next.url }}">{{ page.next.title }}</a>
-  </p>
+  </h4>
 {% endif %}
