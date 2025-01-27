@@ -6,3 +6,5 @@ adventure-game:
     In this series of posts I describe the process I've followed, as an amateur
     game designer, for developing an adventure game written in Swift using the
     SpriteKit framework for iOS.
+sdl-adventure-game:
+  name: SDL Adventure Game
