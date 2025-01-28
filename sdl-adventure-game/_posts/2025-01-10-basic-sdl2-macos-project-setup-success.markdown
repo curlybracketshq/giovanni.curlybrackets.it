@@ -7,7 +7,7 @@ After my [initial failed attempt]({% post_url sdl-adventure-game/2025-01-09-basi
 
 ## Using SDL2
 
-I followed Lazy Foo' Productions tutorial to set up a macOS Xcode project using SDL2: [Lazy Foo SDL Tutorial](https://lazyfoo.net/tutorials/SDL/01_hello_SDL/mac/xcode/index.php)
+I followed Lazy Foo' Productions tutorial to set up a macOS Xcode project using SDL2: [lazyfoo.net/tutorials/SDL/01_hello_SDL/mac/xcode/](https://lazyfoo.net/tutorials/SDL/01_hello_SDL/mac/xcode/index.php)
 
 Here are the steps I followed:
 
