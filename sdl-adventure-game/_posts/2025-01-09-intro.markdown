@@ -1,0 +1,40 @@
+---
+title: Creating a Simple Point-and-Click Adventure Game Using the SDL Framework - Introduction
+layout: post
+date: 2025-01-09 09:00:00 -0500
+---
+
+This is the first in a series of posts documenting the process of creating a simple point-and-click adventure game for macOS and iOS, written in C using the SDL framework.
+
+## Background
+
+I [attempted this project about five years ago]({% post_url adventure-game/2020-01-17-intro %}) without success. At that time, [I used Swift and SpriteKit]({% post_url adventure-game/2020-01-18-getting-started-with-spritekit %}), but lacked a clear game design concept.
+
+This time, I began with a game design in mind, significantly reduced the project's scope, and managed to create a prototype game with a simple story and design.
+
+## Game Design
+
+The game is intended for very young children (ages 2 to 4). It features a fox who wants to slide down a slide in a playground.
+
+The game is divided into four scenes:
+
+1. Intro - Title screen and main menu
+2. Playground Entrance - The fox needs to find a way to enter the playground
+3. Playground - The fox must fix the slide with help from her friend, the squirrel
+4. Outro
+
+## Collection
+
+The initial part of the series covers setting up the XCode project to build a macOS app. I faced challenges due to using a relatively old operating system and Xcode versions, 11.7 and 12.4, respectively.
+
+The subsequent posts focus on design choices, which were largely influenced by my inexperience with C.
+
+In the final part, I create a new XCode project to build an iOS app.
+
+Posts in this collection:
+
+{% assign category = page.categories | first -%}
+{% assign posts = site.categories[category] | reverse | where_exp: 'post', 'post.id != page.id' -%}
+{% for post in posts -%}
+  * [{{ post.title }}]({{ post.url | relative_url }})
+{% endfor %}
