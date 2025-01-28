@@ -35,6 +35,9 @@ Posts in this collection:
 
 {% assign category = page.categories | first -%}
 {% assign posts = site.categories[category] | reverse | where_exp: 'post', 'post.id != page.id' -%}
+{% if posts.size < 1 -%}
+  * Coming soon...
+{% endif %}
 {% for post in posts -%}
   * [{{ post.title }}]({{ post.url | relative_url }})
 {% endfor %}
