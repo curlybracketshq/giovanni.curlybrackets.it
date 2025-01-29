@@ -22,11 +22,11 @@ I successfully ran CMake to generate a `Makefile`, but encountered this error wh
 ld: can't map file, errno=22 file '/Library/Frameworks/SDL3.xcframework/macos-arm64_x86_64/SDL3.framework'
 ```
 
-I found another guide on building a project on macOS: [wiki.libsdl.org/SDL3/README/macos](https://wiki.libsdl.org/SDL3/README/macos). However, I wondered if there was a way to build the macOS app without creating an XCode project.
+I found another guide on building a project on macOS: [wiki.libsdl.org/SDL3/README/macos](https://wiki.libsdl.org/SDL3/README/macos). However, I wondered if there was a way to build the macOS app without creating an Xcode project.
 
 Another issue was that the version of CMake I was using (3.19.4) did not support *xcframeworks*. Related issue: [github.com/libsdl-org/SDL/issues/9479](https://github.com/libsdl-org/SDL/issues/9479).
 
-I am unable to easily install a more recent version of XCode because it requires a newer version of macOS.
+I am unable to easily install a more recent version of Xcode because it requires a newer version of macOS.
 
 I also cannot download an older version of SDL3, specifically `SDL3-3.1.2.dmg`, as it is missing from the releases on GitHub.
 

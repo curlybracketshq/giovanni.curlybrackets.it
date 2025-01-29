@@ -25,11 +25,11 @@ The game is divided into four scenes:
 
 ## Collection
 
-The initial part of the series covers setting up the XCode project to build a macOS app. I faced challenges due to using a relatively old operating system and Xcode versions, 11.7 and 12.4, respectively.
+The initial part of the series covers setting up the Xcode project to build a macOS app. I faced challenges due to using a relatively old operating system and Xcode versions, 11.7 and 12.4, respectively.
 
 The subsequent posts focus on design choices, which were largely influenced by my inexperience with C.
 
-In the final part, I create a new XCode project to build an iOS app.
+In the final part, I create a new Xcode project to build an iOS app.
 
 Posts in this collection:
 
