@@ -1,12 +1,12 @@
 ---
-title: Mouse events handling
+title: Mouse Events Handling
 layout: post
 date: 2025-01-14 16:00:00 -0500
 ---
 
-At each iteration of the game loop the function `process_input` handles events.
+During each iteration of the game loop, the function `process_input` handles events.
 
-`process_input` is basically a while loop that iterates through all the events in the queue:
+`process_input` is a while loop that iterates through all events in the queue:
 
 ```c
 void process_input(void) {
@@ -28,9 +28,9 @@ void process_input(void) {
 }
 ```
 
-## Mouse events
+## Mouse Events
 
-In order to handle mouse events I needed to add some more cases for handling the mouse event types and to keep track of the mouse state, such as position and button pressed state. In my case I just wanted to handle mouse motion in order to test that everything worked as expected:
+To handle mouse events, I added additional cases for different mouse event types and tracked the mouse state, including position and button pressed state. Here, I aimed to handle mouse motion to verify functionality:
 
 ```c
 // Mouse position
@@ -50,22 +50,22 @@ void process_input(void) {
 }
 ```
 
-## `SDL_GetMouseState` Vs `SDL_MouseMotionEvent`
+## `SDL_GetMouseState` vs. `SDL_MouseMotionEvent`
 
-This approach worked fine on macOS, with a fixed window size, but it didn't work as expected in conjunction with `SDL_RenderSetLogicalSize`.
+This approach worked well on macOS with a fixed window size, but it did not function as expected when used with `SDL_RenderSetLogicalSize`.
 
-I added a call to `SDL_RenderSetLogicalSize` when I built the project for iOS in order to fix a rendering issue. After that change the mouse coordinates were wrong because `SDL_GetMouseState` returns the absolute mouse position as opposed to the relative mouse position that is computed taking the render logical size into account.
+To resolve a rendering issue, I included a call to `SDL_RenderSetLogicalSize` in the iOS project build. After implementing this change, the mouse coordinates became incorrect because `SDL_GetMouseState` provides absolute mouse positions, not relative ones that consider the render logical size.
 
-The mouse coordinates adjustment is only applied to the position stored in the `SDL_MouseMotionEvent`. I fixed the issue by using the coordinates stored in `event->motion`:
+The adjustment for mouse coordinates is applied solely to the position stored in the `SDL_MouseMotionEvent`. I corrected the issue by using the coordinates contained in `event.motion`:
 
 ```c
 // Get mouse position
-m_position.x = event->motion.x;
-m_position.y = event->motion.y;
+m_position.x = event.motion.x;
+m_position.y = event.motion.y;
 ```
 
 ## Checkpoint
 
-At this point I had a basic game loop, an animated sprite, music and sound effects playing, and a rectangle that followed the mouse position:
+At this stage, I had a basic game loop, an animated sprite, music and sound effects playing, and a rectangle that followed the mouse position:
 
 ![Example]({{ '/sdl-adventure-game/assets/example.gif' | relative_url }})
