@@ -18,10 +18,10 @@ The game is intended for very young children (ages 2 to 4). It features a fox wh
 
 The game is divided into four scenes:
 
-1. Intro - Title screen and main menu
-2. Playground Entrance - The fox needs to find a way to enter the playground
-3. Playground - The fox must fix the slide with help from her friend, the squirrel
-4. Outro
+1. **Intro** - Title screen and main menu
+2. **Playground Entrance** - The fox needs to find a way to enter the playground
+3. **Playground** - The fox must fix the slide with help from her friend, the squirrel
+4. **Outro**
 
 ## Collection
 
