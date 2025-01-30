@@ -14,6 +14,10 @@ I ended up pasting single files directly into ChatGPT and I got some feedback, m
 
 The main character of this game is a fox called *Vania*.
 
+![Fox actor]({{ '/sdl-adventure-game/assets/fox-actor.gif' | relative_url }})
+
+Note: the animation above shows the initial name *Veronica Volpe*. I changed that to Vania because it should be easier to pronouce for small kids.
+
 ## The fox actor
 
 I extracted some repeated functions to load media and render the fox actor into a new `fox.h`/`fox.c` library. The library also declares the `Fox` type that contains some metadata about the fox actor.
@@ -31,6 +35,8 @@ In order to keep things simple I just made sure that conventionally all function
 The fox moves with constant speed from `current_position` to `target_position`.
 
 Horizontal and vertical speed components are calculated when the `fox_walk_to` is invoked and stored in the `SDL_Point direction` field in the struct. At each `fox_update` function invocation, x and y speed increments are added to the fox current position.
+
+![Fox walking animation]({{ '/sdl-adventure-game/assets/fox-walking-animation.gif' | relative_url }})
 
 ### Fox orientation
 
