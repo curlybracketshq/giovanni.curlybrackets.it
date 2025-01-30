@@ -1,12 +1,12 @@
 ---
-title: Parsing animation metadata
+title: Parsing Animation Metadata
 layout: post
 date: 2025-01-17 13:00:00 -0500
 ---
 
-Animation metadata include an `SDL_Rect` array used to identify frames coordinates in the sprite texture.
+Animation metadata includes an `SDL_Rect` array used to identify frame coordinates in the sprite texture.
 
-I decided to replace the manual definition of the array values with a file with the format:
+I decided to replace the manual definition of the array values with a file in the following format:
 
 ```
 x1,y1,w1,h1
@@ -17,17 +17,17 @@ xn,yn,wn,hn
 
 Where:
 
-* `x`, `y`, `w`, `h` are the input values of a `SDL_Rect`, called the *source rectangle* in [`SDL_RenderCopy`](https://wiki.libsdl.org/SDL2/SDL_RenderCopy)
-* Each row is a single animation frame
+* `x`, `y`, `w`, and `h` are the input values of an `SDL_Rect`, known as the *source rectangle* in [`SDL_RenderCopy`](https://wiki.libsdl.org/SDL2/SDL_RenderCopy).
+* Each row represents a single animation frame.
 
-## Reading files
+## Reading Files
 
-I was able to read the content of a file using the [`SDL_LoadFile`](https://wiki.libsdl.org/SDL2/SDL_LoadFile) function.
+I was able to read the contents of a file using the [`SDL_LoadFile`](https://wiki.libsdl.org/SDL2/SDL_LoadFile) function.
 
-## Parsing the animation file content
+## Parsing the Animation File Content
 
 Parsing the animation data was more challenging than expected.
 
-There isn't a straightforward way to split a string in C. I found this approach using [`strtok`](https://en.cppreference.com/w/c/string/byte/strtok): [stackoverflow.com/questions/9210528/split-string-with-delimiters-in-c](https://stackoverflow.com/questions/9210528/split-string-with-delimiters-in-c), but I ended up implementing a simpler parsing algorithm that doesn't require splitting a string.
+There isn't a straightforward way to split a string in C. I found an approach using [`strtok`](https://en.cppreference.com/w/c/string/byte/strtok) on [Stack Overflow](https://stackoverflow.com/questions/9210528/split-string-with-delimiters-in-c), but I ended up implementing a simpler parsing algorithm that doesn't require splitting a string.
 
-The simpler algorithm iterates over the characters in the file content and populates a smaller array with a fixed number of characters (max length 6, supporting the representation of positive integers up to 99999) with digits until a `,` or `\n` character is encountered, and then creates the new `SDL_Rect` value when a `\n` character is encountered.
+The simpler algorithm iterates over the characters in the file content, populating a smaller array with a fixed number of characters (max length of 6, supporting the representation of positive integers up to 99999) with digits until a `,` or `\n` character is encountered. It then creates the new `SDL_Rect` value when a `\n` character is encountered.
