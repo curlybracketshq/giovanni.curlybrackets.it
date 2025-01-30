@@ -42,4 +42,4 @@ Horizontal and vertical speed components are calculated when `fox_walk_to` is in
 
 Depending on the delta value on the horizontal axis, I changed the fox's horizontal orientation to face east or west.
 
-I modified the rendering function invoked in `render_animation` to copy the texture data to the screen using `SDL_RenderCopyEx`, which accepts an additional `SDL_RendererFlip` parameter for flipping the texture. I also added a new `SDL_RendererFlip flip` field in the `AnimationData` type.
+I modified the rendering function invoked in `render_animation` to copy the texture data to the screen using [`SDL_RenderCopyEx`](https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx), which accepts an additional `SDL_RendererFlip` parameter for flipping the texture. I also added a new `SDL_RendererFlip flip` field in the `AnimationData` type.
