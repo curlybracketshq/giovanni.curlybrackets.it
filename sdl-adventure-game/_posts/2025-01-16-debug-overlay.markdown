@@ -1,19 +1,19 @@
 ---
-title: Debug overlay
+title: Debug Overlay
 layout: post
 date: 2025-01-16 15:00:00 -0500
 ---
 
-I created a set of functions to easily draw shapes on screen for debugging purpose.
+I have developed a set of functions to easily draw shapes on the screen for debugging purposes.
 
-For instance I would like to see on the screen position and size of hotspots rectangles that are areas of the screen that react to mouse clicks, for instance the gate hotspot is the area that accepts mouse clicks to interact with the gate.
+For instance, I want to visualize the position and size of hotspot rectangles on the screen. These hotspots are areas that react to mouse clicks, such as the *gate hotspot* in the playground entrance scene, which is an area that accepts mouse clicks to interact with the gate object.
 
-The debug overlay is enabled by pressing the `d` key. Example debug overlay in the playground entrance scene:
+The debug overlay can be enabled by pressing the `d` key. Below is an example of the debug overlay in the playground entrance scene:
 
 ![Debug overlay]({{ '/sdl-adventure-game/assets/prototype-playground-entrance-debug-overlay.png' | relative_url }})
 
-Debug functions are organized in a new `debug.h`/`debug.c` library. They include a `process_input` function to react to user events and a `render` function to render the debug overlay on screen. Both of these functions are always called during the game loop iterations, regardless of the current scene on screen.
+The debug functions are organized into a new `debug.h`/`debug.c` library. This library includes a `process_input` function to handle user events and a `render` function to display the debug overlay on the screen. Both functions are called during each iteration of the game loop, regardless of which scene is active.
 
-I added four new fields to the `Scene` type: `SDL_Rect *hotspots` and `int hotspots_length`, and `SDL_Point *pois` and `int pois_length`. **Hotspots** are areas in the screen delimited by rectangles. **Point of interests** (POIs) are single points on the screen, used for instance to determine where the main actor should move to when it's interacting with a particular scene object.
+I added four new fields to the `Scene` type: `SDL_Rect *hotspots`, `int hotspots_length`, `SDL_Point *pois`, and `int pois_length`. **Hotspots** are areas defined by rectangles on the screen, whereas **Points of Interest** (POI) are single points on the screen. POIs are used, for example, to determine where the main actor should move when interacting with a particular object in the scene.
 
-The debug overlay `render` function collects hotspots and POIs from the current scene and renders them on the screen. In addition to the debug overlay toggle, the `process_input` function handles mouse events to draw new shapes on the screen and outputting the resulting geometry on the standard output.
+The debug overlay's `render` function collects hotspots and POIs from the current scene and renders them on the screen. Additionally, the `process_input` function handles mouse events to draw new shapes on the screen and outputs the resulting geometry to the standard output.
