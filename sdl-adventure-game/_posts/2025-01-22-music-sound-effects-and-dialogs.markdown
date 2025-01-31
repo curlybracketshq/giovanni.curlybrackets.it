@@ -1,23 +1,19 @@
 ---
-title: Music, sound effects, and dialogs
+title: Music, Sound Effects, and Dialogs
 layout: post
 ---
 
-Today I recorded music, sound effects, and dialogs for the game.
+Today, I recorded music, sound effects, and dialogs for the game.
 
-## Music between scenes
+## Music Between Scenes
 
-I used the same music for the playground entrance and playground scenes, but the audio recording stops and restarts during the transition between the two scenes.
+I used the same music for both the playground entrance and playground scenes. However, the audio recording stops and restarts during the transition between the two scenes. Ideally, the music should continue to play in a loop, so I should hoist the code that plays music from the scene level to the game level.
 
-Ideally the music should continue to play in a loop, so I should hoist the code to play music from the scene level to the game level.
+This issue doesn’t occur between the intro and the playground entrance scene because I use two different music tracks. It might be useful to be able to override a global game music track setting with a local scene music track setting.
 
-The issue doesn't exist between intro and playground entrance scene because I'm using two different music tracks.
+## Chunk Length
 
-It might make sense to override a global game music track setting with a local scene music track setting.
-
-## Chunk length
-
-I'm playing a "talking" fox animation while playing chunks of dialog. In order to correctly determine when to stop the animation I decided to measure the length of audio chunks. I used the implementation of a function which computes the length of a chunk in milliseconds that I found in the SDL forum: [discourse.libsdl.org/t/time-length-of-sdl-mixer-chunks/12852/2](https://discourse.libsdl.org/t/time-length-of-sdl-mixer-chunks/12852/2).
+When the fox actor talks, the "talking" animation plays. To accurately determine when to stop the animation, I decided to measure the length of audio chunks. I implemented a function, which calculates the length of a chunk in milliseconds, from the SDL forum: [discourse.libsdl.org/t/time-length-of-sdl-mixer-chunks/12852/2](https://discourse.libsdl.org/t/time-length-of-sdl-mixer-chunks/12852/2).
 
 ```c
 Uint32 get_chunk_time_ms(Mix_Chunk *chunk) {
@@ -43,20 +39,14 @@ Uint32 get_chunk_time_ms(Mix_Chunk *chunk) {
 }
 ```
 
-This approach works fine, but there are some times, when there is silence and the talking animation continues to play, that look a bit unnatural.
+This approach works well, but at times when there is silence, the talking animation continues to play, which looks unnatural. The simplest solution I can think of is to split the dialog audio files into smaller, non-silent chunks, but this would require correctly timing the playback of all different chunks.
 
-The easiest approach to fix this issue I can think of is to split the dialog audio files into smaller chunks that don't contain silence, but then I would need code the correct timing to play all the different chunks.
+Alternatively, I could measure the amplitude of the wave and play the animation only when the value rises above a certain threshold. Both of these approaches are too complex to be implemented as part of the prototype, and I will keep them as to-do tasks.
 
-Alternatively I could measure the amplitude of the wave and play the animation only when the value is above a certain threshold.
+## Recording and Audio Format
 
-Both these approaces are too complex to be implemented as part of the prototype and I will keep them as to-do tasks.
+I'm using the default iPhone "Voice Memos" app to record all audio. I convert the output m4a audio files to wav using [cloudconvert.com/m4a-to-wav](https://cloudconvert.com/m4a-to-wav).
 
-## Recorder and Audio format
+I considered using mp3 for the music, but I hesitated because I feared I might need to add a new library to the project to decode mp3 audio files.
 
-I'm using the default iPhone "Voice Memos" to record all audio.
-
-I'm converting the output m4a audio files to wav using [cloudconvert.com/m4a-to-wav](https://cloudconvert.com/m4a-to-wav).
-
-I could use mp3 for the music, but I didn't because I was afraid I would need to add a new library to the project to decode mp3 audio files.
-
-The main difference between music and chunks is that chunks are decoded on loading, compared to music which is decoded while playing.
+The main difference between music and chunks is that chunks are decoded upon loading, while music is decoded as it plays.
