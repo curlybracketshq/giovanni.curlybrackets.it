@@ -1,14 +1,14 @@
 ---
-title: Chain of actions
+title: Chain of Actions
 layout: post
 date: 2025-01-21 09:00:00 -0500
 ---
 
-I need to execute a chain of actions in a sequence. For instance the fox should walk to the gate and then, in case the key is not in the inventory, start talking, to say something like: "The gate is closed. I need a key to open the gate". Or in case the key is already in the inventory, open the gate and proceed to the next scene.
+I need to execute a series of actions in sequence. For instance, the fox should walk to the gate, and if the key is not in the inventory, it should say, "The gate is closed. I need a key to open the gate." If the key is already in the inventory, the gate should open, and the fox should proceed to the next scene.
 
-The simplest way to implement these sequential actions is by passing function pointers, that are used as callbacks by functions such as `play_animation` or `fox_walk_to`.
+The simplest way to implement these sequential actions is by passing function pointers, which serve as callbacks for functions such as `play_animation` or `fox_walk_to`.
 
-For instance, in `fox.c`:
+In `fox.c`, for example:
 
 ```c
 static void (*on_end_walking)(void);
@@ -55,6 +55,6 @@ void fox_update(Fox *fox, float delta_time) {
 }
 ```
 
-This approach works as expected most of the times, but it isn't very scalable and it's a bit confusing when there are more than a couple of actions that need to take place, e.g. walk to gate, talk, play opening gate animation, go to next screen.
+This approach generally works as expected, but it lacks scalability and becomes confusing with more than a few actions in sequence, such as walking to a gate, talking, playing the gate opening animation, and moving to the next screen.
 
-There is a known bug with this implementation: performing a new action, while a chain of actions is already in progress, stops the current chain of actions. This is due to the fact that there is a single callback function pointer that gets reset by executing the new action. For instance, in the playground entrance, if you click on the shovel to reveal the key, and, while the shovel animation is playing, click somewhere else on the screen to make the fox move, the next action in the chain of actions, revealing the key, that is stored in `static void (*on_animation_playback_end)(void)` in `image.c`, gets overwritten by the new `NULL` callback passed to the `play_animation` invocation to play the fox walking animation and the key is not revealed.
+A known issue with this implementation is that initiating a new action while a sequence is already in progress halts the current sequence. This occurs because there is a single callback function pointer that gets reset when initiating a new action. For instance, at the playground entrance, if you click on the shovel to reveal the key and, while the shovel animation is playing, click elsewhere to make the fox move, the next action in the sequence — revealing the key — gets overwritten. The value of `static void (*on_animation_playback_end)(void)` in `image.c` is updated to the new `NULL` callback passed to the `play_animation` invocation, which plays the fox walking animation, preventing the key from being revealed.
