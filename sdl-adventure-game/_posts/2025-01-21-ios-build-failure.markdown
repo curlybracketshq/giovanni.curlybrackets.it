@@ -6,7 +6,7 @@ date: 2025-01-21 13:00:00 -0500
 
 I attempted to build the project for iOS because I wanted to play the game on an iPad and to see how portable the project really was.
 
-## Build for iOS (iPad)
+## Building for iOS (iPad)
 
 I initially attempted to update the Xcode project that I was using to build the macOS executable to target iOS, but the build phase failed because the SDL2 frameworks I was linking against were compiled for a different architecture.
 
