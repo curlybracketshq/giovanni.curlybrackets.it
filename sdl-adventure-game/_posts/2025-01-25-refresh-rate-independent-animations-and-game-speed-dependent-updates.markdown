@@ -1,16 +1,16 @@
 ---
-title: Refresh rate independent animations and game speed dependent updates
+title: Refresh Rate Independent Animations and Game-Speed-Dependent Updates
 layout: post
 ---
 
-After porting the game to iOS I had two issues:
+After porting the game to iOS, I encountered two issues:
 
-1. The animations implementation relied on the fact that the `render` function was called a fixed number of times per second, that correspond to the screen refresh rate, based on the [`SDL_RENDERER_PRESENTVSYNC`](https://wiki.libsdl.org/SDL2/SDL_RendererFlags) renderer flag. The refresh rate is different between my 2014 MacBook Pro (60Hz) and iPhone (120Hz). So effectively the animations were playing twice as fast on iPhone and iPad.
-2. I didn't account for the time that passed between `update` invocations in the game speed dependent game loop that I implemented.
+1. The animation implementation relied on the `render` function being called a fixed number of times per second, matching the screen refresh rate, due to the [`SDL_RENDERER_PRESENTVSYNC`](https://wiki.libsdl.org/SDL2/SDL_RendererFlags) renderer flag. The refresh rates differ between my 2014 MacBook Pro (60Hz) and iPhone (120Hz), causing animations to play twice as fast on an iPhone and iPad.
+2. I did not account for the time elapsed between `update` invocations in the game-speed-dependent game loop I had implemented.
 
 ## Animations
 
-I fixed the animations implementation by keeping track of the time when the animation started playing and computing the correct frame according to the delta between animation start time and current time ([`SDL_GetTicks`](https://wiki.libsdl.org/SDL2/SDL_GetTicks)).
+I resolved the animation issue by tracking the time when the animation started and computing the correct frame according to the delta between the animation start time and the current time using [`SDL_GetTicks`](https://wiki.libsdl.org/SDL2/SDL_GetTicks).
 
 ```c
 int delta = 0;
@@ -28,9 +28,9 @@ SDL_RenderCopyEx(renderer, animation->image.texture, srcrect, &dstrect, 0,
                  NULL, animation->flip);
 ```
 
-## Fox movement
+## Fox Movement
 
-I fixed the fox movement issue by updating the `update` implementation to take into account the time passed between invocations and by multipliying the position deltas (fox walking and sliding) by the `delta_time` value that I'm passing to each `update` function.
+I resolved the fox movement issue by updating the `fox_update` implementation to consider the time elapsed between invocations and by multiplying the position deltas (fox walking and sliding) by the `delta_time` value passed to each `update` function.
 
 Before:
 
