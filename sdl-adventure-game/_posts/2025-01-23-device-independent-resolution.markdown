@@ -12,7 +12,7 @@ On the iPad, the game looked broken, occupying only a small portion of the scree
 
 ![iPad before window size fix]({{ '/sdl-adventure-game/assets/ipad-fixed-size.png' | relative_url }})
 
-I resolved this issue by calling `SDL_RenderSetLogicalSize` in the initialization function:
+I resolved this issue by calling [`SDL_RenderSetLogicalSize`](https://wiki.libsdl.org/SDL2/SDL_RenderSetLogicalSize) in the initialization function:
 
 ```c
 SDL_RenderSetLogicalSize(renderer, WINDOW_WIDTH, WINDOW_HEIGHT);

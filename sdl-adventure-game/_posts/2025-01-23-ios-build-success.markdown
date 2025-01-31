@@ -58,8 +58,8 @@ I initially set a fixed window size of 800x600, but the iPhone screen is smaller
 
 ### Mouse Coordinates
 
-After setting the logical size, the mouse coordinates were incorrect because `SDL_GetMouseState`, the function I was using to get the position of the mouse, returns the absolute mouse coordinates, bypassing the code to adjust mouse coordinates according to the render logical size. I fixed the issue by using the coordinates stored in the `SDL_MouseMotionEvent`: `event.motion.x` and `event.motion.y`.
+After setting the logical size, the mouse coordinates were incorrect because [`SDL_GetMouseState`](https://wiki.libsdl.org/SDL2/SDL_GetMouseState), the function I was using to get the position of the mouse, returns the absolute mouse coordinates, bypassing the code to adjust mouse coordinates according to the render logical size. I fixed the issue by using the coordinates stored in the `SDL_MouseMotionEvent`: `event.motion.x` and `event.motion.y`.
 
 ### Animations and Movement Too Fast on iOS
 
-The game loop speed is dependent on the device's speed, and I didn't account for this in the fox position updates while moving. I have decided to address this issue later.
+The game loop speed is dependent on the device's speed, and I didn't account for this in the fox position updates while moving. I have decided [to address this issue later]({% post_url sdl-adventure-game/2025-01-25-refresh-rate-independent-animations-and-game-speed-dependent-updates %}).
