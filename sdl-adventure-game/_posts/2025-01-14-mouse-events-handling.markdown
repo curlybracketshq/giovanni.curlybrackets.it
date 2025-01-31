@@ -56,7 +56,7 @@ This approach worked well on macOS with a fixed window size, but it did not func
 
 To resolve a rendering issue, I included a call to `SDL_RenderSetLogicalSize` in the iOS project build. After implementing this change, the mouse coordinates became incorrect because `SDL_GetMouseState` provides absolute mouse positions, not relative ones that consider the render logical size.
 
-The adjustment for mouse coordinates is applied solely to the position stored in the `SDL_MouseMotionEvent`. I corrected the issue by using the coordinates contained in `event.motion`:
+The adjustment for mouse coordinates is applied solely to the position stored in the `SDL_MouseMotionEvent`. I corrected the issue by [using the coordinates contained in `event.motion`]({% post_url sdl-adventure-game/2025-01-23-ios-build-success %}):
 
 ```c
 // Get mouse position

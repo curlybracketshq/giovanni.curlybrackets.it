@@ -24,4 +24,4 @@ The basic steps are:
 
 There is an alternative installation process for Xcode that includes SDL_image as an Xcode project in the main project's workspace. There is a getting started guide at [github.com/libsdl-org/SDL_image/blob/0e9b6b67/docs/INTRO-xcode.md](https://github.com/libsdl-org/SDL_image/blob/0e9b6b67/docs/INTRO-xcode.md).
 
-I didn't use this alternative installation process until later when I built the iOS version of this project.
+I didn't use this alternative installation process until later when I [built the iOS version of this project]({% post_url sdl-adventure-game/2025-01-23-ios-build-success %}).
