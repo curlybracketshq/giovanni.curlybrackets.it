@@ -46,11 +46,11 @@ It was not finding some header files from SDL. It turned out I needed to add the
 
 ### Asset File Names Must Be Unique
 
-For instance, I had four different `background.png` files stored in four different directories. I had to rename the files to fix the error.
+For instance, I had four different `background.png` files stored in four different directories. I had to [rename the files to fix the error]({% post_url sdl-adventure-game/2025-01-26-platform-independent-asset-references %}).
 
 ### Asset File References Don't Allow Directories
 
-I initially stored asset files in directories, but iOS requires the references not to include directories. For example, `fox/walking.png` needed to be updated to `walking.png`.
+I initially stored asset files in directories, but iOS requires the references not to include directories. For example, `fox/walking.png` needed to be updated to `walking.png`. I later [abstracted the asset files references]({% post_url sdl-adventure-game/2025-01-26-platform-independent-asset-references %}).
 
 ### Window Size
 

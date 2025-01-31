@@ -1,15 +1,15 @@
 ---
-title: Platform independent asset references
+title: Platform-Independent Asset References
 layout: post
 ---
 
-When I first ported the project to iOS I got a build error caused by the fact that I had image files with the same name, even if stored under different directories, and then I got a runtime error because I was referencing assets in code specifying their relative path. I initially worked around the issue by updating all the assets references to only include the file name, but this change caused a runtime error in the macOS build, which required to reference assets using their relative path.
+When I first ported the project to iOS, I encountered a build error due to having image files with the same name, even if stored in different directories. This was followed by a runtime error because I was referencing assets in code by specifying their relative paths. Initially, I worked around the issue by updating all the asset references to include only the file name. However, this change resulted in a runtime error in the macOS build, which required referencing assets using their relative paths.
 
-One simple approach to fix these issues would be to store all asset files at the project root level. This would have been a pragmatic solution, but I decided instead to keep asset files in directories and to add an abstraction layer which allows for the project to build correctly across platforms.
+A simple solution to these issues would be to store all asset files in the project root level. While this would have been a pragmatic solution, I instead decided to keep asset files in directories and add an abstraction layer to ensure the project builds correctly across platforms.
 
-## Cross platform assets
+## Cross-Platform Assets
 
-I added an `Asset` struct that is used to abstract an asset reference which can be used in both iOS and macOS:
+I added an `Asset` struct to abstract an asset reference, which can be used in both iOS and macOS:
 
 ```c
 typedef struct asset {
@@ -18,7 +18,7 @@ typedef struct asset {
 } Asset;
 ```
 
-The new type, in conjunction with the `asset_path` function, can be used to build an asset path string that on iOS contains only the asset filename and on macOS contains the concatenation of directory and filename:
+This new type, along with the `asset_path` function, can construct an asset path string where on iOS it contains only the asset filename, and on macOS, it concatenates the directory and filename:
 
 ```c
 const char *asset_path(Asset asset) {
@@ -26,7 +26,7 @@ const char *asset_path(Asset asset) {
   // On iOS, return the asset name directly (no directories)
   return asset.filename;
 #else
-  // Else (macOS) build the asset path as directory + "/" + filename
+  // Else (macOS), build the asset path as directory + "/" + filename
   static char resolved_path[1024];
   snprintf(resolved_path, sizeof(resolved_path), "%s/%s", asset.directory,
            asset.filename);
@@ -35,4 +35,4 @@ const char *asset_path(Asset asset) {
 }
 ```
 
-I'm still not sure this is a good solution, because it's a bit more complex than just moving all the assets under the same directory and it doesn't prevent iOS build errors that happen when you use the same filename for the same asset.
+I'm still unsure if this is the best solution, as it is slightly more complex than moving all assets under the same directory, and it doesn't prevent iOS build errors when using the same filename for different assets.
