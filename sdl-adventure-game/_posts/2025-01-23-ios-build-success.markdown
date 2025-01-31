@@ -54,7 +54,7 @@ I initially stored asset files in directories, but iOS requires the references n
 
 ### Window Size
 
-I initially set a fixed window size of 800x600, but the iPhone screen is smaller and the iPad screen is larger. I resolved the issue by setting a logical size using `SDL_RenderSetLogicalSize`.
+I initially set a fixed window size of 800x600, but the iPhone screen is smaller and the iPad screen is larger. I resolved the issue by [setting a logical size using `SDL_RenderSetLogicalSize`]({% post_url sdl-adventure-game/2025-01-23-device-independent-resolution %}).
 
 ### Mouse Coordinates
 
