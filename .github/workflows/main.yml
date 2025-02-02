@@ -1,0 +1,26 @@
+name: Schedule Workflow Dispatch
+on:
+  schedule:
+    - cron: '0 */1 * * *' # every hour
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date to run the workflow'
+        required: true
+        type: string
+        default: 'in 1 hour'
+concurrency:
+  group: schedule${{ github.event.inputs.date }}
+  cancel-in-progress: true
+
+jobs:
+  schedule:
+    name: 📅 Schedule
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, ${{ github.event.inputs.name }}!
+      - name: Run a multi-line script
+        run: |
+          git branch -a
