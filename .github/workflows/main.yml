@@ -1,9 +1,15 @@
 name: Schedule Workflow Dispatch
 on:
   schedule:
-    - cron: '0 */1 * * *' # every hour
+    # - cron: '0 */1 * * *' # every hour
+    - cron: '0 0 1 1 *' # Runs only at midnight of the 1st of January
   workflow_dispatch:
     inputs:
+      name:
+        description: 'Example input'
+        required: true
+        type: string
+        default: 'Gio'
       date:
         description: 'Date to run the workflow'
         required: true
@@ -17,10 +23,35 @@ jobs:
   schedule:
     name: 📅 Schedule
     runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip' # caching pip dependencies
+      - run: pip install -r requirements.txt
       - name: Run a one-line script
         run: echo Hello, ${{ github.event.inputs.name }}!
       - name: Run a multi-line script
         run: |
           git branch -a
+      - name: Run Python script
+        run: python scripts/my_script.py Gio
+      - name: Run Python script that queries S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "us-east-1"
+          S3_BUCKET_NAME: "tracking-logs-curlybrackets-it"
+        run: python scripts/generate_web_views_charts.py
+      - name: Add new file and commit
+        run: |
+          git config --global user.name "Giovanni Cappellotto"
+          git config --global user.email "foobar00000000@gmail.com"
+          git add web_views_*.png top_10_pages_*.png
+          git commit -m "Add web traffic charts"
+          git push origin master
