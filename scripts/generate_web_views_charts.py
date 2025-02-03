@@ -33,7 +33,6 @@ def read_logs_from_s3(target_date):
             file_key = obj["Key"]
             if not (file_key.endswith(".gz") and target_date in file_key):
                 continue  # Filter files by date
-            print(f"Found file: {file_key}")
             log_obj = s3.get_object(Bucket=S3_BUCKET_NAME, Key=file_key)
             with gzip.GzipFile(fileobj=io.BytesIO(log_obj["Body"].read())) as file:
                 file_data = []
@@ -50,13 +49,11 @@ def read_logs_from_s3(target_date):
                     page_path = extract_page_path(query)
                     timestamp = f"{date} {time[:5]}"  # Minute-level granularity
                     file_data.append((timestamp, page_path))
-                    print(f"Found event: {timestamp}, {uri}, {query}, {page_path}")
                 all_data.extend(file_data)  # Concatenate data from all files
     return all_data
 
 # Target date in YYYY-MM format (to capture entire month)
 target_date = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m")
-print(f"Target date: {target_date}")
 
 # Read logs from S3 for the specific day
 data = read_logs_from_s3(target_date)
@@ -64,19 +61,14 @@ data = read_logs_from_s3(target_date)
 # Convert to DataFrame
 df = pd.DataFrame(data, columns=["timestamp", "page_path"])
 df["timestamp"] = pd.to_datetime(df["timestamp"])
-print(f"Dataset: {df}")
 
 # Aggregate requests
 total_requests = df.groupby("timestamp").size()
-print(f"Total requests: {total_requests}")
 page_requests = df.groupby(["timestamp", "page_path"]).size().unstack().fillna(0)
-print(f"Page requests: {page_requests}")
 
 # Plot time-series traffic chart
 _, ax = plt.subplots(figsize=(12, 6))
-total_requests.plot(label="Total Views", color="black")
-for page in page_requests.columns:
-    page_requests[page].plot(label=page)
+total_requests.plot(label="Total Views", color="royalblue")
 
 plt.xlabel("Time")
 plt.ylabel("Views")
@@ -91,7 +83,7 @@ ax.xaxis.set_major_formatter(date_form)
 ax.xaxis.set_major_locator(mdates.WeekdayLocator(interval=1))
 
 plt.tight_layout()
-plt.savefig(f"web_views_{target_date}.png")
+plt.savefig(f"charts/{target_date}-web-views.png")
 plt.show()
 
 # Compute top 10 most popular page paths
@@ -99,10 +91,10 @@ page_counts = df["page_path"].value_counts().head(10)
 
 # Plot horizontal bar chart for top 10 pages
 plt.figure(figsize=(10, 6))
-page_counts.sort_values().plot(kind="barh", color="skyblue")
+page_counts.sort_values().plot(kind="barh", color="royalblue")
 plt.xlabel("Views")
 plt.ylabel("Page Path")
 plt.title("Most Popular Pages")
 plt.tight_layout()
-plt.savefig(f"top_10_pages_{target_date}.png")
+plt.savefig(f"charts/{target_date}-top-10-pages.png")
 plt.show()
