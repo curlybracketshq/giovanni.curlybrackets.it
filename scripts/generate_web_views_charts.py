@@ -91,6 +91,9 @@ page_counts = df["page_path"].value_counts().head(10)
 
 # Plot horizontal bar chart for top 10 pages
 plt.figure(figsize=(10, 6))
+if not page_counts:
+    print("Empty page counts list")
+    return
 page_counts.sort_values().plot(kind="barh", color="royalblue")
 plt.xlabel("Views")
 plt.ylabel("Page Path")
