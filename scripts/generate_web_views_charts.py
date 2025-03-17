@@ -54,7 +54,7 @@ def read_logs_from_s3(target_date):
     return all_data
 
 # Target date in YYYY-MM format (to capture entire month)
-target_date = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m")
+target_date = (datetime.datetime.now(datetime.timezone.utc).replace(day=1) - datetime.timedelta(days=1)).strftime("%Y-%m")
 
 # Read logs from S3 for the specific day
 data = read_logs_from_s3(target_date)
