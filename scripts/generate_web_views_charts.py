@@ -89,7 +89,7 @@ plt.show()
 
 # Compute top 10 most popular page paths
 page_counts = df["page_path"].value_counts().head(10)
-if not page_counts:
+if page_counts.empty():
     print("Empty page counts list")
     sys.exit(1)
 
