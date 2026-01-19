@@ -6,6 +6,7 @@ import boto3
 import gzip
 import io
 import os
+import sys
 import urllib.parse
 from collections import defaultdict
 import datetime
@@ -53,7 +54,7 @@ def read_logs_from_s3(target_date):
     return all_data
 
 # Target date in YYYY-MM format (to capture entire month)
-target_date = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m")
+target_date = (datetime.datetime.now(datetime.timezone.utc).replace(day=1) - datetime.timedelta(days=1)).strftime("%Y-%m")
 
 # Read logs from S3 for the specific day
 data = read_logs_from_s3(target_date)
@@ -88,6 +89,9 @@ plt.show()
 
 # Compute top 10 most popular page paths
 page_counts = df["page_path"].value_counts().head(10)
+if page_counts.empty:
+    print("Empty page counts list")
+    sys.exit(1)
 
 # Plot horizontal bar chart for top 10 pages
 plt.figure(figsize=(10, 6))
