@@ -2,6 +2,8 @@
 
 (function () {
   var DEBUG = false;
+  var MIN_OPACITY = 0.1;
+  var MAX_OPACITY = 0.2;
 
   var randInt = function (upper) {
     return Math.floor(Math.random() * upper);
@@ -12,7 +14,7 @@
   };
 
   var randOpacity = function () {
-    return Math.random();
+    return Math.random() * (MAX_OPACITY - MIN_OPACITY) + MIN_OPACITY;
   };
 
   var randColor = function () {
@@ -70,4 +72,11 @@
       );
     }
   }
+
+  SVG.style.display = 'none';
+  var base64SVG = function (width, height, inner) {
+    var svgHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + width + ' ' + height + '">' + inner + '</svg>';
+    return btoa(svgHTML);
+  }
+  document.body.style.backgroundImage = 'url(data:image/svg+xml;base64,' + base64SVG(SVG.getAttribute('width'), SVG.getAttribute('height'), SVG.innerHTML) + ')';
 }());
