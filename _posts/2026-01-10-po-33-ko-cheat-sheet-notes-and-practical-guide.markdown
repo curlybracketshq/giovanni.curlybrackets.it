@@ -119,10 +119,8 @@ Note: backup output is stereo.
 
 Note: if the restore process fails, try at a higher volume. If it still fails restart your PC and retry.
 
----
-
 ## Resources
 
-* https://teenage.engineering/guides/po-33/en
-* Sound packs - https://teenage.engineering/downloads/po-33
-* https://www.youtube.com/watch?v=DnusVDcoyeQ
+* [PO-33 Official Guide](https://teenage.engineering/guides/po-33/en)
+* [Sound packs](https://teenage.engineering/downloads/po-33)
+* [Useful PO-33 tips](https://www.youtube.com/watch?v=DnusVDcoyeQ)
