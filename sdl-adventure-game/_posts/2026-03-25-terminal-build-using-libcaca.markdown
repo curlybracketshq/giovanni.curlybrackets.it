@@ -1,7 +1,6 @@
 ---
 title: "Terminal Build Using libcaca"
 layout: post
-date: 2026-03-25 15:27:54 -0400
 ---
 
 After getting the game running on macOS and iOS, I wanted to run and test it

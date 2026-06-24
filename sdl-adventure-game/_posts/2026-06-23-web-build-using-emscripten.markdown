@@ -1,7 +1,6 @@
 ---
 title: "Web Build Using Emscripten"
 layout: post
-date: 2026-06-23 09:27:57 +0200
 ---
 
 The [terminal build]({% post_url sdl-adventure-game/2026-03-25-terminal-build-using-libcaca %})
