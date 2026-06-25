@@ -1,7 +1,6 @@
 ---
 title: "An Engine for Multiple Adventures"
 layout: post
-date: 2026-06-24 09:00:00 -0500
 ---
 
 The game is in good shape now — it runs on the desktop, on iOS, in a terminal,
