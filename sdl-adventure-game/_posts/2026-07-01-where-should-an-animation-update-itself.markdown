@@ -1,7 +1,6 @@
 ---
 title: "Where Should an Animation Update Itself?"
 layout: post
-date: 2026-07-01 09:00:00 -0500
 ---
 
 Animations in VaniaVolpe are humble: a sprite sheet plus a little `.anim` file
