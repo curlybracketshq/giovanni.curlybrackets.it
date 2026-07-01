@@ -1,7 +1,6 @@
 ---
 title: "Fixing the Bugs a Code Review Found"
 layout: post
-date: 2026-06-29 09:00:00 -0500
 ---
 
 With [the engine split into adventures]({% post_url sdl-adventure-game/2026-06-24-an-engine-for-multiple-adventures %})
