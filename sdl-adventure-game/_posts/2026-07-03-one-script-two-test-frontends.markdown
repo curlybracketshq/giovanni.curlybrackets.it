@@ -1,7 +1,6 @@
 ---
 title: "One Script, Two Test Front Ends"
 layout: post
-date: 2026-07-03 09:30:00 -0400
 ---
 
 In the [last post]({% post_url 2026-07-02-testing-the-game-in-a-terminal %}) I

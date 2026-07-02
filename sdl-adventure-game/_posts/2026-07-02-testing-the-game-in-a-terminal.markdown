@@ -1,7 +1,6 @@
 ---
 title: "Testing the Game in a Terminal"
 layout: post
-date: 2026-07-02 10:15:00 -0400
 ---
 
 A while back I gave the game a [terminal front end]({% post_url 2026-03-25-terminal-build-using-libcaca %}):
