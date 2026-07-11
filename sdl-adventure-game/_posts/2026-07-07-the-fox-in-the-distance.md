@@ -4,7 +4,7 @@ title: "The Fox in the Distance"
 ---
 
 The fox can [walk behind
-things](/sdl-adventure-game/2026/07/07/walking-behind-things.html) now, but
+things](/sdl-adventure-game/2026-07-06-walking-behind-things) now, but
 she's exactly the same size at the back of the playground as at the front.
 Depth cues come in pairs — occlusion says *behind*, size says *far* — and the
 game only had one of them. This post is the second slice of the depth plan
@@ -44,7 +44,7 @@ typedef struct actor_variant_spec {
 ```
 
 The [generic
-actor](/sdl-adventure-game/2026/06/24/an-engine-for-multiple-adventures.html)'s
+actor](/sdl-adventure-game/2026-06-24-an-engine-for-multiple-adventures)'s
 animation table becomes two-dimensional — `animations[variant][state]` — and
 every lookup goes through the active variant. The fox and the hen wrap their
 existing tables in a one-element variants array, which is the whole migration:
@@ -83,14 +83,16 @@ have different floors — a shallow poolside strip, a deep playground lawn — s
 each scene declares its own band table and maps its own geometry onto the
 actor's variants:
 
+{% raw %}
 ```c
 typedef struct depth_band { int y_top; int variant; } DepthBand;
 
 static const DepthBand BANDS[] = {{0, 1}, {520, 0}};
 ```
+{% endraw %}
 
 Opting in is one line in the scene's update, feeding
-[`actor_feet_y`](/sdl-adventure-game/2026/07/07/walking-behind-things.html)
+[`actor_feet_y`]({% post_url /sdl-adventure-game/2026-07-06-walking-behind-things %})
 into the band lookup:
 
 ```c

@@ -99,7 +99,7 @@ connecting segment samples clean every 5 px — collapses those 56 points into
 
 ![The raw 56-point cell path and the 3-waypoint smoothed path it becomes.](/sdl-adventure-game/assets/movement-smoothing.png)
 
-The [generic actor](/sdl-adventure-game/2026/06/24/an-engine-for-multiple-adventures.html)
+The [generic actor]({% post_url /sdl-adventure-game/2026-06-24-an-engine-for-multiple-adventures %})
 grew a matching queue: `actor_walk_path()` accepts up to eight
 points and the old `actor_walk_to()` is just the one-point case. Between
 segments the walk animation and the footstep loop keep running, so a routed
@@ -149,7 +149,7 @@ instead of standing frozen until you find the lotion.
 
 All of it is covered by geometry unit tests that run inside `make test`,
 next to the
-[scripted playthrough](/sdl-adventure-game/2026/07/02/testing-the-game-in-a-terminal.html).
+[scripted playthrough]({% post_url /sdl-adventure-game/2026-07-02-testing-the-game-in-a-terminal %}).
 My favourite is the pair that
 states the whole feature: the straight left-to-right segment across the
 sandbox *fails* the line-of-sight check — proof the old behaviour clipped the

@@ -4,10 +4,10 @@ title: "Layers of Distance"
 ---
 
 The fox can walk
-[behind things](/sdl-adventure-game/2026/07/07/walking-behind-things.html),
-be [far away](/sdl-adventure-game/2026/07/07/the-fox-in-the-distance.html),
+[behind things]({% post_url /sdl-adventure-game/2026-07-06-walking-behind-things %}),
+be [far away]({% post_url /sdl-adventure-game/2026-07-07-the-fox-in-the-distance %}),
 and roam a scene
-[wider than the window](/sdl-adventure-game/2026/07/08/wider-than-the-window.html).
+[wider than the window]({% post_url /sdl-adventure-game/2026-07-08-wider-than-the-window %}).
 This post is the last piece of that plan — parallax planes — and the one where
 all of it finally shows up in the same picture. A scene's background stops
 being one flat image and becomes *layers*, each scrolling at its own speed, so
@@ -39,7 +39,7 @@ walks.
 
 ![Diagram of the four layers, back to front, with their parallax factors: sky 0, hills 0.4, ground 1, bushes 1.15.](/sdl-adventure-game/assets/parallax-layers-diagram.png)
 
-The [scene struct](/sdl-adventure-game/2026/06/24/an-engine-for-multiple-adventures.html)
+The [scene struct]({% post_url /sdl-adventure-game/2026-06-24-an-engine-for-multiple-adventures %})
 carries two ordered tables — `bg_planes` drawn behind the action, `fg_planes`
 in front — and the scene declares them and nothing else. The engine loads,
 draws, and frees them, exactly like it already did for
@@ -48,7 +48,7 @@ draws, and frees them, exactly like it already did for
 ## The foreground plane is a free walk-behind
 
 The first depth post gave the fox
-[y-sorted props](/sdl-adventure-game/2026/07/07/walking-behind-things.html) so
+[y-sorted props]({% post_url /sdl-adventure-game/2026-07-06-walking-behind-things %}) so
 she could stand in front of *and* behind an object. A foreground plane is the
 cheaper cousin: a `parallax > 1` strip in front of the action layer occludes
 the actor with no prop, no baseline, no sorting. In the demo it's a row of
@@ -61,7 +61,7 @@ to pass on *either* side; planes handle the pure foreground.
 
 The render loop is a small dance, because the planes and the action layer live
 in different coordinate frames. The action layer draws through the
-[camera offset](/sdl-adventure-game/2026/07/08/wider-than-the-window.html) set
+[camera offset]({% post_url /sdl-adventure-game/2026-07-08-wider-than-the-window %}) set
 up in the last phase; each plane draws through *its own* offset instead. So a
 frame goes:
 
@@ -98,16 +98,16 @@ quite reconciled with itself.
 
 ## The whole plan, in one field
 
-The [demo field](/sdl-adventure-game/2026/07/07/the-fox-in-the-distance.html)
+The [demo field]({% post_url /sdl-adventure-game/2026-07-07-the-fox-in-the-distance %})
 that has grown alongside these four posts is now the proof that they compose.
 Its single flat background is gone, replaced by four planes — fixed sky,
 drifting hills, scene-locked ground, foreground bushes. Walk the fox across it
 and every feature is on screen at once: she's
-[y-sorted](/sdl-adventure-game/2026/07/07/walking-behind-things.html) against
+[y-sorted]({% post_url /sdl-adventure-game/2026-07-06-walking-behind-things %}) against
 the depth-band bushes, she
-[shrinks to a far sprite](/sdl-adventure-game/2026/07/07/the-fox-in-the-distance.html)
+[shrinks to a far sprite]({% post_url /sdl-adventure-game/2026-07-07-the-fox-in-the-distance %})
 when she climbs toward the horizon, the
-[camera follows](/sdl-adventure-game/2026/07/08/wider-than-the-window.html) her
+[camera follows]({% post_url /sdl-adventure-game/2026-07-08-wider-than-the-window %}) her
 across the 1600-px world, and the four layers slide past at four different
 speeds behind and in front of her. The suite is at 103 checks; the two real
 adventures declare no planes and are untouched.
