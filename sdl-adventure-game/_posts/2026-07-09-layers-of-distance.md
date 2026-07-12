@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Layers of Distance"
+title: "Parallax Background and Foreground Planes"
 ---
 
 The fox can walk
@@ -14,9 +14,9 @@ being one flat image and becomes *layers*, each scrolling at its own speed, so
 distance reads the way it does when you look out a train window: the near
 things race by, the far things barely move.
 
-![The demo field at two ends: the sky is fixed, the hills have barely moved, the ground and foreground bushes have scrolled fully past.](/sdl-adventure-game/assets/parallax-two-ends.png)
+![The demo field at two ends: the sky is fixed, the hills have barely moved, the ground and foreground bushes have scrolled fully past.]({{ '/sdl-adventure-game/assets/parallax-two-ends.png' | relative_url }})
 
-## One number does the whole trick
+## One number: the parallax factor
 
 A plane is almost nothing: an image, a position, and a **parallax factor**.
 
@@ -37,13 +37,13 @@ behind the action. And greater than 1 slides *faster* than the scene: a
 foreground layer, nearer to the camera than the fox, that whips past as she
 walks.
 
-![Diagram of the four layers, back to front, with their parallax factors: sky 0, hills 0.4, ground 1, bushes 1.15.](/sdl-adventure-game/assets/parallax-layers-diagram.png)
+![Diagram of the four layers, back to front, with their parallax factors: sky 0, hills 0.4, ground 1, bushes 1.15.]({{ '/sdl-adventure-game/assets/parallax-layers-diagram.png' | relative_url }})
 
 The [scene struct]({% post_url /sdl-adventure-game/2026-06-24-an-engine-for-multiple-adventures %})
 carries two ordered tables — `bg_planes` drawn behind the action, `fg_planes`
 in front — and the scene declares them and nothing else. The engine loads,
 draws, and frees them, exactly like it already did for
-[scene images](/sdl-adventure-game/2025/01/15/images-and-sprites.html).
+[scene images]({% post_url /sdl-adventure-game/2025-01-15-images-and-sprites %}).
 
 ## The foreground plane is a free walk-behind
 
@@ -113,8 +113,8 @@ speeds behind and in front of her. The suite is at 103 checks; the two real
 adventures declare no planes and are untouched.
 
 That closes the depth plan — four independent PRs, each leaving the game
-playable, no scaling anywhere, and a fox who now lives in a world with a
-front, a back, and a horizon. What it's waiting on now is not code but
-drawings: a real, hand-authored wide location for Vania or Gina to make all of
-this carry a scene that's actually part of the story. The engine is ready for
-her; someone just has to paint the place.
+playable, no scaling anywhere, and a renderer that now composes occlusion,
+size, camera, and parallax into one consistent sense of depth. What it's waiting
+on now is not code but drawings: a real, hand-authored wide location for Vania
+or Gina to make all of this carry a scene that's actually part of the story. The
+engine is ready; someone just has to paint the place.

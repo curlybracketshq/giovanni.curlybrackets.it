@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Walking Around Things"
+title: "Pathfinding Around Obstacles with a Walk Grid and A*"
 ---
 
 The oldest documented limitation in VaniaVolpe was that the fox walks in a
@@ -9,10 +9,10 @@ sandbox, the slide, whatever the scene says is not ground. It had its own
 design note (`MOVEMENT.md`) written mostly so the problem wouldn't be
 forgotten, and the note ended with "keep the engine simple until this becomes
 a felt gameplay problem." It became one. This is the story of the fix: a
-walkability bitmap, A*, and a handful of places where the game deliberately
-disagrees with its own geometry.
+walkability bitmap, A*, and a handful of places where the routing deliberately
+allows illegal points.
 
-![The straight line cuts through the slide; the routed path goes around it.](/sdl-adventure-game/assets/movement-before-after.png)
+![The straight line cuts through the slide; the routed path goes around it.]({{ '/sdl-adventure-game/assets/movement-before-after.png' | relative_url }})
 
 ## Moving the endpoint doesn't move the path
 
@@ -97,7 +97,7 @@ line-of-sight pass — from each point, jump to the furthest path point whose
 connecting segment samples clean every 5 px — collapses those 56 points into
 3 waypoints:
 
-![The raw 56-point cell path and the 3-waypoint smoothed path it becomes.](/sdl-adventure-game/assets/movement-smoothing.png)
+![The raw 56-point cell path and the 3-waypoint smoothed path it becomes.]({{ '/sdl-adventure-game/assets/movement-smoothing.png' | relative_url }})
 
 The [generic actor]({% post_url /sdl-adventure-game/2026-06-24-an-engine-for-multiple-adventures %})
 grew a matching queue: `actor_walk_path()` accepts up to eight
@@ -105,7 +105,7 @@ points and the old `actor_walk_to()` is just the one-point case. Between
 segments the walk animation and the footstep loop keep running, so a routed
 walk reads as one continuous motion with a couple of turns in it.
 
-## Where the game disagrees with its own geometry
+## Intentional exceptions: illegal starts and goals
 
 The pleasant surprise was how few special cases the scenes needed — and how
 honest the two real ones are.
@@ -125,7 +125,7 @@ inside the blocked rectangle around the structure; the router snaps the start
 the same way and she walks back out legally.
 
 And while rewriting `actor_walk_to` I found a bug in the
-[walk-then-do callbacks](/sdl-adventure-game/2025/01/21/chain-of-actions.html):
+[walk-then-do callbacks]({% post_url /sdl-adventure-game/2025-01-21-chain-of-actions %}):
 start a walk toward the slide, then tap the fox herself, and the pending
 "use the slide" callback survived the interruption
 and fired on the next frame — from wherever she stood. With the slide already
@@ -157,5 +157,5 @@ wall — and the routed path passes it, waypoint by waypoint.
 
 Next on this thread: painting walkable masks in-game instead of typing
 rectangles (the grid is already a bitmap; it may as well be drawn), and
-scene-sized grids once scrolling scenes and a camera arrive. The fox, for
-now, walks around things.
+scene-sized grids once scrolling scenes and a camera arrive. For now, routed
+walks avoid obstacles instead of clipping through them.

@@ -1,18 +1,19 @@
 ---
 layout: post
-title: "The Fox Learns to Talk"
+title: "Lip-Sync from Offline-Generated Mouth Cues"
 ---
 
-Vania has been talking since
-[January 2025](/sdl-adventure-game/2025/01/22/music-sound-effects-and-dialogs.html):
+Vania's dialogue audio has played since
+[January 2025]({% post_url /sdl-adventure-game/2025-01-22-music-sound-effects-and-dialogs %}):
 play the line's WAV, loop a three-frame talking animation for exactly as long
 as the audio lasts, done. It worked, but it was the same mouth-flapping loop
-whether she was saying "Evviva!" or delivering a two-sentence hint about the
-squirrel — and it kept flapping straight through her pauses. This week she
-learned to move her mouth with the words. The problem split into two halves,
-and it turned out someone had already solved the harder one.
+whether the line was "Evviva!" or a two-sentence hint about the squirrel — and
+it kept flapping straight through the pauses in the audio. This week the talking
+animation was updated to follow the mouth shapes in the spoken line, instead of
+looping on a timer. The problem split into two halves, and the harder one had
+already been solved by an existing tool.
 
-## Someone already solved the hard half
+## Offline lip-sync generation instead of runtime speech recognition
 
 Turning audio into mouth shapes is a speech-recognition problem, and I had no
 intention of doing speech recognition inside a C99 game engine. The plan
@@ -24,9 +25,9 @@ tiny text file next to the WAV, and have the engine merely *play* the result.
 The tool is [Rhubarb Lip
 Sync](https://github.com/DanielSWolf/rhubarb-lip-sync), which was built for
 exactly this — 2D adventure games — and outputs precisely the thing I need:
-not phonemes, but *mouth shapes with timestamps*. Its default recognizer wants
-English; its `phonetic` recognizer doesn't care what language it hears, it
-just matches sounds. That's what makes Italian (and any future locale) work
+not phonemes, but *mouth shapes with timestamps*. Its default recognizer
+expects English; its `phonetic` recognizer is language-independent — it matches
+sounds rather than words. That's what makes Italian (and any future locale) work
 with zero per-language setup. A new script, `tools/gen_lipsync.py`, runs it
 over every `dialog/*.wav` and writes a `.cues` sidecar in the same format
 family as the `.anim` files — one thing per line, trivially parseable:
@@ -46,14 +47,14 @@ One thing the spec got wrong and the real recordings corrected: Rhubarb
 doesn't always close a file with a rest cue, so the generator treats the WAV's
 own duration as the end of the last speech span.
 
-![The gate line's waveform, its mouth cues, and the estimated word timing.](/sdl-adventure-game/assets/speech-cue-timeline.png)
+![The gate line's waveform, its mouth cues, and the estimated word timing.]({{ '/sdl-adventure-game/assets/speech-cue-timeline.png' | relative_url }})
 
 That figure is real data: the waveform of "Il cancello è chiuso…", the cue
 track Rhubarb heard in it, and a third row I'll get to at the end.
 
-## Seven mouths, drawn as three
+## Map seven phoneme shapes to three drawn mouth sprites
 
-Rhubarb speaks in six basic shapes — A through F, closed lips to puckered —
+Rhubarb outputs six basic shapes — A through F, closed lips to puckered —
 plus X for rest. So the talking animation stops being "three frames at 12
 FPS" and becomes a *character set*: one frame per shape, in a canonical order,
 with rest at index zero so a stopped animation naturally shows a closed
@@ -66,13 +67,12 @@ rectangle. The fox has three drawn mouths: closed, open, and a small round
 one. The new `talking.anim` is seven lines mapping the seven shapes onto
 those three drawings:
 
-![The three drawn mouths and which canonical shapes reuse each one.](/sdl-adventure-game/assets/speech-three-mouths.png)
+![The three drawn mouths and which canonical shapes reuse each one.]({{ '/sdl-adventure-game/assets/speech-three-mouths.png' | relative_url }})
 
 It's crude — E and F deserve their own pucker eventually — but the effect is
 immediate: the mouth shuts during pauses and between sentences, opens on the
-vowels, and generally moves *because she's saying something*, not because a
-timer is running. Real per-shape art is now a redrawn sprite sheet with no
-code change attached.
+vowels, and moves in step with the audio content, not on a fixed timer. Real
+per-shape art is now a redrawn sprite sheet with no code change attached.
 
 ## Playing cues instead of time
 
@@ -93,12 +93,12 @@ for now), fall back to the exact looping behaviour the game has had since
 January.
 
 The parsers are deliberately strict, a lesson learned from the
-[`.anim` parser](/sdl-adventure-game/2025/01/17/parsing-animation-metadata.html)
-that trusted its input completely: out-of-order timestamps, unknown letters,
-oversized files, truncated lines — any of it rejects the whole sidecar
+[`.anim` parser]({% post_url /sdl-adventure-game/2025-01-17-parsing-animation-metadata %})
+that accepted its input without validation: out-of-order timestamps, unknown
+letters, oversized files, truncated lines — any of it rejects the whole sidecar
 loudly, and the line degrades to the legacy loop instead of half-working.
 
-## The motionless fox
+## No visible animation with silent placeholder audio (locale mismatch)
 
 Verification produced one good scare. The native test was green — a headless
 probe showed the frame index tracking the cue list through the whole gate
@@ -108,14 +108,13 @@ and diffed them: **nothing**. Ten identical frames. No log line either.
 
 I stared at the pipeline for a while before looking at the obvious: the
 browser's language is `en-US`, so the game had loaded the **English locale —
-whose voice lines are silent placeholder WAVs**. Rhubarb, asked what mouth
-shapes it heard in silence, had answered "closed, the whole time", and the
-engine was faithfully lip-syncing it. The system wasn't broken; it was
-working with unreasonable precision. With `?lang=it_IT` the fox spoke
-Italian, the console logged the line, and the screenshot diffs lit up exactly
-over her sprite.
+whose voice lines are silent placeholder WAVs**. Run over silent audio, Rhubarb
+had output "closed, the whole time", and the engine was faithfully lip-syncing
+that. The system wasn't broken; it was working with unreasonable precision. With
+`?lang=it_IT` the Italian voice line played, the console logged it, and the
+screenshot diffs lit up exactly over her sprite.
 
-## Words, for next time
+## Per-word timing, generated for later on-screen text
 
 The third row in the figure above is the part that isn't wired up yet. Each
 transcript now lives in a `.txt` sidecar next to its WAV (extracted from the
@@ -129,5 +128,5 @@ difference.
 Those word timings exist for the next phase: on-screen dialogue text with the
 currently spoken word highlighted, karaoke-style — partly accessibility,
 mostly because this game's audience is learning to read, and a highlight that
-moves with the voice is a reading lesson disguised as a fox. That one needs a
-font and a text renderer, so it gets its own post.
+moves with the voice helps a child connect the spoken sounds to the written
+words. That one needs a font and a text renderer, so it gets its own post.

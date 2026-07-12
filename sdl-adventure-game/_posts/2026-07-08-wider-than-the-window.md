@@ -1,17 +1,17 @@
 ---
 layout: post
-title: "Wider Than the Window"
+title: "Scenes Wider Than the Window with a Following Camera"
 ---
 
 Every scene in VaniaVolpe has been exactly one screen: 800×600, the whole
 world visible at once. That assumption was everywhere and nowhere — no line
 of code said "scene equals screen," but positions, hotspots, clicks, the
 [walk grid]({% post_url /sdl-adventure-game/2026-07-04-walking-around-things %}) and
-the renderer all quietly agreed on it. This post is about taking it apart:
+the renderer all quietly assumed it. This post is about taking it apart:
 scenes larger than the window, a camera that follows the fox, and the rule
 that made the change tractable — **scene code never does camera math**.
 
-![Two screenshots of the demo field: the fox at the west end with the east off-screen, then at the east end with the west scrolled away.](/sdl-adventure-game/assets/camera-two-ends.png)
+![Two screenshots of the demo field: the fox at the west end with the east off-screen, then at the east end with the west scrolled away.]({{ '/sdl-adventure-game/assets/camera-two-ends.png' | relative_url }})
 
 ## Two coordinate systems, one rule
 
@@ -46,7 +46,7 @@ UI (the back-to-hub button), a scrolling scene's mouse events get the camera
 offset added *in place* — `event->motion.x += (int)cam->pos.x` and likewise
 for clicks — before the scene ever sees them. Every existing
 `SDL_PointInRect` hit-test, every POI walk, every cached mouse position
-downstream is suddenly operating in scene coordinates without knowing it.
+downstream is suddenly operating in scene coordinates without any change.
 Even the debug overlay's rect picker now prints scene-coordinate rectangles,
 which is exactly what you want when authoring hotspots for a wide scene.
 
@@ -86,7 +86,7 @@ don't want to watch it pan from wherever it was last week), and vertical
 scrolling falls out of the same math for free — a scene of window height just
 clamps `y` to zero forever.
 
-## The walk grid grows up
+## Resizing the walk grid to the scene
 
 The [walkability grid]({% post_url /sdl-adventure-game/2026-07-04-walking-around-things %})
 was sized to the window: 80×60 cells, hard-coded. It is now sized to the
@@ -122,5 +122,5 @@ the point: for them, this feature doesn't exist.
 
 What's left of the depth plan is the last and most visible slice: parallax
 planes — backgrounds and foregrounds scrolling at their own speeds, and the
-first real scrolling scene with art to match. The window, meanwhile, is no
-longer the world; it's just where you're looking.
+first real scrolling scene with art to match. The window is no longer the whole
+scene; it's just the visible region the camera clamps to.

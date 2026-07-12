@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Walking Behind Things"
+title: "A Y-Sorted Action Layer for Depth Occlusion"
 ---
 
-Since the fox learned to
-[walk around things]({% post_url /sdl-adventure-game/2026-07-04-walking-around-things %}),
+Since [pathfinding gave the fox routed
+walks]({% post_url /sdl-adventure-game/2026-07-04-walking-around-things %}),
 one flatness kept bothering me: she is always *in front* of everything. Every
 scene's render function ended with the same line — draw the background, draw
 the objects, draw the fox last — so she floats over the acorn pile even when
@@ -13,7 +13,7 @@ sticker on top. This post is about the smallest change that makes it read as a
 place instead: a y-sorted action layer, the first slice of a larger depth and
 camera plan.
 
-![Two screenshots of the same acorn pile: standing above it the pile overdraws the fox, walking below it the fox overdraws the pile.](/sdl-adventure-game/assets/depth-overlap-flip.png)
+![Two screenshots of the same acorn pile: standing above it the pile overdraws the fox, walking below it the fox overdraws the pile.]({{ '/sdl-adventure-game/assets/depth-overlap-flip.png' | relative_url }})
 
 ## One spec, four slices
 
@@ -53,7 +53,7 @@ float actor_feet_y(const Actor *actor);
 
 For props, there is a new type. A `Prop` doesn't own an image — it points into
 the scene's existing
-[image and animation tables](/sdl-adventure-game/2025/01/15/images-and-sprites.html),
+[image and animation tables]({% post_url /sdl-adventure-game/2025-01-15-images-and-sprites %}),
 so loading and teardown don't change at all. What it adds is the ground line,
 and a visibility flag the scene toggles:
 
@@ -84,7 +84,7 @@ lives in its own function, `action_layer_order()`, purely so the unit tests
 can assert draw orders — including that tie — without ever creating a
 renderer.
 
-![Diagram: two actors and a prop on a ground strip; the actor whose feet are above the prop's baseline is drawn first, the one below is drawn last.](/sdl-adventure-game/assets/depth-baseline-diagram.png)
+![Diagram: two actors and a prop on a ground strip; the actor whose feet are above the prop's baseline is drawn first, the one below is drawn last.]({{ '/sdl-adventure-game/assets/depth-baseline-diagram.png' | relative_url }})
 
 ## A demo with zero new art
 
@@ -121,5 +121,5 @@ thresholds — same feet helper, new art. The camera (Phase 3) makes the
 scene/screen split real, with scenes wider than the window and input converted
 centrally so scene code never sees camera math. And parallax planes (Phase 4)
 add a cheaper walk-behind for things the fox never stands in front of: a
-foreground strip that just draws after everything. The pile of acorns, for
-now, is the deepest thing in the game.
+foreground strip that just draws after everything. For now, the acorn pile is
+the one prop the action layer sorts against the fox.
