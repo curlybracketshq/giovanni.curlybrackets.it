@@ -11,7 +11,7 @@ the renderer all quietly assumed it. This post is about taking it apart:
 scenes larger than the window, a camera that follows the fox, and the rule
 that made the change tractable — **scene code never does camera math**.
 
-![Two screenshots of the demo field: the fox at the west end with the east off-screen, then at the east end with the west scrolled away.](/sdl-adventure-game/assets/camera-two-ends.png)
+![Two screenshots of the demo field: the fox at the west end with the east off-screen, then at the east end with the west scrolled away.]({{ '/sdl-adventure-game/assets/camera-two-ends.png' | relative_url }})
 
 ## Two coordinate systems, one rule
 

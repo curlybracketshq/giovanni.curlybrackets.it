@@ -4,14 +4,14 @@ title: "Discrete Per-Band Sprite Variants for Distance"
 ---
 
 The fox can be drawn [behind scene
-props](/sdl-adventure-game/2026-07-06-walking-behind-things) now, but
+props]({% post_url /sdl-adventure-game/2026-07-06-walking-behind-things %}) now, but
 she's exactly the same size at the back of the playground as at the front.
 Depth cues come in pairs — occlusion says *behind*, size says *far* — and the
 game only had one of them. This post is the second slice of the depth plan
 (`DEPTH_AND_CAMERA.md`): the fox reads as nearer or farther by switching
 between separately drawn sprite sets as she moves up and down the scene.
 
-![Two screenshots of the demo field: high on the lawn the fox renders from a smaller sprite set, low on the lawn from the full-size one, in front of a bush.](/sdl-adventure-game/assets/depth-variants-near-far.png)
+![Two screenshots of the demo field: high on the lawn the fox renders from a smaller sprite set, low on the lawn from the full-size one, in front of a bush.]({{ '/sdl-adventure-game/assets/depth-variants-near-far.png' | relative_url }})
 
 ## Why not just scale the sprite
 
@@ -44,7 +44,7 @@ typedef struct actor_variant_spec {
 ```
 
 The [generic
-actor](/sdl-adventure-game/2026-06-24-an-engine-for-multiple-adventures)'s
+actor]({% post_url /sdl-adventure-game/2026-06-24-an-engine-for-multiple-adventures %})'s
 animation table becomes two-dimensional — `animations[variant][state]` — and
 every lookup goes through the active variant. The fox and the hen wrap their
 existing tables in a one-element variants array, which is the whole migration:
@@ -68,7 +68,7 @@ void actor_set_variant(Actor *actor, int variant);
 The naive version — stop the old walking animation, start the new one — pops
 twice: the walk cycle restarts from frame zero, and stopping an animation
 fires its [end
-callback](/sdl-adventure-game/2026/07/01/where-should-an-animation-update-itself.html),
+callback]({% post_url /sdl-adventure-game/2026-07-01-where-should-an-animation-update-itself %}),
 which for a walk means "arrive," from the wrong place. Instead the new
 variant's current-state animation *inherits* the old one's start time, frame
 and facing, and the old one is silenced directly without going through the
@@ -103,7 +103,7 @@ actor_set_variant(fox, depth_variant_for(BANDS, LEN(BANDS),
 Scenes that never call it stay on variant 0 forever — which is every shipped
 scene today, because the far-art doesn't exist yet.
 
-![Diagram: a scene floor split by a horizontal boundary at y 520; feet above it select the far variant at 0.6 speed, feet below it the near variant at full speed.](/sdl-adventure-game/assets/depth-bands-diagram.png)
+![Diagram: a scene floor split by a horizontal boundary at y 520; feet above it select the far variant at 0.6 speed, feet below it the near variant at full speed.]({{ '/sdl-adventure-game/assets/depth-bands-diagram.png' | relative_url }})
 
 ## Placeholders until the art exists
 

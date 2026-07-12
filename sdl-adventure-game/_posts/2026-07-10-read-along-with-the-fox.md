@@ -4,7 +4,7 @@ title: "On-Screen Dialogue Text with Karaoke-Style Word Highlighting"
 ---
 
 When the talking animation started [following mouth-shape
-cues](/sdl-adventure-game/2026-07-05-the-fox-learns-to-talk), the same
+cues]({% post_url /sdl-adventure-game/2026-07-05-the-fox-learns-to-talk %}), the same
 spec called for a second half: the words themselves, on screen, with the one
 being spoken highlighted karaoke-style. Not as a debugging aid and not only as
 subtitles — as a **learn-to-read feature**. The game's audience is a child who
@@ -12,7 +12,7 @@ can't read yet; a line of text where a bright box hops from word to word in
 time with the voice is how she starts connecting the sounds she knows to the
 shapes she doesn't. This post ships that half.
 
-![The same dialogue line photographed a second apart: the yellow highlight has moved from "Mi" to "chiave", following the voice.](/sdl-adventure-game/assets/speech-read-along.png)
+![The same dialogue line photographed a second apart: the yellow highlight has moved from "Mi" to "chiave", following the voice.]({{ '/sdl-adventure-game/assets/speech-read-along.png' | relative_url }})
 
 ## The timing was already there
 
@@ -66,7 +66,7 @@ readable in the game itself, wrapped and centred like any other — just
 without a highlight until her real recordings land and bring timing data
 with them.
 
-![Gina's placeholder line, visible in the game at last, wrapped over two centred rows.](/sdl-adventure-game/assets/speech-gina-fallback.png)
+![Gina's placeholder line, visible in the game at last, wrapped over two centred rows.]({{ '/sdl-adventure-game/assets/speech-gina-fallback.png' | relative_url }})
 
 On by default is a deliberate stance: this is an accessibility and
 learn-to-read feature, not a debugging overlay, so it ships enabled and the

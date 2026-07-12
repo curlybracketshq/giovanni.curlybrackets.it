@@ -4,7 +4,7 @@ title: "Lip-Sync from Offline-Generated Mouth Cues"
 ---
 
 Vania's dialogue audio has played since
-[January 2025](/sdl-adventure-game/2025/01/22/music-sound-effects-and-dialogs.html):
+[January 2025]({% post_url /sdl-adventure-game/2025-01-22-music-sound-effects-and-dialogs %}):
 play the line's WAV, loop a three-frame talking animation for exactly as long
 as the audio lasts, done. It worked, but it was the same mouth-flapping loop
 whether the line was "Evviva!" or a two-sentence hint about the squirrel — and
@@ -47,7 +47,7 @@ One thing the spec got wrong and the real recordings corrected: Rhubarb
 doesn't always close a file with a rest cue, so the generator treats the WAV's
 own duration as the end of the last speech span.
 
-![The gate line's waveform, its mouth cues, and the estimated word timing.](/sdl-adventure-game/assets/speech-cue-timeline.png)
+![The gate line's waveform, its mouth cues, and the estimated word timing.]({{ '/sdl-adventure-game/assets/speech-cue-timeline.png' | relative_url }})
 
 That figure is real data: the waveform of "Il cancello è chiuso…", the cue
 track Rhubarb heard in it, and a third row I'll get to at the end.
@@ -67,7 +67,7 @@ rectangle. The fox has three drawn mouths: closed, open, and a small round
 one. The new `talking.anim` is seven lines mapping the seven shapes onto
 those three drawings:
 
-![The three drawn mouths and which canonical shapes reuse each one.](/sdl-adventure-game/assets/speech-three-mouths.png)
+![The three drawn mouths and which canonical shapes reuse each one.]({{ '/sdl-adventure-game/assets/speech-three-mouths.png' | relative_url }})
 
 It's crude — E and F deserve their own pucker eventually — but the effect is
 immediate: the mouth shuts during pauses and between sentences, opens on the
@@ -93,7 +93,7 @@ for now), fall back to the exact looping behaviour the game has had since
 January.
 
 The parsers are deliberately strict, a lesson learned from the
-[`.anim` parser](/sdl-adventure-game/2025/01/17/parsing-animation-metadata.html)
+[`.anim` parser]({% post_url /sdl-adventure-game/2025-01-17-parsing-animation-metadata %})
 that accepted its input without validation: out-of-order timestamps, unknown
 letters, oversized files, truncated lines — any of it rejects the whole sidecar
 loudly, and the line degrades to the legacy loop instead of half-working.

@@ -14,7 +14,7 @@ being one flat image and becomes *layers*, each scrolling at its own speed, so
 distance reads the way it does when you look out a train window: the near
 things race by, the far things barely move.
 
-![The demo field at two ends: the sky is fixed, the hills have barely moved, the ground and foreground bushes have scrolled fully past.](/sdl-adventure-game/assets/parallax-two-ends.png)
+![The demo field at two ends: the sky is fixed, the hills have barely moved, the ground and foreground bushes have scrolled fully past.]({{ '/sdl-adventure-game/assets/parallax-two-ends.png' | relative_url }})
 
 ## One number: the parallax factor
 
@@ -37,13 +37,13 @@ behind the action. And greater than 1 slides *faster* than the scene: a
 foreground layer, nearer to the camera than the fox, that whips past as she
 walks.
 
-![Diagram of the four layers, back to front, with their parallax factors: sky 0, hills 0.4, ground 1, bushes 1.15.](/sdl-adventure-game/assets/parallax-layers-diagram.png)
+![Diagram of the four layers, back to front, with their parallax factors: sky 0, hills 0.4, ground 1, bushes 1.15.]({{ '/sdl-adventure-game/assets/parallax-layers-diagram.png' | relative_url }})
 
 The [scene struct]({% post_url /sdl-adventure-game/2026-06-24-an-engine-for-multiple-adventures %})
 carries two ordered tables — `bg_planes` drawn behind the action, `fg_planes`
 in front — and the scene declares them and nothing else. The engine loads,
 draws, and frees them, exactly like it already did for
-[scene images](/sdl-adventure-game/2025/01/15/images-and-sprites.html).
+[scene images]({% post_url /sdl-adventure-game/2025-01-15-images-and-sprites %}).
 
 ## The foreground plane is a free walk-behind
 

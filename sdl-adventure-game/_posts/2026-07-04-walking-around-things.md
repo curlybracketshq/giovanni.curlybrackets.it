@@ -12,7 +12,7 @@ a felt gameplay problem." It became one. This is the story of the fix: a
 walkability bitmap, A*, and a handful of places where the routing deliberately
 allows illegal points.
 
-![The straight line cuts through the slide; the routed path goes around it.](/sdl-adventure-game/assets/movement-before-after.png)
+![The straight line cuts through the slide; the routed path goes around it.]({{ '/sdl-adventure-game/assets/movement-before-after.png' | relative_url }})
 
 ## Moving the endpoint doesn't move the path
 
@@ -97,7 +97,7 @@ line-of-sight pass — from each point, jump to the furthest path point whose
 connecting segment samples clean every 5 px — collapses those 56 points into
 3 waypoints:
 
-![The raw 56-point cell path and the 3-waypoint smoothed path it becomes.](/sdl-adventure-game/assets/movement-smoothing.png)
+![The raw 56-point cell path and the 3-waypoint smoothed path it becomes.]({{ '/sdl-adventure-game/assets/movement-smoothing.png' | relative_url }})
 
 The [generic actor]({% post_url /sdl-adventure-game/2026-06-24-an-engine-for-multiple-adventures %})
 grew a matching queue: `actor_walk_path()` accepts up to eight
@@ -125,7 +125,7 @@ inside the blocked rectangle around the structure; the router snaps the start
 the same way and she walks back out legally.
 
 And while rewriting `actor_walk_to` I found a bug in the
-[walk-then-do callbacks](/sdl-adventure-game/2025/01/21/chain-of-actions.html):
+[walk-then-do callbacks]({% post_url /sdl-adventure-game/2025-01-21-chain-of-actions %}):
 start a walk toward the slide, then tap the fox herself, and the pending
 "use the slide" callback survived the interruption
 and fired on the next frame — from wherever she stood. With the slide already
