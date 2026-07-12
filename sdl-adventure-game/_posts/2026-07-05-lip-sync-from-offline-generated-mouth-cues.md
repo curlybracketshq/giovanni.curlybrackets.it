@@ -1,6 +1,8 @@
 ---
 layout: post
 title: "Lip-Sync from Offline-Generated Mouth Cues"
+redirect_from:
+  - /sdl-adventure-game/2026/07/05/the-fox-learns-to-talk.html
 ---
 
 {% include ai-disclaimer.html %}

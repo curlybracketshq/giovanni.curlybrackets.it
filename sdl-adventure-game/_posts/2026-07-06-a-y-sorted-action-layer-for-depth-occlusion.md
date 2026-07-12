@@ -1,12 +1,14 @@
 ---
 layout: post
 title: "A Y-Sorted Action Layer for Depth Occlusion"
+redirect_from:
+  - /sdl-adventure-game/2026/07/06/walking-behind-things.html
 ---
 
 {% include ai-disclaimer.html %}
 
 Since [pathfinding gave the fox routed
-walks]({% post_url /sdl-adventure-game/2026-07-04-walking-around-things %}),
+walks]({% post_url /sdl-adventure-game/2026-07-04-pathfinding-around-obstacles-with-a-walk-grid-and-a-star %}),
 one flatness kept bothering me: she is always *in front* of everything. Every
 scene's render function ended with the same line — draw the background, draw
 the objects, draw the fox last — so she floats over the acorn pile even when
@@ -21,8 +23,8 @@ camera plan.
 
 Depth is one of three features that turned out to share a single foundation.
 The plan (drafted with Claude, like the
-[pathfinding]({% post_url /sdl-adventure-game/2026-07-04-walking-around-things %}) and
-[lip-sync]({% post_url /sdl-adventure-game/2026-07-05-the-fox-learns-to-talk %}) ones,
+[pathfinding]({% post_url /sdl-adventure-game/2026-07-04-pathfinding-around-obstacles-with-a-walk-grid-and-a-star %}) and
+[lip-sync]({% post_url /sdl-adventure-game/2026-07-05-lip-sync-from-offline-generated-mouth-cues %}) ones,
 and committed as `DEPTH_AND_CAMERA.md`) covers a simulated z-axis, scenes
 wider than the 800×600 window with a camera that follows the player, and
 parallax planes — and all three reduce to being careful about one distinction:
@@ -42,7 +44,7 @@ contact line is lower on the screen is nearer the viewer and gets drawn later.
 
 The engine had neither of the two numbers this needs. For the actor, the
 awkward truth is that `current_position` — the point all the
-[walk data]({% post_url /sdl-adventure-game/2026-07-04-walking-around-things %}) is
+[walk data]({% post_url /sdl-adventure-game/2026-07-04-pathfinding-around-obstacles-with-a-walk-grid-and-a-star %}) is
 authored against — is the sprite's *centre*, not her feet. I didn't want to
 migrate every position in every scene to a feet convention, so the two
 conventions now coexist behind one explicit helper:

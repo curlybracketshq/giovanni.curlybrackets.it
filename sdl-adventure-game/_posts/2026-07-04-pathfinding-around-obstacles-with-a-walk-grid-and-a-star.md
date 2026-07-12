@@ -1,6 +1,8 @@
 ---
 layout: post
 title: "Pathfinding Around Obstacles with a Walk Grid and A*"
+redirect_from:
+  - /sdl-adventure-game/2026/07/04/walking-around-things.html
 ---
 
 {% include ai-disclaimer.html %}

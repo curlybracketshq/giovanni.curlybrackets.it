@@ -93,7 +93,7 @@ if (hotspots_handle_click(hotspots, LEN(hotspots), fox, &walk_grid, m_pos)) {
 
 Table order *is* priority, exactly like the old chain's top-to-bottom order,
 so behaviour is unchanged by construction. The `poi` reuses the existing
-[walk-then-act machinery]({% post_url /sdl-adventure-game/2026-07-04-walking-around-things %})
+[walk-then-act machinery]({% post_url /sdl-adventure-game/2026-07-04-pathfinding-around-obstacles-with-a-walk-grid-and-a-star %})
 — an exact-goal walk with a completion callback — so the dispatcher didn't
 need any new movement code.
 
