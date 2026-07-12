@@ -3,6 +3,8 @@ layout: post
 title: "Scenes Wider Than the Window with a Following Camera"
 ---
 
+{% include ai-disclaimer.html %}
+
 Every scene in VaniaVolpe has been exactly one screen: 800×600, the whole
 world visible at once. That assumption was everywhere and nowhere — no line
 of code said "scene equals screen," but positions, hotspots, clicks, the

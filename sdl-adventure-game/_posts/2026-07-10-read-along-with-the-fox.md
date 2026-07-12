@@ -3,6 +3,8 @@ layout: post
 title: "On-Screen Dialogue Text with Karaoke-Style Word Highlighting"
 ---
 
+{% include ai-disclaimer.html %}
+
 When the talking animation started [following mouth-shape
 cues]({% post_url /sdl-adventure-game/2026-07-05-the-fox-learns-to-talk %}), the same
 spec called for a second half: the words themselves, on screen, with the one

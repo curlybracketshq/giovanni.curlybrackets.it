@@ -3,6 +3,8 @@ title: "Moving Animation Timing from Render to Update"
 layout: post
 ---
 
+{% include ai-disclaimer.html %}
+
 Animations in VaniaVolpe are humble: a sprite sheet plus a little `.anim` file
 listing each frame's rectangle, played at 12 FPS. For a long time the code that
 advanced them lived in the wrong place — inside the *render* function — and pulling

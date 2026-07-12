@@ -3,6 +3,8 @@ layout: post
 title: "Lip-Sync from Offline-Generated Mouth Cues"
 ---
 
+{% include ai-disclaimer.html %}
+
 Vania's dialogue audio has played since
 [January 2025]({% post_url /sdl-adventure-game/2025-01-22-music-sound-effects-and-dialogs %}):
 play the line's WAV, loop a three-frame talking animation for exactly as long
