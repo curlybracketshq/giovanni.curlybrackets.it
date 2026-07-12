@@ -3,6 +3,8 @@ title: "One Script, Two Test Front Ends"
 layout: post
 ---
 
+{% include ai-disclaimer.html %}
+
 In the [last post]({% post_url sdl-adventure-game/2026-07-02-testing-the-game-in-a-terminal %}) I
 built a headless native test: run the game offscreen, script some clicks, and
 assert the right dialogue comes out. But I already had a *second* playthrough

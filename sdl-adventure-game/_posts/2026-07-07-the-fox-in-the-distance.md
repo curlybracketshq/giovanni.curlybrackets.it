@@ -3,6 +3,8 @@ layout: post
 title: "Discrete Per-Band Sprite Variants for Distance"
 ---
 
+{% include ai-disclaimer.html %}
+
 The fox can be drawn [behind scene
 props]({% post_url /sdl-adventure-game/2026-07-06-walking-behind-things %}) now, but
 she's exactly the same size at the back of the playground as at the front.

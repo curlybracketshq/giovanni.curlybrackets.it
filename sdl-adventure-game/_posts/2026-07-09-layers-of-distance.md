@@ -3,6 +3,8 @@ layout: post
 title: "Parallax Background and Foreground Planes"
 ---
 
+{% include ai-disclaimer.html %}
+
 The fox can walk
 [behind things]({% post_url /sdl-adventure-game/2026-07-06-walking-behind-things %}),
 be [far away]({% post_url /sdl-adventure-game/2026-07-07-the-fox-in-the-distance %}),

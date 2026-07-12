@@ -3,6 +3,8 @@ layout: post
 title: "A Y-Sorted Action Layer for Depth Occlusion"
 ---
 
+{% include ai-disclaimer.html %}
+
 Since [pathfinding gave the fox routed
 walks]({% post_url /sdl-adventure-game/2026-07-04-walking-around-things %}),
 one flatness kept bothering me: she is always *in front* of everything. Every

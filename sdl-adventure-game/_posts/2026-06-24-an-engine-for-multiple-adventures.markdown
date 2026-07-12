@@ -3,6 +3,8 @@ title: "An Engine for Multiple Adventures"
 layout: post
 ---
 
+{% include ai-disclaimer.html %}
+
 The game is in good shape now — it runs on the desktop, on iOS, in a terminal,
 and in the browser. So I started thinking about what comes next: more adventures.
 But first the code had to stop being *one* adventure with the engine baked in.

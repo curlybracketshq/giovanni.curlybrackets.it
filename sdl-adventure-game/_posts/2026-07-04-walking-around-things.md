@@ -3,6 +3,8 @@ layout: post
 title: "Pathfinding Around Obstacles with a Walk Grid and A*"
 ---
 
+{% include ai-disclaimer.html %}
+
 The oldest documented limitation in VaniaVolpe was that the fox walks in a
 straight line. Click across the playground and she marches right through the
 sandbox, the slide, whatever the scene says is not ground. It had its own

@@ -3,6 +3,8 @@ title: "Testing the Game in a Terminal"
 layout: post
 ---
 
+{% include ai-disclaimer.html %}
+
 A while back I gave the game a [terminal front end]({% post_url sdl-adventure-game/2026-03-25-terminal-build-using-libcaca %}):
 a `terminal` build that renders the whole thing as coloured ASCII art with
 libcaca and needs no display server at all. It was a fun way to play over SSH —

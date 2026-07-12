@@ -3,6 +3,8 @@ title: "Fixing the Bugs a Code Review Found"
 layout: post
 ---
 
+{% include ai-disclaimer.html %}
+
 With [the engine split into adventures]({% post_url sdl-adventure-game/2026-06-24-an-engine-for-multiple-adventures %})
 and Gina the hen now living alongside the fox, the codebase had grown enough that
 I wanted a second pair of eyes on it. So I ran the engine through another round of

@@ -3,6 +3,8 @@ title: "Web Build Using Emscripten"
 layout: post
 ---
 
+{% include ai-disclaimer.html %}
+
 The [terminal build]({% post_url sdl-adventure-game/2026-03-25-terminal-build-using-libcaca %})
 proved the game logic was portable; the obvious next target was the browser, so
 anyone can play without installing anything.
