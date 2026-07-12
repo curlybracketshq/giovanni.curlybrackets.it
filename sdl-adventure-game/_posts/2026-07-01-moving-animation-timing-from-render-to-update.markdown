@@ -1,6 +1,8 @@
 ---
 title: "Moving Animation Timing from Render to Update"
 layout: post
+redirect_from:
+  - /sdl-adventure-game/2026/07/01/where-should-an-animation-update-itself.html
 ---
 
 {% include ai-disclaimer.html %}

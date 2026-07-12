@@ -1,12 +1,14 @@
 ---
 layout: post
 title: "Discrete Per-Band Sprite Variants for Distance"
+redirect_from:
+  - /sdl-adventure-game/2026/07/07/the-fox-in-the-distance.html
 ---
 
 {% include ai-disclaimer.html %}
 
 The fox can be drawn [behind scene
-props]({% post_url /sdl-adventure-game/2026-07-06-walking-behind-things %}) now, but
+props]({% post_url /sdl-adventure-game/2026-07-06-a-y-sorted-action-layer-for-depth-occlusion %}) now, but
 she's exactly the same size at the back of the playground as at the front.
 Depth cues come in pairs — occlusion says *behind*, size says *far* — and the
 game only had one of them. This post is the second slice of the depth plan
@@ -70,7 +72,7 @@ void actor_set_variant(Actor *actor, int variant);
 The naive version — stop the old walking animation, start the new one — pops
 twice: the walk cycle restarts from frame zero, and stopping an animation
 fires its [end
-callback]({% post_url /sdl-adventure-game/2026-07-01-where-should-an-animation-update-itself %}),
+callback]({% post_url /sdl-adventure-game/2026-07-01-moving-animation-timing-from-render-to-update %}),
 which for a walk means "arrive," from the wrong place. Instead the new
 variant's current-state animation *inherits* the old one's start time, frame
 and facing, and the old one is silenced directly without going through the
@@ -94,7 +96,7 @@ static const DepthBand BANDS[] = {{0, 1}, {520, 0}};
 {% endraw %}
 
 Opting in is one line in the scene's update, feeding
-[`actor_feet_y`]({% post_url /sdl-adventure-game/2026-07-06-walking-behind-things %})
+[`actor_feet_y`]({% post_url /sdl-adventure-game/2026-07-06-a-y-sorted-action-layer-for-depth-occlusion %})
 into the band lookup:
 
 ```c

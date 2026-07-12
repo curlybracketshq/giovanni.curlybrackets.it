@@ -1,12 +1,14 @@
 ---
 layout: post
 title: "On-Screen Dialogue Text with Karaoke-Style Word Highlighting"
+redirect_from:
+  - /sdl-adventure-game/2026/07/10/read-along-with-the-fox.html
 ---
 
 {% include ai-disclaimer.html %}
 
 When the talking animation started [following mouth-shape
-cues]({% post_url /sdl-adventure-game/2026-07-05-the-fox-learns-to-talk %}), the same
+cues]({% post_url /sdl-adventure-game/2026-07-05-lip-sync-from-offline-generated-mouth-cues %}), the same
 spec called for a second half: the words themselves, on screen, with the one
 being spoken highlighted karaoke-style. Not as a debugging aid and not only as
 subtitles — as a **learn-to-read feature**. The game's audience is a child who
@@ -20,7 +22,7 @@ shapes she doesn't. This post ships that half.
 
 The hard part of a karaoke highlight is knowing *when each word is spoken* —
 and that problem was already solved offline, in the
-[first speech post]({% post_url /sdl-adventure-game/2026-07-05-the-fox-learns-to-talk %}).
+[first speech post]({% post_url /sdl-adventure-game/2026-07-05-lip-sync-from-offline-generated-mouth-cues %}).
 Every dialogue WAV has a committed `.words` sidecar estimating each word's
 start and end from the mouth cues (when speech happens) and the transcript
 (what is said). The estimate distributes words over the speech spans, so the
@@ -75,7 +77,7 @@ learn-to-read feature, not a debugging overlay, so it ships enabled and the
 *opt-out* is the setting — `--subtitles=0` on desktop, `?subtitles=0` on the
 web, plumbed exactly like the language selection. And since the overlay is
 screen-space UI, it draws after the
-[camera]({% post_url /sdl-adventure-game/2026-07-08-wider-than-the-window %}) offset is
+[camera]({% post_url /sdl-adventure-game/2026-07-08-scenes-wider-than-the-window-with-a-following-camera %}) offset is
 reset — a line reads the same whether the fox speaks it in a static room or
 at the far end of a scrolling field.
 
