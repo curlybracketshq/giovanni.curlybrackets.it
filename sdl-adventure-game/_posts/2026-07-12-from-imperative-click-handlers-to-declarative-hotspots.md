@@ -1,6 +1,8 @@
 ---
 layout: post
-title: "Tables, Not Branches"
+title: "From Imperative Click Handlers to Declarative Hotspots"
+redirect_from:
+  - /sdl-adventure-game/2026/07/12/tables-not-branches.html
 ---
 
 {% include ai-disclaimer.html %}
@@ -8,8 +10,9 @@ title: "Tables, Not Branches"
 After a project health review, one refactoring stood out as worth doing right
 away: every scene in the game handled clicks with the same hand-rolled
 `if`-chain, and every scene wrote its interactions down *twice*. This post is
-about replacing those chains with a table and a twenty-line dispatcher — a
-change that lets each scene's interactions be read straight off its data.
+about replacing those chains with a table and a twenty-line dispatcher: instead
+of *implementing* its click handling as control flow, each scene now *declares*
+its interactions as data.
 
 ## The same shape, six times
 
