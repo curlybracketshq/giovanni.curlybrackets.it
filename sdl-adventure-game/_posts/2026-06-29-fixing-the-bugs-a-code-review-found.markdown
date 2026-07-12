@@ -10,7 +10,7 @@ the [AI-assisted code review]({% post_url sdl-adventure-game/2025-01-17-ai-power
 I've leaned on before — this time file by file, all the way through `main.c`,
 `game.c`, `asset.c`, `actor.c`, `image.c`, `sound.c`, and `scene.c`.
 
-## A backlog, first
+## Triaging the review before fixing anything
 
 The review came back long, so before changing anything I triaged it into the
 backlog. That step matters more than it sounds: a review mixes real crashes with
@@ -20,7 +20,7 @@ because the calls happen to run in sequence. Sorting the genuine bugs from the
 nice-to-haves left a short, honest list of things actually worth fixing. Then I
 picked the top of it.
 
-## One callback for everyone
+## A global walk-end callback, shared by every actor
 
 The clearest bug was a single line:
 
@@ -31,12 +31,12 @@ static void (*on_end_walking)(void);
 That's the "what to do when the character finishes walking" callback — and it was
 a *global*. With one actor on screen it works. With two, the second
 `actor_walk_to` overwrites the first's callback, and when the fox arrives it runs
-the hen's errand instead of its own. It's the classic C single-global-callback
+the hen's callback instead of its own. It's the classic C single-global-callback
 trap, and it had quietly survived the whole move to a generic actor. The fix is to
 put the callback on the `Actor` itself, and to clear it *before* firing it, so a
 callback that kicks off a new walk doesn't get immediately overwritten.
 
-## One halt too many
+## Mix_HaltChannel(-1) halts every channel
 
 The next one is the kind of bug that only shows up with a toddler holding the
 device. When an actor stops walking, the engine halts its footstep sound:
@@ -52,7 +52,7 @@ means **halt every channel**: the music, the dialogue, all of it. So in exactly
 the moment a two-year-old is mashing the screen, the voice line cuts out. Guarding
 the call with `channel >= 0` keeps a stray stop from taking down the whole mixer.
 
-## The smaller sharp edges
+## Smaller bugs: NaN heading, 32-bit overflow, NULL guards
 
 A few more, each small on its own:
 
@@ -69,7 +69,7 @@ A few more, each small on its own:
   are one-line guards; both are the sort of thing that never happens until it does,
   on the audio thread, in the browser.
 
-## The fix I had to back out
+## The coordinate fix I reverted
 
 The headline item from the review was a real one: mouse coordinates come in as
 *window* pixels, but every hotspot in the game is defined in the *logical* 800×600

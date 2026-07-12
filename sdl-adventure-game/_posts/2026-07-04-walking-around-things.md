@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Walking Around Things"
+title: "Pathfinding Around Obstacles with a Walk Grid and A*"
 ---
 
 The oldest documented limitation in VaniaVolpe was that the fox walks in a
@@ -9,8 +9,8 @@ sandbox, the slide, whatever the scene says is not ground. It had its own
 design note (`MOVEMENT.md`) written mostly so the problem wouldn't be
 forgotten, and the note ended with "keep the engine simple until this becomes
 a felt gameplay problem." It became one. This is the story of the fix: a
-walkability bitmap, A*, and a handful of places where the game deliberately
-disagrees with its own geometry.
+walkability bitmap, A*, and a handful of places where the routing deliberately
+allows illegal points.
 
 ![The straight line cuts through the slide; the routed path goes around it.](/sdl-adventure-game/assets/movement-before-after.png)
 
@@ -105,7 +105,7 @@ points and the old `actor_walk_to()` is just the one-point case. Between
 segments the walk animation and the footstep loop keep running, so a routed
 walk reads as one continuous motion with a couple of turns in it.
 
-## Where the game disagrees with its own geometry
+## Intentional exceptions: illegal starts and goals
 
 The pleasant surprise was how few special cases the scenes needed — and how
 honest the two real ones are.
@@ -157,5 +157,5 @@ wall — and the routed path passes it, waypoint by waypoint.
 
 Next on this thread: painting walkable masks in-game instead of typing
 rectangles (the grid is already a bitmap; it may as well be drawn), and
-scene-sized grids once scrolling scenes and a camera arrive. The fox, for
-now, walks around things.
+scene-sized grids once scrolling scenes and a camera arrive. For now, routed
+walks avoid obstacles instead of clipping through them.

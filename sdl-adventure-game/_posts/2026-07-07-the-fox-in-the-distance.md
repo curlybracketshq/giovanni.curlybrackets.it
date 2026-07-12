@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "The Fox in the Distance"
+title: "Discrete Per-Band Sprite Variants for Distance"
 ---
 
-The fox can [walk behind
-things](/sdl-adventure-game/2026-07-06-walking-behind-things) now, but
+The fox can be drawn [behind scene
+props](/sdl-adventure-game/2026-07-06-walking-behind-things) now, but
 she's exactly the same size at the back of the playground as at the front.
 Depth cues come in pairs — occlusion says *behind*, size says *far* — and the
 game only had one of them. This post is the second slice of the depth plan
@@ -57,7 +57,7 @@ startup instead of crashing mid-stride.
 that still covers 200 pixels per second looks like she's skating; scaling the
 walk speed with the sprite keeps her apparent speed natural.
 
-## The switch you shouldn't see
+## Switching variants without a visible pop
 
 All the care in this phase is concentrated in one function:
 
@@ -127,5 +127,5 @@ through Gina's story with the extra menu button present to prove it).
 
 Next on this thread is the biggest slice: scenes wider than the window, with
 a camera that follows the fox and the scene/screen coordinate split made
-real. After that, parallax. The fox, meanwhile, knows how to be far away —
-there's a field where you can watch her do it.
+real. After that, parallax. The engine can now render the fox at a smaller size
+when she's far up the scene; there's a demo field to see it.

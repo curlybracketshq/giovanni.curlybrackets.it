@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Walking Behind Things"
+title: "A Y-Sorted Action Layer for Depth Occlusion"
 ---
 
-Since the fox learned to
-[walk around things]({% post_url /sdl-adventure-game/2026-07-04-walking-around-things %}),
+Since [pathfinding gave the fox routed
+walks]({% post_url /sdl-adventure-game/2026-07-04-walking-around-things %}),
 one flatness kept bothering me: she is always *in front* of everything. Every
 scene's render function ended with the same line — draw the background, draw
 the objects, draw the fox last — so she floats over the acorn pile even when
@@ -121,5 +121,5 @@ thresholds — same feet helper, new art. The camera (Phase 3) makes the
 scene/screen split real, with scenes wider than the window and input converted
 centrally so scene code never sees camera math. And parallax planes (Phase 4)
 add a cheaper walk-behind for things the fox never stands in front of: a
-foreground strip that just draws after everything. The pile of acorns, for
-now, is the deepest thing in the game.
+foreground strip that just draws after everything. For now, the acorn pile is
+the one prop the action layer sorts against the fox.

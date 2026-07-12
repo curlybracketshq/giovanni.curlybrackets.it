@@ -1,5 +1,5 @@
 ---
-title: "Where Should an Animation Update Itself?"
+title: "Moving Animation Timing from Render to Update"
 layout: post
 ---
 
@@ -65,7 +65,7 @@ one-shot in an off-screen scene could reach its end and fire its callback while 
 completely different scene is showing. That's a real cross-scene footgun hiding
 behind a convenient API. Convenient and wrong.
 
-## Second take: let the framework own it
+## Second take: the framework ticks the active scene's animations
 
 The right answer was already sitting in the codebase; I'd just failed to notice the
 pattern I'd been following everywhere else. A scene doesn't manage its own

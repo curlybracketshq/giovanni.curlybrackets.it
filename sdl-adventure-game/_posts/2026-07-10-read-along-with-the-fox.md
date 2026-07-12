@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Read Along with the Fox"
+title: "On-Screen Dialogue Text with Karaoke-Style Word Highlighting"
 ---
 
-When the fox [learned to move her mouth with the
-words](/sdl-adventure-game/2026-07-05-the-fox-learns-to-talk), the same
-spec promised a second half: the words themselves, on screen, with the one
+When the talking animation started [following mouth-shape
+cues](/sdl-adventure-game/2026-07-05-the-fox-learns-to-talk), the same
+spec called for a second half: the words themselves, on screen, with the one
 being spoken highlighted karaoke-style. Not as a debugging aid and not only as
 subtitles — as a **learn-to-read feature**. The game's audience is a child who
 can't read yet; a line of text where a bright box hops from word to word in
@@ -23,11 +23,11 @@ Every dialogue WAV has a committed `.words` sidecar estimating each word's
 start and end from the mouth cues (when speech happens) and the transcript
 (what is said). The estimate distributes words over the speech spans, so the
 highlight starts with the voice, pauses when the voice pauses, and lands
-within a word of the truth — plenty for follow-along reading. The engine just
-asks, every frame, "which word is active at this millisecond?" — a
+within a word of the truth — plenty for follow-along reading. The engine looks
+up, every frame, which word is active at the current millisecond — a
 cursor-cached lookup that was sitting in `lipsync.c` waiting for a caller.
 
-## Text, finally
+## Rendering text with SDL2_ttf
 
 This is the game's first on-screen text, which meant picking how to render
 text at all. Pre-rendered PNGs per line — the pattern the localized buttons
@@ -53,9 +53,9 @@ One robustness rule earned its keep immediately in testing: the timing file
 pairs with the displayed words *by index*, so if a transcript is edited and
 its `.words` sidecar goes stale, the counts disagree — and the overlay
 disables **just the highlight** for that line, logs once, and shows the text
-anyway. Degrade the garnish, keep the meal.
+anyway. Degrade the highlight, keep the text.
 
-## The lines you could never see
+## Showing Gina's audio-less placeholder lines
 
 My favourite consequence is the fallback. Gina's dialogue has always been a
 placeholder — her Italian lines live in the code and play as a shared silent
@@ -81,5 +81,5 @@ What remains of the speech plan is art and audio, not code: real seven-frame
 mouth sheets to replace the remapped three, and Gina's actual voice. When
 those recordings arrive, the pipeline from the first post turns them into
 cues and word timings, and everything in this post — the mouth, the text, the
-bouncing highlight — simply starts being true for her too. The fox, for now,
-reads along with herself.
+bouncing highlight — simply starts being true for her too. For now, the
+read-along text is driven entirely by the offline-generated timing.

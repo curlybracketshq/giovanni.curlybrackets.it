@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Layers of Distance"
+title: "Parallax Background and Foreground Planes"
 ---
 
 The fox can walk
@@ -16,7 +16,7 @@ things race by, the far things barely move.
 
 ![The demo field at two ends: the sky is fixed, the hills have barely moved, the ground and foreground bushes have scrolled fully past.](/sdl-adventure-game/assets/parallax-two-ends.png)
 
-## One number does the whole trick
+## One number: the parallax factor
 
 A plane is almost nothing: an image, a position, and a **parallax factor**.
 
@@ -113,8 +113,8 @@ speeds behind and in front of her. The suite is at 103 checks; the two real
 adventures declare no planes and are untouched.
 
 That closes the depth plan — four independent PRs, each leaving the game
-playable, no scaling anywhere, and a fox who now lives in a world with a
-front, a back, and a horizon. What it's waiting on now is not code but
-drawings: a real, hand-authored wide location for Vania or Gina to make all of
-this carry a scene that's actually part of the story. The engine is ready for
-her; someone just has to paint the place.
+playable, no scaling anywhere, and a renderer that now composes occlusion,
+size, camera, and parallax into one consistent sense of depth. What it's waiting
+on now is not code but drawings: a real, hand-authored wide location for Vania
+or Gina to make all of this carry a scene that's actually part of the story. The
+engine is ready; someone just has to paint the place.
