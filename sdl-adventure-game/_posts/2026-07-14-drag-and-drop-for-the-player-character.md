@@ -3,6 +3,8 @@ layout: post
 title: "Drag and Drop for the Player Character"
 ---
 
+{% include ai-disclaimer.html %}
+
 During play-testing, my daughter kept trying to pick the player character up
 with her finger and carry it around. The game had no such feature, so nothing
 happened. This post covers the spec that turned that gesture into one —
