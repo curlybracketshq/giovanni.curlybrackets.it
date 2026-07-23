@@ -108,6 +108,12 @@ code {
   white-space: nowrap;
 }
 
+:not(pre) > code {
+  white-space: pre-wrap;      /* allow wrapping */
+  overflow-wrap: anywhere;    /* break anywhere if it has to */
+  word-break: break-word;
+}
+
 pre.highlight {
   margin: 24px 0;
   padding: 6px 10px;
