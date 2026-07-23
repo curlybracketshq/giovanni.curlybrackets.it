@@ -1,10 +1,10 @@
 ---
+layout: post
 title: Removing wall-clock flakiness from a scripted playthrough test
-date: 2026-07-23
 tags: [testing, determinism, c, sdl2, game-dev]
 ---
 
-# Removing wall-clock flakiness from a scripted playthrough test
+{% include ai-disclaimer.html %}
 
 Vania Volpe is a small point-and-click adventure written in C99 and SDL2. Its
 main gameplay gate in CI is a headless scripted playthrough: a test harness
