@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Declarative scenes: a data-driven approach to scene assets"
-date: 2026-07-20
 ---
 
 {% include ai-disclaimer.html %}
